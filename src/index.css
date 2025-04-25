@@ -1,5 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary-light: #E3F2FD;
+  --primary-200: #90CAF9;
+  --primary-main: #2196F3;
+  --primary-dark: #1E88E5;
+  --primary-800: #1565C0;
+
+  --secondary-light: #EDE7F6;
+  --secondary-200: #B39DDB;
+  --secondary-main: #673AB7;
+  --secondary-dark: #5E35B1;
+  --secondary-800: #4527A0;
+
+  --color-menu-primary: #90caf96b;
+  --color-menu-secondary: #b39ddb62;
+
+  --success-light: #B9F6CA;
+  --success-200: #69F0AE;
+  --success-main: #00E676;
+  --success-dark: #00C853;
+
+  --orange-light: #FBE9E7;
+  --orange-main: #FFAB91;
+  --orange-dark: #D84315;
+
+  --error-light: #EF9A9A;
+  --error-main: #F44336;
+  --error-dark: #C62828;
+
+  --warning-light: #FFF8E1;
+  --warning-main: #FFE57F;
+  --warning-dark: #FFC107;
+
+  --grey-50: #F8FAFC;
+  --grey-100: #EEF2F6;
+  --grey-200: #EEEEEE;
+  --grey-300: #E0E0E0;
+  --grey-500: #697586;
+  --grey-600: #4B5565;
+  --grey-700: #364152;
+  --grey-900: #121926;
+  --pure-white: #FFFFFF;
+
+  --box-shadow-input: 0px 2px 8px rgba(0, 0, 0, 0.055);
+  --box-shadow-alert: 0px 2px 8px rgba(0, 0, 0, 0.055);
+  --box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.055);
+
+  --min-height-page: calc(100vh - 130px);
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
