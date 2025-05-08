@@ -27,4 +27,7 @@ export const Home = () => {
             <GenericTable columns={columns} rows={rows} />
         </div>
     );
-};  
+}; 
+  
+  export default Home;
+  
