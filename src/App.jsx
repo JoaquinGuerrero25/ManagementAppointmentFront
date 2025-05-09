@@ -7,6 +7,7 @@ import { DashboardLayout } from "./components/layout/DashboardLayout";
 import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
 import Appointments from "./pages/Appointments";
+import HomePaciente from "./pages/HomePaciente";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Navigate to="/home" />} />
           <Route element={<DashboardLayout />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/homepaciente" element={<HomePaciente />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/appointments" element={<Appointments />} />
           </Route>
