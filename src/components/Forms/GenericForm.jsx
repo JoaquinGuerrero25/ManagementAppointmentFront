@@ -1,10 +1,12 @@
-import { FormGroup, Box, Button, useTheme } from "@mui/material";
+import { FormGroup, Box, Button } from "@mui/material";
 import { useState } from "react";
 import { InputGenericControl } from "../Controls/Inputs/InputGenericControl";
+import { TextareaGenericControl } from "../Controls/Inputs/TextareaGenericControl";
+import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
+import { useNavigate } from "react-router-dom";
 
-export const GenericForm = ({ fields, buttonLabel, onSubmit }) => {
-    const theme = useTheme();
-    const isDark = theme.palette.mode === 'dark';
+export const GenericForm = ({ fields, buttonLabel, onSubmit, buttonCancel }) => {
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState(
         Object.fromEntries(Object.entries(fields).map(([key, config]) => [key, config.value]))
@@ -43,11 +45,20 @@ export const GenericForm = ({ fields, buttonLabel, onSubmit }) => {
                         )
                     }
 
-                    if (config.type === 'checkbox') {
+
+                    if (config.type === 'textarea') {
                         return (
-                            <div>
-                                "ES UN CHECK"
-                            </div>
+                            <Box key={name}>
+                                <TextareaGenericControl
+                                    name={name}
+                                    type={config.type}
+                                    value={formData[name]}
+                                    label={config.label}
+                                    placeholder={config.placeholder}
+                                    required={config.required}
+                                    onChange={handleChange}
+                                />
+                            </Box>
                         )
                     }
 
@@ -65,22 +76,38 @@ export const GenericForm = ({ fields, buttonLabel, onSubmit }) => {
                         </Box>
                     );
                 })}
-
-                <Button
-                    variant="contained"
-                    type='submit'
+                <Box
                     sx={{
-                        borderRadius: '8px',
-                        height: '44px',
-                        background: isDark ? 'var(--primary-main)' : 'var(--primary-dark)',
-                        '&:hover': {
-                            background: isDark ? 'var(--primary-800)' : 'var(--primary-200)'
-                        },
-                        color: "white",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'end',
+                        gap: 2,
                     }}
                 >
-                    {buttonLabel}
-                </Button>
+                    {buttonCancel && (
+                        <ButtonTextControl
+                            label='Cancelar'
+                            action={() => navigate(buttonCancel)}
+                        />
+                    )}
+
+                    <Button
+                        variant="contained"
+                        type='submit'
+                        sx={{
+                            borderRadius: '8px',
+                            height: '40px',
+                            textTransform: 'none',
+                            background: 'var(--gradient-blue-button)',
+                            color: 'white',
+                            '&:hover': {
+                                background: 'var(--gradient-blue-button-hover)',
+                            },
+                        }}
+                    >
+                        {buttonLabel}
+                    </Button>
+                </Box>
             </FormGroup>
         </form>
     );

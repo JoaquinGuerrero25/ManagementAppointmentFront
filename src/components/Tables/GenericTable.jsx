@@ -1,12 +1,27 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, useTheme } from "@mui/material";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { Box, FormControl, InputAdornment, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
+import { Search } from "@mui/icons-material";
+import { useThemeMode } from "../../context/ThemeProvider";
 
-export const GenericTable = ({ columns, rows }) => {
-    const theme = useTheme();
-    const isDark = theme.palette.mode === 'dark';
+export const GenericTable = ({ columns, rows, filterKeys = [] }) => {
+    const { darkMode } = useThemeMode();
 
+    const [search, setSearch] = useState('');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const filteredRows = useMemo(() => {
+        if (!search) return rows;
+
+        const lowerSearch = search.toLowerCase();
+
+        return rows.filter(row =>
+            filterKeys.some(key => {
+                const value = row[key];
+                return value?.toString().toLowerCase().includes(lowerSearch);
+            })
+        );
+    }, [rows, filterKeys, search]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -22,21 +37,50 @@ export const GenericTable = ({ columns, rows }) => {
             sx={{
                 width: '95%',
                 overflow: 'hidden',
-                border: isDark ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                borderRadius: '8px',
+                border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
+                borderRadius: '16px',
             }}
         >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'end',
+                }}
+            >
+                <Box sx={{ padding: 2 }}>
+                    <FormControl fullWidth>
+                        <OutlinedInput
+                            name="search"
+                            type="text"
+                            margin="dense"
+                            placeholder="Buscar"
+                            value={search}
+                            size="small"
+                            onChange={(e) => setSearch(e.target.value)}
+                            startAdornment={
+                                <InputAdornment position="start">
+                                    <Search />
+                                </InputAdornment>
+                            }
+                            sx={{
+                                borderRadius: '12px',
+                            }}
+                        />
+                    </FormControl>
+                </Box>
+            </Box>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
                             {columns.map((col, index) => (
-                                <TableCell 
-                                    sx={{ 
-                                        fontWeight: '600', 
-                                        letterSpacing: '0.5px', 
-                                        backgroundColor: !isDark && 'var(--grey-100)'
-                                    }} 
+                                <TableCell
+                                    sx={{
+                                        fontWeight: '600',
+                                        letterSpacing: '0.5px',
+                                        backgroundColor: !darkMode && 'var(--grey-100)'
+                                    }}
                                     key={index}
                                 >
                                     {col.label}
@@ -45,13 +89,17 @@ export const GenericTable = ({ columns, rows }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
-                            <TableRow hover key={index}>
-                                {columns.map((col, colIndex) => (
-                                    <TableCell key={colIndex}>{row[col.key]}</TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
+                        {filteredRows
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((row, index) => (
+                                <TableRow hover key={index}>
+                                    {columns.map((col, colIndex) => (
+                                        <TableCell key={colIndex}>
+                                            {row[col.key]}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>

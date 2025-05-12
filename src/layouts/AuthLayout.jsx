@@ -1,9 +1,9 @@
-import { Box, useTheme, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useThemeMode } from "../context/ThemeProvider";
 
 export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) => {
-    const theme = useTheme();
-    const isDark = theme.palette.mode === 'dark';
+    const { darkMode } = useThemeMode();
 
     return (
         <Box
@@ -24,7 +24,7 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                 justifyContent: 'center',
                 gap: '16px',
                 padding: '0px 4%',
-                background: isDark ? 'var(--grey-900)' : 'var(--grey-50)',
+                background: darkMode ? 'var(--grey-900)' : 'var(--grey-50)',
                 boxShadow: 'inset 0px -4px 16px rgba(0, 0, 0, 0.1)',
             }}
             >
@@ -95,7 +95,7 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                         </Typography>
                         <Typography sx={{ display: 'flex', gap: '4px' }}>
                             {subtitle}
-                            <Link to={linkHref} style={{ color: isDark ? 'var(--primary-main)' : 'var(--primary-dark)' }}>
+                            <Link to={linkHref} style={{ color: darkMode ? 'var(--primary-main)' : 'var(--primary-dark)' }}>
                                 {linkText}
                             </Link>
                         </Typography>

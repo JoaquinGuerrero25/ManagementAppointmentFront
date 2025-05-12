@@ -3,7 +3,7 @@ import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 export const InputGenericControl = ({ name, label, value = '', type, placeholder, required, onChange }) => {
     return (
         <div>
-            <FormControl required={required} fullWidth>
+            <FormControl size="small" required={required} fullWidth>
                 <InputLabel>{label}</InputLabel>
                 <OutlinedInput
                     name={name}
@@ -15,7 +15,7 @@ export const InputGenericControl = ({ name, label, value = '', type, placeholder
                     required={required}
                     onChange={onChange}
                     sx={{
-                        borderRadius: '12px'
+                        borderRadius: '8px'
                     }}
                 />
             </FormControl>

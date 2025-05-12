@@ -1,12 +1,9 @@
-import { Button, FormGroup, useTheme } from "@mui/material";
+import { Button, FormGroup } from "@mui/material";
 import { useState } from "react";
 import { InputGenericControl } from "../Controls/Inputs/InputGenericControl";
 import { InputPasswordControl } from "../Controls/Inputs/InputPasswordControl";
 
 export const LoginForm = ({ onSubmit }) => {
-    const theme = useTheme();
-    const isDark = theme.palette.mode === 'dark';
-
     const [formData, setFormData] = useState({
         Email: '',
         Password: '',
@@ -46,13 +43,14 @@ export const LoginForm = ({ onSubmit }) => {
                     variant="contained"
                     type='submit'
                     sx={{
+                        textTransform: 'none',
                         borderRadius: '8px',
-                        height: '44px',
-                        background: isDark ? 'var(--primary-main)' : 'var(--primary-dark)',
-                        '&:hover': {
-                            background: isDark ? 'var(--primary-800)' : 'var(--primary-200)'
-                        },
+                        height: '40px',
+                        background: 'var(--gradient-blue-button)',
                         color: "white",
+                        '&:hover': {
+                            background: 'var(--gradient-blue-button-hover)',
+                        },
                     }}
                 >
                     Iniciar sesión
