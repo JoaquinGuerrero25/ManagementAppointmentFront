@@ -1,4 +1,4 @@
-import { api } from "./api"; // lo vinculas directo usando el serv de doctor
+import { api } from "../api/api"; // lo vinculas directo usando el serv de doctor
 
 export const patientService = {
   getProfile: async () => {

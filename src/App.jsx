@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
 import Appointments from "./pages/Appointments";
 import HomePaciente from "./pages/HomePaciente";
+import DoctorAppointments from "./pages/DoctorAppointments";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/homepaciente" element={<HomePaciente />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/appointments" element={<Appointments />} />
+            <Route path="/turnos-doctor" element={<DoctorAppointments />} />
           </Route>
         </Routes>
       </Router>
