@@ -9,6 +9,7 @@ import Doctors from "./pages/Doctors";
 import Appointments from "./pages/Appointments";
 import HomePaciente from "./pages/HomePaciente";
 import DoctorAppointments from "./pages/DoctorAppointments";
+import NotFound from "./pages/NotFound";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/turnos-doctor" element={<DoctorAppointments />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Router>
