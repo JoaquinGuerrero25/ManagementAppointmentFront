@@ -83,7 +83,6 @@ export const NavigationLinks = () => {
                                             color: isActive
                                                 ? 'white'
                                                 : (darkMode ? "var(--grey-300)" : "var(--grey-900)"),
-                                            // Acomodar estilo color
                                         }}
                                         primary={nav.Title}
                                     />

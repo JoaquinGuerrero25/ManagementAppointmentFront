@@ -19,8 +19,8 @@ export const Specialty = () => {
     const [specialties, setSpecialties] = useState([]);
 
     const handleSpecialty = async () => {
-        const response = await get_specialties();
-        setSpecialties(response);
+        const data = await get_specialties();
+        setSpecialties(data);
     };
 
     const handleOpenDialogSpecialty = (specialty) => {

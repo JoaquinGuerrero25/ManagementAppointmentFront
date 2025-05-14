@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Box, FormControl, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { MoreVertRounded, Search } from "@mui/icons-material";
 import { useThemeMode } from "../../context/ThemeProvider";
+import { GenericChip } from "../Chip/GenericChip";
 
 export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
     const { darkMode } = useThemeMode();
@@ -118,6 +119,10 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                                 <TableRow hover key={index}>
                                     {columns.map((col, colIndex) => (
                                         <TableCell key={colIndex}>
+                                            {col.key === 'isAvailable' && (
+                                                <GenericChip value={row[col.key]} />
+                                            )}
+
                                             {row[col.key]}
                                         </TableCell>
                                     ))}

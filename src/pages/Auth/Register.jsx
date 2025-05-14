@@ -1,6 +1,6 @@
-import { patientCreateRequest } from "../constants/patientFields";
-import { GenericForm } from "../components/Forms/GenericForm";
-import { AuthLayout } from "../layouts/AuthLayout";
+import { patientCreateRequest } from "../../constants/patientFields";
+import { GenericForm } from "../../components/Forms/GenericForm";
+import { AuthLayout } from "../../layouts/AuthLayout";
 
 export const Register = () => {
 
