@@ -80,8 +80,10 @@ export const NavigationLinks = () => {
                                     <ListItemText
                                         sx={{
                                             fontSize: "20px",
-                                            color: darkMode ? "var(--grey-300)" : "var(--grey-900)",
-                                            color: isActive && 'white',
+                                            color: isActive
+                                                ? 'white'
+                                                : (darkMode ? "var(--grey-300)" : "var(--grey-900)"),
+                                            // Acomodar estilo color
                                         }}
                                         primary={nav.Title}
                                     />
