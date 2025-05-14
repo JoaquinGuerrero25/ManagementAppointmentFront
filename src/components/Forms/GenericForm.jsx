@@ -1,5 +1,5 @@
 import { FormGroup, Box, Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputGenericControl } from "../Controls/Inputs/InputGenericControl";
 import { TextareaGenericControl } from "../Controls/Inputs/TextareaGenericControl";
 import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
@@ -11,6 +11,12 @@ export const GenericForm = ({ fields, buttonLabel, onSubmit, buttonCancel }) => 
     const [formData, setFormData] = useState(
         Object.fromEntries(Object.entries(fields).map(([key, config]) => [key, config.value]))
     );
+
+    useEffect(() => {
+        setFormData(
+            Object.fromEntries(Object.entries(fields).map(([key, config]) => [key, config.value]))
+        );
+    }, [fields]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -27,24 +33,8 @@ export const GenericForm = ({ fields, buttonLabel, onSubmit, buttonCancel }) => 
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
-            <FormGroup sx={{ width: '90%', maxWidth: '760px', gap: '12px' }}>
+            <FormGroup sx={{ width: '95%', gap: '12px' }}>
                 {Object.entries(fields).map(([name, config]) => {
-                    if (config.type === 'select') {
-                        return (
-                            <div>
-                                "ES UN SELECT"
-                            </div>
-                        )
-                    }
-
-                    if (config.type === 'checkbox') {
-                        return (
-                            <div>
-                                "ES UN CHECK"
-                            </div>
-                        )
-                    }
-
 
                     if (config.type === 'textarea') {
                         return (

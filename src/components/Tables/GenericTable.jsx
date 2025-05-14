@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
-import { Box, FormControl, InputAdornment, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { Search } from "@mui/icons-material";
+import { Box, FormControl, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import { MoreVertRounded, Search } from "@mui/icons-material";
 import { useThemeMode } from "../../context/ThemeProvider";
 
-export const GenericTable = ({ columns, rows, filterKeys = [] }) => {
+export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
     const { darkMode } = useThemeMode();
-
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [menuRow, setMenuRow] = useState(null);
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -30,6 +31,16 @@ export const GenericTable = ({ columns, rows, filterKeys = [] }) => {
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
+    };
+
+    const handleMenuOpen = (event, row) => {
+        setAnchorEl(event.currentTarget);
+        setMenuRow(row);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        setMenuRow(null);
     };
 
     return (
@@ -86,6 +97,18 @@ export const GenericTable = ({ columns, rows, filterKeys = [] }) => {
                                     {col.label}
                                 </TableCell>
                             ))}
+                            {actions && (
+                                <TableCell
+                                    sx={{
+                                        fontWeight: '600',
+                                        letterSpacing: '0.5px',
+                                        backgroundColor: !darkMode && 'var(--grey-100)'
+                                    }}
+                                >
+                                    Acciones
+                                </TableCell>
+
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -98,6 +121,62 @@ export const GenericTable = ({ columns, rows, filterKeys = [] }) => {
                                             {row[col.key]}
                                         </TableCell>
                                     ))}
+                                    {actions && (
+                                        <TableCell>
+                                            <IconButton onClick={(e) => handleMenuOpen(e, row)}>
+                                                <MoreVertRounded />
+                                            </IconButton>
+                                            <Menu
+                                                anchorEl={anchorEl}
+                                                open={Boolean(anchorEl) && menuRow === row}
+                                                onClose={handleMenuClose}
+                                                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                                slotProps={{
+                                                    paper: {
+                                                        sx: {
+                                                            borderRadius: '8px',
+                                                        },
+                                                    },
+                                                    list: {
+                                                        sx: {
+                                                            paddingTop: 0,
+                                                            paddingBottom: 0,
+                                                        },
+                                                    },
+                                                }}
+                                            >
+                                                {actions.map((action, idx) => (
+                                                    <MenuItem
+                                                        key={idx}
+                                                        onClick={() => {
+                                                            action.Action(row);
+                                                            handleMenuClose();
+                                                        }}
+                                                        sx={{
+                                                            minWidth: '140px',
+                                                            textAlign: 'start'
+                                                        }}
+                                                    >
+                                                        {action.Icon && (
+                                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}>
+                                                                <action.Icon fontSize="small" />
+                                                            </Box>
+                                                        )}
+                                                        <Typography
+                                                            component='p'
+                                                            sx={{
+                                                                width: '100%',
+                                                                ml: '12px'
+                                                            }}
+                                                        >
+                                                            {action.Label}
+                                                        </Typography>
+                                                    </MenuItem>
+                                                ))}
+                                            </Menu>
+                                        </TableCell>
+                                    )}
                                 </TableRow>
                             ))}
                     </TableBody>
@@ -114,4 +193,4 @@ export const GenericTable = ({ columns, rows, filterKeys = [] }) => {
             />
         </Paper>
     );
-}
+};

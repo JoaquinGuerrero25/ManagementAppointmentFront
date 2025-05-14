@@ -16,24 +16,31 @@ export const ThemeModeProvider = ({ children }) => {
 
     const toggleMode = () => setDarkMode(prev => !prev);
 
-    const theme = useMemo(() => createTheme({
-        palette: {
-            mode: darkMode ? 'dark' : 'light',
-        },
-        typography: {
-            fontFamily: [
-                'Inter',
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Segoe UI"',
-                'Helvetica',
-                'Arial',
-                'sans-serif',
-                '"Apple Color Emoji"',
-                '"Segoe UI Emoji"',
-            ].join(','),
-        },
-    }), [darkMode]);
+    const theme = useMemo(() => {
+        const mode = darkMode ? 'dark' : 'light';
+
+        return createTheme({
+            palette: {
+                mode,
+                background: {
+                    default: mode === 'light' ? '#ffffff' : '#000000',
+                },
+            },
+            typography: {
+                fontFamily: [
+                    'Inter',
+                    '-apple-system',
+                    'BlinkMacSystemFont',
+                    '"Segoe UI"',
+                    'Helvetica',
+                    'Arial',
+                    'sans-serif',
+                    '"Apple Color Emoji"',
+                    '"Segoe UI Emoji"',
+                ].join(','),
+            },
+        });
+    }, [darkMode]);
 
     return (
         <ThemeModeContext.Provider value={{ darkMode, toggleMode }}>

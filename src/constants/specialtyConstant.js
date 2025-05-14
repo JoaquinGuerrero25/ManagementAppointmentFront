@@ -3,7 +3,7 @@ export const specialtyModel = [
     { key: 'description', label: 'Descripción' },
 ]
 
-export const specialtyFields = { 
-    Name: { value: '', label: 'Nombre', placeholder: 'Ingresa el nombre', type: 'text', required: true }, 
-    Description: { value: '', label: 'Descripción', placeholder: 'Ingresa la descripción', type: 'textarea', required: true },
+export const specialtyFields = {
+    name: { value: '', label: 'Nombre', placeholder: 'Ingresa el nombre', type: 'text', required: true },
+    description: { value: '', label: 'Descripción', placeholder: 'Ingresa la descripción', type: 'textarea', required: true },
 }

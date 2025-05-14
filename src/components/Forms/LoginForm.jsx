@@ -25,7 +25,7 @@ export const LoginForm = ({ onSubmit }) => {
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
-            <FormGroup sx={{ width: '90%', maxWidth: '760px', gap: '12px' }}>
+            <FormGroup sx={{ width: '96%', maxWidth: '760px', gap: '12px' }}>
                 <InputGenericControl
                     name='Email'
                     type='text'

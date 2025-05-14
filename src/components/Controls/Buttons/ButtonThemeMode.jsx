@@ -9,10 +9,11 @@ export const ButtonThemeMode = () => {
         <Button
             onClick={toggleMode}
             startIcon={darkMode ? <Brightness7 /> : <Brightness4 />}
-            sx={{ 
-                m: 2, 
-                background: 'none', 
-                border: darkMode ? '1px solid var(--grey-300)' : '1px solid var(--grey-900)', 
+            sx={{
+                m: 2,
+                background: 'none',
+                borderRadius: '8px',
+                border: darkMode ? '1px solid var(--grey-300)' : '1px solid var(--grey-900)',
                 color: darkMode ? '1px solid var(--grey-300)' : '1px solid var(--grey-900)',
                 textTransform: 'none',
             }}

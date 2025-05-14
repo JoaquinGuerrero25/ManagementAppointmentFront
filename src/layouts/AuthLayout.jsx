@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useThemeMode } from "../context/ThemeProvider";
+import { Emergency } from "@mui/icons-material";
 
 export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) => {
     const { darkMode } = useThemeMode();
@@ -78,10 +79,26 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                     <Box
                         sx={{
                             width: '100%',
-                            padding: '12px 7%'
+                            padding: '12px'
                         }}
                     >
-                        <div>aca puede ir logo con Nombre</div>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "start",
+                                height: "64px",
+                            }}
+                        >
+                            <Emergency sx={{ fontSize: "36px" }} />
+                            <Typography
+                                component="h3"
+                                sx={{ fontWeight: "500", letterSpacing: "0.5px", fontSize: "24px" }}
+                            >
+                                Clinica UTN
+                            </Typography>
+                        </Box>
                         <Typography
                             variant="h3"
                             sx={{

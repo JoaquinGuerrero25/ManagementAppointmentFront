@@ -48,7 +48,6 @@ export const Navbar = ({ children }) => {
                 onClose={() => setMobileOpen(false)}
                 sx={{
                     display: { xs: 'block', md: 'none' },
-
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '320px', background: 'var(--color-menu-primary)' },
                 }}
             >
@@ -57,9 +56,6 @@ export const Navbar = ({ children }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    background: darkMode ?
-                        'var(--color-menu-primary)'
-                        : 'var(--color-menu-secondary)',
                 }}>
                     <NavigationLinks />
                     <ButtonThemeMode />
@@ -72,9 +68,7 @@ export const Navbar = ({ children }) => {
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: '300px',
-                        background: darkMode ?
-                            'var(--color-menu-primary)'
-                            : 'var(--color-menu-secondary)',
+                        background: 'none',
                     },
                 }}
                 open
