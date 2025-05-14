@@ -12,7 +12,7 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} >
       <CssBaseline />
       <Switch checked={darkMode} onChange={toggleMode} />
       <AppRoutes />
