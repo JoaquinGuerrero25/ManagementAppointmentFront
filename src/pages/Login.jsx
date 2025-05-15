@@ -1,11 +1,10 @@
 import { AuthLayout } from "../layouts/AuthLayout";
 import { LoginForm } from "../components/Forms/LoginForm";
 import { Link } from "react-router-dom";
-import { useTheme } from "@mui/material";
+import { useThemeMode } from "../context/ThemeProvider";
 
 export const Login = () => {
-    const theme = useTheme();
-    const isDark = theme.palette.mode === 'dark';
+    const { darkMode } = useThemeMode();
 
     const handleSubmit = (formData) => {
         console.log(formData);
@@ -19,7 +18,7 @@ export const Login = () => {
             linkHref={'/registro'}
         >
             <LoginForm onSubmit={handleSubmit} />
-            <Link to={'/recuperar-contraseña'} className="w-[90%] p-2 text-sm mt-2" style={{ color: isDark ? 'var(--primary-main)' : 'var(--primary-dark)' }}>
+            <Link to={'/recuperar-contraseña'} className="w-[90%] p-2 text-sm mt-2" style={{ color: darkMode ? 'var(--primary-main)' : 'var(--primary-dark)' }}>
                 ¿Olvidaste tu contraseña?
             </Link>
         </AuthLayout>

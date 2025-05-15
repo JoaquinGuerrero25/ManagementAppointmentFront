@@ -1,7 +1,14 @@
 import { GenericTable } from "../components/Tables/GenericTable";
+import { MainLayout } from "../layouts/MainLayout";
 
 export const Home = () => {
     const columns = [
+        { key: 'name', label: 'Nombre' },
+        { key: 'age', label: 'Edad' },
+        { key: 'city', label: 'Ciudad' },
+        { key: 'email', label: 'Correo Electrónico' },
+        { key: 'phone', label: 'Teléfono' },
+        { key: 'status', label: 'Estado' },
         { key: 'name', label: 'Nombre' },
         { key: 'age', label: 'Edad' },
         { key: 'city', label: 'Ciudad' },
@@ -23,8 +30,8 @@ export const Home = () => {
 
 
     return (
-        <div className="flex items-center justify-center">
-            <GenericTable columns={columns} rows={rows} />
-        </div>
+        <MainLayout>
+            <GenericTable columns={columns} rows={rows} filterKeys={['name', 'phone']} />
+        </MainLayout>
     );
 };  

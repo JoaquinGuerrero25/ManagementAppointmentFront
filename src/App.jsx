@@ -1,22 +1,12 @@
-import { createTheme, CssBaseline, Switch, ThemeProvider } from '@mui/material';
 import { AppRoutes } from './router/AppRoutes';
-import { useThemeMode } from './hooks/useThemeMode';
+import { ThemeModeProvider } from './context/ThemeProvider';
+import '@fontsource/inter';
 
 function App() {
-  const { darkMode, toggleMode } = useThemeMode();
-
-  const theme = createTheme({
-    palette: {
-      mode: darkMode ? 'dark' : 'light',
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme} >
-      <CssBaseline />
-      <Switch checked={darkMode} onChange={toggleMode} />
+    <ThemeModeProvider>
       <AppRoutes />
-    </ThemeProvider>
+    </ThemeModeProvider>
   )
 }
 

@@ -4,20 +4,20 @@
 @tailwind utilities;
 
 :root {
-  --primary-light: #E3F2FD;
+  --primary-light: #f5fbff;
   --primary-200: #42aaff;
   --primary-main: #2196F3;
-  --primary-dark: #1E88E5;
-  --primary-800: #1565C0;
+  --primary-dark: #5f6bff;
+  --primary-800: #4a54e1;
 
   --secondary-light: #EDE7F6;
   --secondary-200: #B39DDB;
   --secondary-main: #673AB7;
   --secondary-dark: #5E35B1;
-  --secondary-800: #4527A0;
+  --secondary-800: #2f33ff;
 
-  --color-menu-primary: #90caf96b;
-  --color-menu-secondary: #b39ddb62;
+  --color-menu-primary: #16181b;
+  --color-menu-secondary: #F8FAFC;
 
   --success-light: #B9F6CA;
   --success-200: #69F0AE;
@@ -36,7 +36,7 @@
   --warning-main: #FFE57F;
   --warning-dark: #FFC107;
 
-  --grey-50: #F8FAFC;
+  --grey-50: #f8fafc95;
   --grey-100: #EEF2F6;
   --grey-200: #EEEEEE;
   --grey-300: #E0E0E0;
@@ -44,7 +44,11 @@
   --grey-600: #4B5565;
   --grey-700: #364152;
   --grey-900: #202427;
-  
+  --grey-custom: #1f202130;
+
+  --gradient-blue-button: linear-gradient(to bottom, #5f6bff, #2f33ff);
+  --gradient-blue-button-hover: linear-gradient(to bottom, #4a54e1, #1f21d1);
+
   --pure-white: #FFFFFF;
 
   --box-shadow-input: 0px 2px 8px rgba(0, 0, 0, 0.055);
@@ -58,7 +62,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  /* font-family: "Roboto", sans-serif; */
+  /* font-optical-sizing: auto; */
+  /* font-style: normal; */
 }
