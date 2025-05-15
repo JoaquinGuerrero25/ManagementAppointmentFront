@@ -11,7 +11,7 @@ export const InputPasswordControl = ({ name = 'Password', label = 'Contraseña',
 
     return (
         <div>
-            <FormControl fullWidth>
+            <FormControl size="small" fullWidth>
                 <InputLabel>Contraseña</InputLabel>
                 <OutlinedInput
                     name={name}
@@ -32,7 +32,7 @@ export const InputPasswordControl = ({ name = 'Password', label = 'Contraseña',
                         </InputAdornment>
                     }
                     sx={{
-                        borderRadius: '12px'
+                        borderRadius: '8px'
                     }}
                 />
             </FormControl>
