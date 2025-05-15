@@ -1,7 +1,9 @@
 import { GenericTable } from "../components/Tables/GenericTable";
+import { UserProfile } from "../components/Tables/UserProfile";
+import { useState } from "react";
 
 export const Home = () => {
-    const columns = [
+    /*const columns = [
         { key: 'name', label: 'Nombre' },
         { key: 'age', label: 'Edad' },
         { key: 'city', label: 'Ciudad' },
@@ -21,13 +23,60 @@ export const Home = () => {
         { name: 'Marta', age: 34, city: 'Valencia', email: 'marta@email.com', phone: '888888888', status: 'Inactivo' },
     ];
 
+    //(nombre, apellido, fecha de nacimiento, documento, email, teléfono).
+    const personColumns = [
+        { key: 'name', label: 'Nombre' },
+        { key: 'age', label: 'Edad' },
+        { key: 'city', label: 'Ciudad' },
+        { key: 'email', label: 'Correo Electrónico' },
+        { key: 'phone', label: 'Teléfono' },
+        { key: 'status', label: 'Estado' },
+    ];
+*/
 
-    return (
-        <div className="flex items-center justify-center">
-            <GenericTable columns={columns} rows={rows} />
-        </div>
-    );
-}; 
-  
-  export default Home;
-  
+    const personColumns = [
+        { key: 'name', label: 'Nombre completo' },
+        { key: 'bornDate', label: 'Fecha de nacimiento' },
+        { key: 'idCard', label: 'DNI' },
+        { key: 'email', label: 'Email' },
+        { key: 'phoneNumber', label: 'Número de teléfono' },
+      ];
+
+
+    const [persona, setPersona] = useState({
+        name: "Juan Manuel",
+        bornDate : '22/07/1999',
+        idCard: 30205632,
+        email: "juan@manuel.com",
+        phoneNumber: "+549 3416123456",
+      });
+
+    
+      const rows = personColumns.map((col) => ({
+        field: col.label,
+        key: col.key, // para editarlo después
+        value: persona[col.key] ?? '', // muestra vacío si falta
+      }));
+
+
+      const handleEdit = (fieldKey, newValue) => {
+        setPersona((prev) => ({
+          ...prev,
+          [fieldKey]: newValue
+        }));
+      };
+    
+      const columns = [
+        { label: "Campo", key: "field" },
+        { label: "Valor", key: "value" },
+      ];
+
+    
+  return (
+    <UserProfile
+    columns={columns}
+    rows={rows}
+    onChange={(rowIndex, _, value) => handleEdit(rows[rowIndex].key, value)}
+    />
+  );
+};  

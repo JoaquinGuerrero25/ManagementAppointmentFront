@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: 'http://localhost:3001/api',  // falta el endpoint
-    // agregamos timeOut?
+    baseURL: 'http://localhost:5096/api/',  // cambiar segun la ruta de la api
     headers: {
         'Content-Type': 'application/json',
     }
