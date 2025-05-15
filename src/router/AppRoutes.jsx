@@ -17,6 +17,16 @@ export const AppRoutes = () => {
                 {/* Auth Routes */}
                 <Route path="/iniciar-sesion" element={<Login />} />
                 <Route path="/registro" element={<Register />} />
+
+                {/* Admin Routes */}
+                <Route path="/administrador/especialidades" element={<Specialty />} />
+                <Route path="/administrador/especialidades/crear" element={<SpecialtyFormPage />} />
+                <Route path="/administrador/especialidades/editar/:id" element={<SpecialtyFormPage />} />
+
+
+                {/* Doctor Routes */}
+                <Route path="/doctor/pacientes" element={<Patient />} />
+                <Route path="/perfil-doctor" element={<DoctorProfile />} />
             </Routes>
         </BrowserRouter>
     );
