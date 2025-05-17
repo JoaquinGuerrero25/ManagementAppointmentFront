@@ -9,7 +9,8 @@ import {
   TablePagination,
   TableRow,
   useTheme,
-  TextField
+  TextField,
+  Button
 } from "@mui/material";
 import { useState } from "react";
 import { useThemeMode } from '../../context/ThemeProvider';
@@ -44,7 +45,7 @@ export const UserProfile = ({ columns, rows, onChange }) => {
 
       >
 
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -70,7 +71,6 @@ export const UserProfile = ({ columns, rows, onChange }) => {
                       {col.key === 'value' && onChange ? (
                         <TextField
                           fullWidth
-
                           size="small"
                           variant="outlined"
                           value={row[col.key]}
@@ -86,7 +86,16 @@ export const UserProfile = ({ columns, rows, onChange }) => {
               ))}
             </TableBody>
           </Table>
+
         </TableContainer>
+        <div className="flex justify-end px-4 py-4">
+          <button
+            type="submit"
+            className="w-[150px] px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700"
+          >
+            Guardar
+          </button>
+        </div>
       </Paper>
     </div>
   );

@@ -32,23 +32,40 @@ export const Home = () => {
         { key: 'phone', label: 'Teléfono' },
         { key: 'status', label: 'Estado' },
     ];
+
+
+          
+            Name = patient.Name,
+            LastName = patient.LastName,
+            Email = patient.Email,
+            Address = patient.Address,
+            PhoneNumber = patient.PhoneNumber,
+            HealtInsurance = patient.HealtInsurance.ToString(),
+            IsAvailable = patient.IsAvailable,
+
 */
 
     const personColumns = [
-        { key: 'name', label: 'Nombre completo' },
+        { key: 'name', label: 'Nombre' },
+        { key: 'lastName', label: 'Apellido' },
         { key: 'bornDate', label: 'Fecha de nacimiento' },
         { key: 'idCard', label: 'DNI' },
         { key: 'email', label: 'Email' },
+        { key: 'address', label: 'Dirección' },
         { key: 'phoneNumber', label: 'Número de teléfono' },
+        { key: 'healthInsurance', label: 'Obra Social' },        
       ];
 
 
     const [persona, setPersona] = useState({
         name: "Juan Manuel",
+        lastName: "Banquero",
         bornDate : '22/07/1999',
         idCard: 30205632,
-        email: "juan@manuel.com",
+        email:"juan@juan.com",        
+        address: "Dirección",
         phoneNumber: "+549 3416123456",
+        healthInsurance: "ACA Salud",
       });
 
     
@@ -59,12 +76,31 @@ export const Home = () => {
       }));
 
 
-      const handleEdit = (fieldKey, newValue) => {
-        setPersona((prev) => ({
-          ...prev,
-          [fieldKey]: newValue
-        }));
+      const handleSubmit = async (e) => {
+        e.preventDefault(); // Previene recarga
+      
+        try {
+          const response = await fetch('https://tubackend.com/api/pacientes', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(persona),
+          });
+      
+          if (!response.ok) {
+            throw new Error('Error al enviar los datos');
+          }
+      
+          const data = await response.json();
+          console.log('Paciente guardado:', data);
+          alert('Paciente guardado exitosamente');
+        } catch (error) {
+          console.error('Error al guardar el paciente:', error);
+          alert('Hubo un error al guardar el paciente');
+        }
       };
+      
     
       const columns = [
         { label: "Campo", key: "field" },
@@ -76,7 +112,7 @@ export const Home = () => {
     <UserProfile
     columns={columns}
     rows={rows}
-    onChange={(rowIndex, _, value) => handleEdit(rows[rowIndex].key, value)}
+    onChange={(rowIndex, _, value) => handleSubmit(rows[rowIndex].key, value)}
     />
   );
 };  
