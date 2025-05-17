@@ -43,9 +43,7 @@ export const Home = () => {
             HealtInsurance = patient.HealtInsurance.ToString(),
             IsAvailable = patient.IsAvailable,
 
-*/
-
-    const personColumns = [
+     const personColumns = [
         { key: 'name', label: 'Nombre' },
         { key: 'lastName', label: 'Apellido' },
         { key: 'bornDate', label: 'Fecha de nacimiento' },
@@ -53,6 +51,17 @@ export const Home = () => {
         { key: 'email', label: 'Email' },
         { key: 'address', label: 'Dirección' },
         { key: 'phoneNumber', label: 'Número de teléfono' },
+        { key: 'healthInsurance', label: 'Obra Social' },        
+      ];
+
+*/
+
+    const personColumns = [
+        { key: 'name', label: 'Nombre' },
+        { key: 'lastName', label: 'Apellido' },
+        { key: 'email', label: 'Email' },
+        { key: 'address', label: 'Dirección' },
+        { key: 'phoneNumber', label: 'Número de teléfono' },        
         { key: 'healthInsurance', label: 'Obra Social' },        
       ];
 
@@ -71,19 +80,20 @@ export const Home = () => {
     
       const rows = personColumns.map((col) => ({
         field: col.label,
-        key: col.key, // para editarlo después
-        value: persona[col.key] ?? '', // muestra vacío si falta
+        key: col.key, 
+        value: persona[col.key] ?? '', 
       }));
 
 
       const handleSubmit = async (e) => {
-        e.preventDefault(); // Previene recarga
+        e.preventDefault();
       
         try {
-          const response = await fetch('https://tubackend.com/api/pacientes', {
-            method: 'POST',
+          const response = await fetch('https://localhost:7006/api/Patient/2', {
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
+              'Accept': 'application/json',
             },
             body: JSON.stringify(persona),
           });
@@ -101,6 +111,12 @@ export const Home = () => {
         }
       };
       
+      const handleEdit = (fieldKey, newValue) => {
+        setPersona((prev) => ({
+          ...prev,
+          [fieldKey]: newValue,
+        }));
+      };
     
       const columns = [
         { label: "Campo", key: "field" },
@@ -109,10 +125,11 @@ export const Home = () => {
 
     
   return (
-    <UserProfile
-    columns={columns}
-    rows={rows}
-    onChange={(rowIndex, _, value) => handleSubmit(rows[rowIndex].key, value)}
-    />
+<UserProfile
+  columns={columns}
+  rows={rows}
+  onChange={(rowIndex, _, value) => handleEdit(rows[rowIndex].key, value)}
+  onSubmit={handleSubmit}
+/>
   );
 };  

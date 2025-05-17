@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 import { useThemeMode } from '../../context/ThemeProvider';
 
-export const UserProfile = ({ columns, rows, onChange }) => {
+export const UserProfile = ({ columns, rows, onChange, onSubmit }) => {
   const { darkMode } = useThemeMode();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -90,7 +90,8 @@ export const UserProfile = ({ columns, rows, onChange }) => {
         </TableContainer>
         <div className="flex justify-end px-4 py-4">
           <button
-            type="submit"
+            //type="submit"
+            onClick={onSubmit}
             className="w-[150px] px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700"
           >
             Guardar
@@ -108,4 +109,5 @@ UserProfile.propTypes = {
   })).isRequired,
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
