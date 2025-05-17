@@ -12,11 +12,10 @@ import {
   TextField
 } from "@mui/material";
 import { useState } from "react";
+import { useThemeMode } from '../../context/ThemeProvider';
 
 export const UserProfile = ({ columns, rows, onChange }) => {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
-
+  const { darkMode } = useThemeMode();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -39,29 +38,29 @@ export const UserProfile = ({ columns, rows, onChange }) => {
         sx={{
           width: '60%',
           overflow: 'hidden',
-          border: isDark ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
+          border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
           borderRadius: '8px',
         }}
-        
+
       >
-        
+
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader>
             <TableHead>
-                <TableRow>
-                    <TableCell
-                    colSpan={columns.length}
-                    align="center"
-                    sx={{
-                        fontWeight: 'bold',
-                        fontSize: '1.25rem',
-                        backgroundColor: !isDark ? 'var(--grey-100)' : undefined,
-                        borderBottom: isDark ? '1px solid var(--grey-800)' : '1px solid var(--grey-300)'
-                    }}
-                    >
-                    Datos del paciente
-                    </TableCell>
-                </TableRow>
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  align="center"
+                  sx={{
+                    fontWeight: 'bold',
+                    fontSize: '1.25rem',
+                    backgroundColor: !darkMode ? 'var(--grey-100)' : undefined,
+                    borderBottom: darkMode ? '1px solid var(--grey-800)' : '1px solid var(--grey-300)'
+                  }}
+                >
+                  Datos del paciente
+                </TableCell>
+              </TableRow>
             </TableHead>
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowIndex) => (
@@ -71,7 +70,7 @@ export const UserProfile = ({ columns, rows, onChange }) => {
                       {col.key === 'value' && onChange ? (
                         <TextField
                           fullWidth
-                          
+
                           size="small"
                           variant="outlined"
                           value={row[col.key]}
