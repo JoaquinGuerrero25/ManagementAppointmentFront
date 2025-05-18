@@ -3,7 +3,7 @@ import { Register } from "../pages/Auth/Register";
 import { Login } from "../pages/Auth/Login";
 import { Specialty } from "../pages/Admin/Specialty/Specialty";
 import { SpecialtyFormPage } from "../pages/Admin/Specialty/SpecialtyFormPage";
-import { Patient } from "../pages/Doctor/Patient";
+import { DashboardAdmin } from "../pages/Admin/DashboardAdmin";
 
 export const AppRoutes = () => {
     return (
@@ -15,16 +15,17 @@ export const AppRoutes = () => {
                 <Route path="/registro" element={<Register />} />
 
                 {/* Admin Routes */}
+                <Route path="/" element={<DashboardAdmin />} />
                 {/* el dashboard siempre mostrar en /, ver manera que muestre un dashboard dependiendo el rol */}
-                <Route path="/" element={<Dashboard />} />
+                {/* <Route path="/" element={<Dashboard />} /> */}
                 <Route path="/administrador/especialidades" element={<Specialty />} />
                 <Route path="/administrador/especialidades/crear" element={<SpecialtyFormPage />} />
                 <Route path="/administrador/especialidades/editar/:id" element={<SpecialtyFormPage />} />
 
 
                 {/* Doctor Routes */}
-                <Route path="/doctor/pacientes" element={<Patient />} />
-                <Route path="/perfil-doctor" element={<DoctorProfile />} />
+                {/* <Route path="/doctor/pacientes" element={<Patient />} />
+                <Route path="/perfil-doctor" element={<DoctorProfile />} /> */}
             </Routes>
         </BrowserRouter>
     );

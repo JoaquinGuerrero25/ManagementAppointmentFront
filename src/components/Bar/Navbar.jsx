@@ -26,6 +26,7 @@ export const Navbar = ({ children }) => {
                     backgroundImage: 'none',
                     background: 'none',
                     boxShadow: 'none',
+                    height: '50px',
                     borderBottom: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
                 }}
             >

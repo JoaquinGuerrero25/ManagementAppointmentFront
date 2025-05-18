@@ -31,7 +31,7 @@ export const NavigationLinks = () => {
                     justifyContent: "start",
                     padding: "0px 16px",
                     gap: 2,
-                    height: "64px",
+                    height: "50px",
                 }}
             >
                 <Emergency sx={{ fontSize: "36px" }} />
@@ -64,11 +64,12 @@ export const NavigationLinks = () => {
                     return (
                         <div key={nav.Title}>
                             {!nav.hasSubLinks ? (
-                                <ListItemButton
+                                <ListItemButton 
                                     onClick={() => navigate(nav.Link)}
                                     sx={{
                                         borderRadius: "12px",
-                                        backgroundColor: isActive ? "var(--primary-800)" : "transparent",
+                                        height: '40px',
+                                        backgroundColor: isActive ? "var(--fondo-boton-seleccionado)" : "transparent",
                                         "&:hover": {
                                             backgroundColor: isActive && "var(--primary-dark)"
                                         },
@@ -92,6 +93,7 @@ export const NavigationLinks = () => {
                                     <ListItemButton
                                         onClick={handleToggle}
                                         sx={{
+                                            height: '40px',
                                             borderRadius: "12px",
                                         }}
                                     >
@@ -137,6 +139,7 @@ export const NavigationLinks = () => {
                                                                 borderRadius: "12px",
                                                                 mt: '4px',
                                                                 ml: '8px',
+                                                                height: '40px',
                                                                 backgroundColor: isSubActive
                                                                     ? "var(--primary-800)"
                                                                     : "transparent",

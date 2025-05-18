@@ -23,7 +23,7 @@ export const ThemeModeProvider = ({ children }) => {
             palette: {
                 mode,
                 background: {
-                    default: mode === 'light' ? '#ffffff' : '#000000',
+                    default: mode === 'light' ? 'var(--fondo-claro)' : 'var(--fondo-oscuro)',
                 },
             },
             typography: {
