@@ -1,9 +1,10 @@
 import { GenericTable } from "../components/Tables/GenericTable";
 import { useState } from "react";
 import PatientUpdate from "../components/Patient/PatientUpdate"
+import PatientsList from "../components/Patient/PatientsList";
 
 export const Home = () => {
-    /*const columns = [
+    const columns = [
         { key: 'name', label: 'Nombre' },
         { key: 'age', label: 'Edad' },
         { key: 'city', label: 'Ciudad' },
@@ -23,10 +24,9 @@ export const Home = () => {
         { name: 'Marta', age: 34, city: 'Valencia', email: 'marta@email.com', phone: '888888888', status: 'Inactivo' },
     ];
 
-*/
     
   return (
-
-    <PatientUpdate></PatientUpdate>
+    <PatientsList/>
+    //<PatientUpdate></PatientUpdate>
   );
 };  
