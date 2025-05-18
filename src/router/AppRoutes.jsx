@@ -4,7 +4,6 @@ import { Login } from "../pages/Auth/Login";
 import { Specialty } from "../pages/Admin/Specialty/Specialty";
 import { SpecialtyFormPage } from "../pages/Admin/Specialty/SpecialtyFormPage";
 import { Patient } from "../pages/Doctor/Patient";
-import { Dashboard } from "../pages/Admin/Dashboard";
 
 export const AppRoutes = () => {
     return (
@@ -25,6 +24,7 @@ export const AppRoutes = () => {
 
                 {/* Doctor Routes */}
                 <Route path="/doctor/pacientes" element={<Patient />} />
+                <Route path="/perfil-doctor" element={<DoctorProfile />} />
             </Routes>
         </BrowserRouter>
     );
