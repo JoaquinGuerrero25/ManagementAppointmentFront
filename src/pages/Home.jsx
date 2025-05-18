@@ -1,5 +1,4 @@
 import { GenericTable } from "../components/Tables/GenericTable";
-import { UserProfile } from "../components/Tables/UserProfile";
 import { useState } from "react";
 import PatientUpdate from "../components/Patient/PatientUpdate"
 

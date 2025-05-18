@@ -1,5 +1,5 @@
 import React from 'react'
-import {UserProfile} from '../Tables/UserProfile'
+import {PatientUpdateTable} from '../Tables/PatientUpdateTable'
 import { useState } from 'react';
 
 const PatientUpdate = () => {
@@ -18,9 +18,11 @@ const PatientUpdate = () => {
         lastName: "Banquero",
         email:"juan@juan.com", 
         address: "Dirección",
-        phoneNumber: "+549 3416123456",
+        phoneNumber: "+5493416123456",
         healthInsurance: "ACA Salud",
     });
+
+    const [obrasSociales, setObrasSociales] = useState(["ACA Salud", "Pami", "Osde", "Swiss Medical"]);
     
     const rows = personColumns.map((col) => ({
         field: col.label,
@@ -97,11 +99,12 @@ const PatientUpdate = () => {
 
   return (
 
-    <UserProfile
+    <PatientUpdateTable
         columns={columns}
         rows={rows}
         onChange={(rowIndex, _, value) => handleEdit(rows[rowIndex].key, value)}
         onSubmit={handleSubmit}
+        selectOptions={{healthInsurance: obrasSociales}}
     />
   )
 }

@@ -1,3 +1,4 @@
+import { MenuItem } from '@mui/material';
 import PropTypes from 'prop-types';
 import {
   Paper,
@@ -15,7 +16,7 @@ import {
 import { useState } from "react";
 import { useThemeMode } from '../../context/ThemeProvider';
 
-export const UserProfile = ({ columns, rows, onChange, onSubmit }) => {
+export const PatientUpdateTable = ({ columns, rows, onChange, onSubmit, selectOptions }) => {
   const { darkMode } = useThemeMode();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -69,14 +70,31 @@ export const UserProfile = ({ columns, rows, onChange, onSubmit }) => {
                   {columns.map((col) => (
                     <TableCell key={col.key}>
                       {col.key === 'value' && onChange ? (
+                        row.key === 'healthInsurance' && selectOptions?.healthInsurance ? (
                         <TextField
+                          select
                           fullWidth
                           size="small"
                           variant="outlined"
                           value={row[col.key]}
                           onChange={(e) => onChange(rowIndex, col.key, e.target.value)}
-                          aria-label={`Edit ${col.label} for row ${rowIndex}`}
-                        />
+                        >
+                          {selectOptions.healthInsurance.map((option) => (
+                            <MenuItem key={option} value={option}>
+                              {option}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                        ) : (
+                          <TextField
+                            fullWidth
+                            size="small"
+                            variant="outlined"
+                            value={row[col.key]}
+                            onChange={(e) => onChange(rowIndex, col.key, e.target.value)}
+                            aria-label={`Edit ${col.label} for row ${rowIndex}`}
+                          />
+                        )
                       ) : (
                         row[col.key]
                       )}
@@ -102,7 +120,7 @@ export const UserProfile = ({ columns, rows, onChange, onSubmit }) => {
   );
 };
 
-UserProfile.propTypes = {
+PatientUpdateTable.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     key: PropTypes.string.isRequired,
