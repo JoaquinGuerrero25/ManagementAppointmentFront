@@ -1,6 +1,7 @@
 import { GenericTable } from "../components/Tables/GenericTable";
 import { UserProfile } from "../components/Tables/UserProfile";
 import { useState } from "react";
+import PatientUpdate from "../components/Patient/PatientUpdate"
 
 export const Home = () => {
     /*const columns = [
@@ -23,113 +24,10 @@ export const Home = () => {
         { name: 'Marta', age: 34, city: 'Valencia', email: 'marta@email.com', phone: '888888888', status: 'Inactivo' },
     ];
 
-    //(nombre, apellido, fecha de nacimiento, documento, email, teléfono).
-    const personColumns = [
-        { key: 'name', label: 'Nombre' },
-        { key: 'age', label: 'Edad' },
-        { key: 'city', label: 'Ciudad' },
-        { key: 'email', label: 'Correo Electrónico' },
-        { key: 'phone', label: 'Teléfono' },
-        { key: 'status', label: 'Estado' },
-    ];
-
-
-          
-            Name = patient.Name,
-            LastName = patient.LastName,
-            Email = patient.Email,
-            Address = patient.Address,
-            PhoneNumber = patient.PhoneNumber,
-            HealtInsurance = patient.HealtInsurance.ToString(),
-            IsAvailable = patient.IsAvailable,
-
-     const personColumns = [
-        { key: 'name', label: 'Nombre' },
-        { key: 'lastName', label: 'Apellido' },
-        { key: 'bornDate', label: 'Fecha de nacimiento' },
-        { key: 'idCard', label: 'DNI' },
-        { key: 'email', label: 'Email' },
-        { key: 'address', label: 'Dirección' },
-        { key: 'phoneNumber', label: 'Número de teléfono' },
-        { key: 'healthInsurance', label: 'Obra Social' },        
-      ];
-
 */
-
-    const personColumns = [
-        { key: 'name', label: 'Nombre' },
-        { key: 'lastName', label: 'Apellido' },
-        { key: 'email', label: 'Email' },
-        { key: 'address', label: 'Dirección' },
-        { key: 'phoneNumber', label: 'Número de teléfono' },        
-        { key: 'healthInsurance', label: 'Obra Social' },        
-      ];
-
-
-    const [persona, setPersona] = useState({
-        name: "Juan Manuel",
-        lastName: "Banquero",
-        bornDate : '22/07/1999',
-        idCard: 30205632,
-        email:"juan@juan.com",        
-        address: "Dirección",
-        phoneNumber: "+549 3416123456",
-        healthInsurance: "ACA Salud",
-      });
-
-    
-      const rows = personColumns.map((col) => ({
-        field: col.label,
-        key: col.key, 
-        value: persona[col.key] ?? '', 
-      }));
-
-
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        try {
-          const response = await fetch('https://localhost:7006/api/Patient/2', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-            },
-            body: JSON.stringify(persona),
-          });
-      
-          if (!response.ok) {
-            throw new Error('Error al enviar los datos');
-          }
-      
-          const data = await response.json();
-          console.log('Paciente guardado:', data);
-          alert('Paciente guardado exitosamente');
-        } catch (error) {
-          console.error('Error al guardar el paciente:', error);
-          alert('Hubo un error al guardar el paciente');
-        }
-      };
-      
-      const handleEdit = (fieldKey, newValue) => {
-        setPersona((prev) => ({
-          ...prev,
-          [fieldKey]: newValue,
-        }));
-      };
-    
-      const columns = [
-        { label: "Campo", key: "field" },
-        { label: "Valor", key: "value" },
-      ];
-
     
   return (
-<UserProfile
-  columns={columns}
-  rows={rows}
-  onChange={(rowIndex, _, value) => handleEdit(rows[rowIndex].key, value)}
-  onSubmit={handleSubmit}
-/>
+
+    <PatientUpdate></PatientUpdate>
   );
 };  
