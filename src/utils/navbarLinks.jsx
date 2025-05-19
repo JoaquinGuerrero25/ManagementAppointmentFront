@@ -1,29 +1,12 @@
-import { DashboardRounded, MedicalServicesRounded, PeopleAltRounded } from "@mui/icons-material";
+import { DashboardRounded, MonitorHeartRounded, PeopleAltRounded } from "@mui/icons-material";
 
 export const linksNavbar = [
     {
-        Title: 'Dashboard',
+        Title: 'Panel de control',
         Link: '/',
         Icon: DashboardRounded,
         hasSubLinks: false,
         Role: 'Admin'
-    },
-    {
-        Title: 'Especialidades',
-        Link: '',
-        Icon: MedicalServicesRounded,
-        hasSubLinks: true,
-        Role: 'Admin',
-        SubLinks: [
-            {
-                Title: 'Lista de especialidades',
-                Link: '/administrador/especialidades',
-            },
-            {
-                Title: 'Crear especialidad',
-                Link: '/administrador/especialidades/crear',
-            },
-        ]
     },
     {
         Title: 'Pacientes',
@@ -33,9 +16,29 @@ export const linksNavbar = [
         Role: 'Doctor',
         SubLinks: [
             {
-                Title: 'Lista de pacientes',
+                Title: 'Lista de doctores',
                 Link: '/doctor/pacientes',
             },
         ]
+    },
+    {
+        Title: 'Doctores',
+        Link: '',
+        Icon: PeopleAltRounded,
+        hasSubLinks: true,
+        Role: 'Doctor',
+        SubLinks: [
+            {
+                Title: 'Lista de doctores',
+                Link: '/doctor/pacientes',
+            },
+        ]
+    },
+    {
+        Title: 'Especialidades',
+        Link: '/administrador/especialidades',
+        Icon: MonitorHeartRounded,
+        hasSubLinks: false,
+        Role: 'Admin',
     },
 ];

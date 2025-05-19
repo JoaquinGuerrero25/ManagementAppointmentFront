@@ -64,56 +64,58 @@ export const Specialty = () => {
 
     return (
         <MainLayout>
-            <Box
-                width='100%'
-                sx={{
-                    paddingBottom: '2rem',
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    gap: "16px",
-                }}
-            >
+            <Box>
                 <Box
+                    width='100%'
                     sx={{
+                        paddingBottom: '2rem',
                         display: "flex",
-                        flexDirection: {
-                            xs: "column",
-                            md: "row",
-                        },
-                        alignItems: {
-                            xs: "start",
-                            md: "center",
-                        },
-                        justifyContent: "space-between",
-                        width: "95%",
+                        alignItems: "center",
+                        flexDirection: "column",
                         gap: "16px",
                     }}
                 >
-                    <Typography
-                        component="h2"
+                    <Box
                         sx={{
-                            fontSize: "1.7rem",
-                            fontWeight: 500,
-                            color: darkMode ? "var(--grey-100)" : "var(--grey-900)",
+                            display: "flex",
+                            flexDirection: {
+                                xs: "column",
+                                md: "row",
+                            },
+                            alignItems: {
+                                xs: "start",
+                                md: "center",
+                            },
+                            justifyContent: "space-between",
+                            width: "95%",
+                            gap: "16px",
                         }}
                     >
-                        Especialidades
-                    </Typography>
-                    <ButtonGenericControl label="Agregar" icon={<Add fontSize="large" />} iconPosition="start" action={() => navigate("/administrador/especialidades/crear")} />
+                        <Typography
+                            component="h2"
+                            sx={{
+                                fontSize: "1.7rem",
+                                fontWeight: 500,
+                                color: darkMode ? "var(--grey-100)" : "var(--grey-900)",
+                            }}
+                        >
+                            Especialidades
+                        </Typography>
+                        <ButtonGenericControl label="Agregar" icon={<Add fontSize="large" />} iconPosition="start" action={() => navigate("/administrador/especialidades/crear")} />
+                    </Box>
+                    <GenericTable columns={specialtyModel} rows={specialties} filterKeys={['name', 'description']} actions={[actionEdit, actionDelete]} />
                 </Box>
-                <GenericTable columns={specialtyModel} rows={specialties} filterKeys={['name', 'description']} actions={[actionEdit, actionDelete]} />
-            </Box>
 
-            {/* componente de confirmacion */}
-            <GenericConfirmDialog
-                open={openDialogDelete}
-                onClose={handleCloseDialogSpecialty}
-                onConfirm={confirmDelete}
-                title="Confirmar eliminación"
-                message={`¿Estás seguro que deseas eliminar la especialidad "${specialtySelect?.name}"? Esta acción no se puede deshacer.`}
-                confirmLabel="Eliminar"
-            />
+                {/* componente de confirmacion */}
+                <GenericConfirmDialog
+                    open={openDialogDelete}
+                    onClose={handleCloseDialogSpecialty}
+                    onConfirm={confirmDelete}
+                    title="Confirmar eliminación"
+                    message={`¿Estás seguro que deseas eliminar la especialidad "${specialtySelect?.name}"? Esta acción no se puede deshacer.`}
+                    confirmLabel="Eliminar"
+                />
+            </Box>
         </MainLayout>
     );
 };

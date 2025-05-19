@@ -24,6 +24,7 @@ export const ThemeModeProvider = ({ children }) => {
                 mode,
                 background: {
                     default: mode === 'light' ? 'var(--fondo-claro)' : 'var(--fondo-oscuro)',
+                    paper: mode === 'light' ? '#ffffff' : 'var(--fondo-paper-oscuro)',
                 },
             },
             typography: {
@@ -38,6 +39,25 @@ export const ThemeModeProvider = ({ children }) => {
                     '"Apple Color Emoji"',
                     '"Segoe UI Emoji"',
                 ].join(','),
+            },
+            components: {
+                MuiListItemButton: {
+                    styleOverrides: {
+                        root: {
+                            borderRadius: "12px",
+                            height: "40px",
+                            '&.Mui-selected': {
+                                backgroundColor: mode === 'light' ? 'var(--fondo-selected-claro)' : 'var(--fondo-selected-oscuro)',
+                                color: mode === 'light' ? '#000' : '#fff',
+                            },
+                            '&.Mui-selected:hover': {
+                                backgroundColor: mode === 'light'
+                                    ? 'rgba(0, 0, 0, 0.04)'
+                                    : 'rgba(255, 255, 255, 0.18)',
+                            },
+                        },
+                    },
+                },
             },
         });
     }, [darkMode]);
