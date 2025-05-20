@@ -15,9 +15,10 @@ export const add_specialty = async (formData) => {
     return response.data.value;
 }
 
-// export const update_specialty = async (specialty) => {
-//     const response = await api.put('Specialty')  falta endpoint en la api
-// }
+export const update_specialty = async (id, formData) => {
+    const response = await api.put(`Specialty/${id}`, formData);
+    return response.data.value;
+}
 
 export const delete_specialty = async (id) => {
     const response = await api.delete(`Specialty/${id}`);

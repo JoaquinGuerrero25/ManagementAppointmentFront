@@ -165,7 +165,9 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                                                         }}
                                                         sx={{
                                                             minWidth: '140px',
-                                                            textAlign: 'start'
+                                                            textAlign: 'start',
+                                                            margin: 1, 
+                                                            borderRadius: 2,
                                                         }}
                                                     >
                                                         {action.Icon && (

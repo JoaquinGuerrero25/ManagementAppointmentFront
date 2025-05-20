@@ -49,7 +49,7 @@ export const NavigationLinks = () => {
                                     selected={isActive}
                                     onClick={() => navigate(nav.Link)}
                                     sx={{
-                                        borderRadius: "12px",
+                                        borderRadius: "10px",
                                         height: '40px',
                                     }}
                                 >
@@ -75,7 +75,7 @@ export const NavigationLinks = () => {
                                         onClick={handleToggle}
                                         sx={{
                                             height: '40px',
-                                            borderRadius: "12px",
+                                            borderRadius: "10px",
                                         }}
                                     >
                                         <ListItemIcon>
@@ -112,7 +112,7 @@ export const NavigationLinks = () => {
                                                         <ListItemButton
                                                             selected={isSubActive}
                                                             sx={{
-                                                                borderRadius: "12px",
+                                                                borderRadius: "10px",
                                                                 mt: '4px',
                                                                 ml: '8px',
                                                                 height: '40px',

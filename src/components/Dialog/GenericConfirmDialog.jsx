@@ -4,12 +4,13 @@ import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl"
 
 export const GenericConfirmDialog = ({ open, title = 'Confirmar', message = 'Estas seguro?', onClose, onConfirm, confirmLabel = 'Confirmar' }) => {
     return (
-        <Dialog open={open} onClose={onClose}
+        <Dialog open={open} onClose={onClose} fullWidth
             slotProps={{
                 paper: {
                     sx: {
-                        borderRadius: '10px',
-                        padding: '6px'
+                        borderRadius: '12px',
+                        backgroundImage: 'none',
+                        padding: '6px',
                     }
                 }
             }}

@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Register } from "../pages/Auth/Register";
 import { Login } from "../pages/Auth/Login";
 import { Specialty } from "../pages/Admin/Specialty/Specialty";
-import { SpecialtyFormPage } from "../pages/Admin/Specialty/SpecialtyFormPage";
 import { DashboardAdmin } from "../pages/Admin/DashboardAdmin";
 
 export const AppRoutes = () => {
@@ -16,11 +15,7 @@ export const AppRoutes = () => {
 
                 {/* Admin Routes */}
                 <Route path="/" element={<DashboardAdmin />} />
-                {/* el dashboard siempre mostrar en /, ver manera que muestre un dashboard dependiendo el rol */}
-                {/* <Route path="/" element={<Dashboard />} /> */}
                 <Route path="/administrador/especialidades" element={<Specialty />} />
-                <Route path="/administrador/especialidades/crear" element={<SpecialtyFormPage />} />
-                <Route path="/administrador/especialidades/editar/:id" element={<SpecialtyFormPage />} />
 
 
                 {/* Doctor Routes */}
