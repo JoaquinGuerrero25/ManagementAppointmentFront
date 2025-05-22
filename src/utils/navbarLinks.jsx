@@ -1,4 +1,4 @@
-import { DashboardRounded, MonitorHeartRounded, PeopleAltRounded } from "@mui/icons-material";
+import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded } from "@mui/icons-material";
 
 export const linksNavbar = [
     {
@@ -23,16 +23,10 @@ export const linksNavbar = [
     },
     {
         Title: 'Doctores',
-        Link: '',
-        Icon: PeopleAltRounded,
-        hasSubLinks: true,
-        Role: 'Doctor',
-        SubLinks: [
-            {
-                Title: 'Lista de doctores',
-                Link: '/doctor/pacientes',
-            },
-        ]
+        Link: '/administrador/doctores',
+        Icon: HealthAndSafetyRounded,
+        hasSubLinks: false,
+        Role: 'Admin',
     },
     {
         Title: 'Especialidades',

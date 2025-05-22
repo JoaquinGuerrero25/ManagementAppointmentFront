@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { add_specialty, delete_specialty, get_specialties, get_specialty_by_id, update_specialty } from "../../../api/specialtyService";
-import { GenericTable } from "../../../components/Tables/GenericTable";
-import { specialtyModel } from "../../../constants/specialtyConstant";
-import { MainLayout } from "../../../layouts/MainLayout";
+import { delete_specialty, get_specialties } from "../../api/specialtyService";
+import { GenericTable } from "../../components/Tables/GenericTable";
+import { specialtyModel } from "../../constants/specialtyConstant";
+import { MainLayout } from "../../layouts/MainLayout";
 import { Box, Typography } from "@mui/material";
-import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
+import { ButtonGenericControl } from "../../components/Controls/Buttons/ButtonGenericControl";
 import { Add, DeleteRounded, EditRounded } from "@mui/icons-material";
-import { GenericConfirmDialog } from "../../../components/Dialog/GenericConfirmDialog";
-import { SpecialtyForm } from "../../../components/Forms/SpecialtyForm";
+import { GenericConfirmDialog } from "../../components/Dialog/GenericConfirmDialog";
+import { SpecialtyForm } from "../../components/Forms/SpecialtyForm";
 
 export const Specialty = () => {
     const [openDialogForm, setOpenDialogForm] = useState(false);
@@ -16,7 +16,7 @@ export const Specialty = () => {
     const [specialties, setSpecialties] = useState([]); //para mostrar todas las especialidades
 
     // obtener todas las especialidades
-    const handleSpecialty = async () => {
+    const handleSpecialties = async () => {
         const data = await get_specialties();
         setSpecialties(data);
     };
@@ -32,13 +32,13 @@ export const Specialty = () => {
     const confirmDelete = async () => {
         if (specialtySelected) {
             await delete_specialty(specialtySelected.id);
-            handleSpecialty();
+            handleSpecialties();
         }
         handleCloseDialogSpecialty();
     };
 
     const handleFormSubmit = async () => {
-        handleSpecialty();
+        handleSpecialties();
         handleCloseDialogSpecialty();
     };
 
@@ -64,7 +64,7 @@ export const Specialty = () => {
 
     // carga las especialidades cuando se renderiza la vista
     useEffect(() => {
-        handleSpecialty();
+        handleSpecialties();
     }, []);
 
     return (

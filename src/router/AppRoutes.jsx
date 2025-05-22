@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Register } from "../pages/Auth/Register";
 import { Login } from "../pages/Auth/Login";
-import { Specialty } from "../pages/Admin/Specialty/Specialty";
+import { Specialty } from "../pages/Admin/Specialty";
 import { DashboardAdmin } from "../pages/Admin/DashboardAdmin";
+import { Doctor } from "../pages/Admin/Doctor";
 
 export const AppRoutes = () => {
     return (
@@ -16,7 +17,7 @@ export const AppRoutes = () => {
                 {/* Admin Routes */}
                 <Route path="/" element={<DashboardAdmin />} />
                 <Route path="/administrador/especialidades" element={<Specialty />} />
-
+                <Route path="/administrador/doctores" element={<Doctor />} />
 
                 {/* Doctor Routes */}
                 {/* <Route path="/doctor/pacientes" element={<Patient />} />
