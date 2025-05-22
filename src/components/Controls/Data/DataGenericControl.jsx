@@ -1,83 +1,63 @@
-import { Box, Icon, Typography } from "@mui/material";
-import { ButtonTextControl } from "../Buttons/ButtonTextControl";
+import { Card, CardActionArea, CardContent, CardHeader, Typography } from "@mui/material";
 import { useThemeMode } from "../../../context/ThemeProvider";
 
-export const DataGenericControl = ({ icon, label, data, height = 'auto', width = 'auto', labelButton, actionButton }) => {
+export const DataGenericControl = ({ icon, label, data, width = '100%', labelButton, actionButton }) => {
     const { darkMode } = useThemeMode();
-
     return (
-        <Box
+        <Card
+            // variant="outlined"
+            elevation={2}
             sx={{
-                border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                minHeight: '100px',
-                minWidth: '140px',
-                height,
-                width,
-                borderRadius: '16px',
-                background: darkMode ? 'black' : 'var(--grey-50)',
+                width: width,
+                borderRadius: '12px',
+                padding: 1,
+                background: darkMode ? '#161b22' : 'ffffff'
             }}
         >
-            <Box
+            <CardHeader avatar={icon} sx={{ height: '52px' }} />
+            <CardContent
                 sx={{
                     display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'start',
-                    alignItems: 'center',
+                    flexDirection: 'column',
                     gap: 2,
-                    padding: 2,
+                    padding: 0,
+                    paddingX: 2
                 }}
             >
-                <Icon
-                    sx={{
-                        width: '15%',
-                        height: '15%',
-                        aspectRatio: '1 / 1',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-                        borderRadius: '50%',
-                        background: darkMode ? 'none' : 'white',
-                        fontSize: 'clamp(16px, 4vw, 32px)'
-                    }}
-                >
-                    {icon}
-                </Icon>
                 <Typography
-                    component={'h3'}
+                    component='h4'
                     sx={{
-                        fontSize: 'clamp(16px, 3vw, 20px)',
-                        fontWeight: 300,
+                        fontSize: '24px',
+                        fontWeight: '600',
                         letterSpacing: '0.5px',
-                        color: darkMode ? 'var(--grey-300)' : 'var(--grey-500)',
                     }}
                 >
                     {label}
                 </Typography>
-            </Box>
-            <Box>
                 <Typography
-                    component={'p'}
+                    component='p'
                     sx={{
-                        textAlign: 'end',
-                        fontSize: 'clamp(3rem, 6vw, 4rem)',
-                        padding: 2,
+                        fontSize: '32px',
+                        fontWeight: '800',
+                        textAlign: 'end'
                     }}
                 >
                     {data}
                 </Typography>
-            </Box>
-            {labelButton && actionButton && (
-                <Box
-                    sx={{
-                        borderTop: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                        paddingY: 1,
-                    }}
-                >
-                    <ButtonTextControl label={labelButton} action={actionButton} />
-                </Box>
-            )}
-        </Box>
+            </CardContent>
+            <CardActionArea
+                disabled={!labelButton}
+                onClick={actionButton}
+                sx={{
+                    height: '40px',
+                    paddingX: 2,
+                    color: 'var(--primary-main)',
+                    fontWeight: '500',
+                    fontSize: '14px'
+                }}
+            >
+                {labelButton}
+            </CardActionArea>
+        </Card>
     );
 };

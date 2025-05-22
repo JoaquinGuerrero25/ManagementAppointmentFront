@@ -1,7 +1,7 @@
-import { AuthLayout } from "../layouts/AuthLayout";
-import { LoginForm } from "../components/Forms/LoginForm";
+import { AuthLayout } from "../../layouts/AuthLayout";
+import { LoginForm } from "../../components/Forms/LoginForm";
 import { Link } from "react-router-dom";
-import { useThemeMode } from "../context/ThemeProvider";
+import { useThemeMode } from "../../context/ThemeProvider";
 
 export const Login = () => {
     const { darkMode } = useThemeMode();

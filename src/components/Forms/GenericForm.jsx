@@ -1,103 +1,45 @@
-import { FormGroup, Box, Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { InputGenericControl } from "../Controls/Inputs/InputGenericControl";
+import { FormGroup, Box } from "@mui/material";
 import { TextareaGenericControl } from "../Controls/Inputs/TextareaGenericControl";
-import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
-import { useNavigate } from "react-router-dom";
+import { InputGenericControl } from "../Controls/Inputs/InputGenericControl";
 
-export const GenericForm = ({ fields, buttonLabel, onSubmit, buttonCancel }) => {
-    const navigate = useNavigate();
-
-    const [formData, setFormData] = useState(
-        Object.fromEntries(Object.entries(fields).map(([key, config]) => [key, config.value]))
-    );
-
-    useEffect(() => {
-        setFormData(
-            Object.fromEntries(Object.entries(fields).map(([key, config]) => [key, config.value]))
-        );
-    }, [fields]);
-
+export const GenericForm = ({ fields, value, onChange }) => {
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value,
-        });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSubmit(formData);
+        const { name, value: val } = e.target;
+        onChange(name, val);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
-            <FormGroup sx={{ width: '95%', gap: '12px' }}>
-                {Object.entries(fields).map(([name, config]) => {
-
-                    if (config.type === 'textarea') {
-                        return (
-                            <Box key={name}>
+        <form className="flex flex-col items-center w-full">
+            <FormGroup sx={{ width: '100%', gap: '16px' }}>
+                {fields?.filter(field => field.visible)
+                    .map(field => {
+                        if (field.type === 'textarea') {
+                            return (
                                 <TextareaGenericControl
-                                    name={name}
-                                    type={config.type}
-                                    value={formData[name]}
-                                    label={config.label}
-                                    placeholder={config.placeholder}
-                                    required={config.required}
+                                    key={field.name}
+                                    name={field.name}
+                                    label={field.label}
+                                    value={value[field.name]}
+                                    placeholder={field.placeholder}
+                                    required={field.required}
                                     onChange={handleChange}
                                 />
-                            </Box>
-                        )
-                    }
+                            );
+                        }
 
-                    return (
-                        <Box key={name}>
+                        return (
                             <InputGenericControl
-                                name={name}
-                                type={config.type}
-                                value={formData[name]}
-                                label={config.label}
-                                placeholder={config.placeholder}
-                                required={config.required}
+                                key={field.name}
+                                name={field.name}
+                                label={field.label}
+                                value={value[field.name]}
+                                type={field.type || 'text'}
+                                placeholder={field.placeholder}
+                                required={field.required}
                                 onChange={handleChange}
                             />
-                        </Box>
-                    );
-                })}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'end',
-                        gap: 2,
-                    }}
-                >
-                    {buttonCancel && (
-                        <ButtonTextControl
-                            label='Cancelar'
-                            action={() => navigate(buttonCancel)}
-                        />
-                    )}
-
-                    <Button
-                        variant="contained"
-                        type='submit'
-                        sx={{
-                            borderRadius: '8px',
-                            height: '40px',
-                            textTransform: 'none',
-                            background: 'var(--gradient-blue-button)',
-                            color: 'white',
-                            '&:hover': {
-                                background: 'var(--gradient-blue-button-hover)',
-                            },
-                        }}
-                    >
-                        {buttonLabel}
-                    </Button>
-                </Box>
+                        );
+                    })}
             </FormGroup>
         </form>
     );

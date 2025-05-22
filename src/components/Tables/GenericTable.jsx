@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Box, FormControl, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { MoreVertRounded, Search } from "@mui/icons-material";
 import { useThemeMode } from "../../context/ThemeProvider";
+import { GenericChip } from "../Chip/GenericChip";
 
 export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
     const { darkMode } = useThemeMode();
@@ -45,11 +46,14 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
 
     return (
         <Paper
+            // variant="outlined"
+            elevation={2}
             sx={{
-                width: '95%',
+                width: '100%',
                 overflow: 'hidden',
                 border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                borderRadius: '16px',
+                borderRadius: '12px',
+                backgroundImage: 'none',
             }}
         >
             <Box
@@ -59,27 +63,29 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                     justifyContent: 'end',
                 }}
             >
-                <Box sx={{ padding: 2 }}>
-                    <FormControl fullWidth>
-                        <OutlinedInput
-                            name="search"
-                            type="text"
-                            margin="dense"
-                            placeholder="Buscar"
-                            value={search}
-                            size="small"
-                            onChange={(e) => setSearch(e.target.value)}
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <Search />
-                                </InputAdornment>
-                            }
-                            sx={{
-                                borderRadius: '12px',
-                            }}
-                        />
-                    </FormControl>
-                </Box>
+                {filterKeys?.length > 0 && (
+                    <Box sx={{ padding: 2 }}>
+                        <FormControl fullWidth>
+                            <OutlinedInput
+                                name="search"
+                                type="text"
+                                margin="dense"
+                                placeholder="Buscar"
+                                value={search}
+                                size="small"
+                                onChange={(e) => setSearch(e.target.value)}
+                                startAdornment={
+                                    <InputAdornment position="start">
+                                        <Search />
+                                    </InputAdornment>
+                                }
+                                sx={{
+                                    borderRadius: '12px',
+                                }}
+                            />
+                        </FormControl>
+                    </Box>
+                )}
             </Box>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader>
@@ -118,6 +124,10 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                                 <TableRow hover key={index}>
                                     {columns.map((col, colIndex) => (
                                         <TableCell key={colIndex}>
+                                            {col.key === 'isAvailable' && (
+                                                <GenericChip value={row[col.key]} />
+                                            )}
+
                                             {row[col.key]}
                                         </TableCell>
                                     ))}
@@ -155,7 +165,9 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                                                         }}
                                                         sx={{
                                                             minWidth: '140px',
-                                                            textAlign: 'start'
+                                                            textAlign: 'start',
+                                                            margin: 1, 
+                                                            borderRadius: 2,
                                                         }}
                                                     >
                                                         {action.Icon && (

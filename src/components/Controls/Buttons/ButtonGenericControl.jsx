@@ -17,10 +17,10 @@ export const ButtonGenericControl = ({ label, icon, iconPosition = "start", acti
                 borderRadius: '8px',
                 fontWeight: 500,
                 letterSpacing: '0.5px',
-                background: 'var(--gradient-blue-button)',
+                background: 'var(--primary-main)',
                 color: 'white',
                 '&:hover': {
-                    background: 'var(--gradient-blue-button-hover)',
+                    background: 'var(--primary-dark)',
                 },
             }}
             variant={variant}

@@ -1,5 +1,5 @@
-import { Emergency, KeyboardArrowDownRounded, KeyboardArrowRightRounded } from "@mui/icons-material";
-import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { KeyboardArrowDownRounded, KeyboardArrowRightRounded } from "@mui/icons-material";
+import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography, typographyClasses } from "@mui/material";
 import { useState, useEffect } from "react";
 import { linksNavbar } from "../../utils/navbarLinks";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -24,25 +24,6 @@ export const NavigationLinks = () => {
 
     return (
         <Box sx={{ width: "100%" }}>
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "start",
-                    padding: "0px 16px",
-                    gap: 2,
-                    height: "64px",
-                }}
-            >
-                <Emergency sx={{ fontSize: "36px" }} />
-                <Typography
-                    component="h3"
-                    sx={{ fontWeight: "500", letterSpacing: "0.5px", fontSize: "24px" }}
-                >
-                    Clinica UTN
-                </Typography>
-            </Box>
-
             <List
                 sx={{
                     padding: "0px 12px",
@@ -65,27 +46,27 @@ export const NavigationLinks = () => {
                         <div key={nav.Title}>
                             {!nav.hasSubLinks ? (
                                 <ListItemButton
+                                    selected={isActive}
                                     onClick={() => navigate(nav.Link)}
                                     sx={{
-                                        borderRadius: "12px",
-                                        backgroundColor: isActive ? "var(--primary-800)" : "transparent",
-                                        "&:hover": {
-                                            backgroundColor: isActive && "var(--primary-dark)"
-                                        },
+                                        borderRadius: "10px",
+                                        height: '40px',
                                     }}
                                 >
                                     <ListItemIcon>
-                                        <nav.Icon sx={{ fontSize: "24px", color: isActive && 'white' }} />
+                                        <nav.Icon sx={{ fontSize: "24px" }} />
                                     </ListItemIcon>
                                     <ListItemText
                                         sx={{
                                             fontSize: "20px",
-                                            color: isActive
-                                                ? 'white'
-                                                : (darkMode ? "var(--grey-300)" : "var(--grey-900)"),
-                                            // Acomodar estilo color
                                         }}
                                         primary={nav.Title}
+                                        slotProps={{
+                                            primary: {
+                                                fontWeight: isActive && '600',
+                                                letterSpacing: isActive && '0.3px',
+                                            }
+                                        }}
                                     />
                                 </ListItemButton>
                             ) : (
@@ -93,19 +74,14 @@ export const NavigationLinks = () => {
                                     <ListItemButton
                                         onClick={handleToggle}
                                         sx={{
-                                            borderRadius: "12px",
+                                            height: '40px',
+                                            borderRadius: "10px",
                                         }}
                                     >
                                         <ListItemIcon>
                                             <nav.Icon sx={{ fontSize: "24px" }} />
                                         </ListItemIcon>
-                                        <ListItemText
-                                            sx={{
-                                                fontSize: "20px",
-                                                color: darkMode ? "var(--grey-300)" : "var(--grey-900)",
-                                            }}
-                                            primary={nav.Title}
-                                        />
+                                        <ListItemText sx={{ fontSize: "20px" }} primary={nav.Title} />
                                         {isOpen ? (
                                             <KeyboardArrowDownRounded />
                                         ) : (
@@ -129,21 +105,17 @@ export const NavigationLinks = () => {
                                                 const isSubActive = subLink.Link === currentPath;
                                                 return (
                                                     <Box
-                                                        width="94%"
+                                                        width="99%"
                                                         sx={{ borderLeft: "0.4px solid" }}
                                                         key={subLink.Title}
                                                     >
                                                         <ListItemButton
+                                                            selected={isSubActive}
                                                             sx={{
-                                                                borderRadius: "12px",
+                                                                borderRadius: "10px",
                                                                 mt: '4px',
                                                                 ml: '8px',
-                                                                backgroundColor: isSubActive
-                                                                    ? "var(--primary-800)"
-                                                                    : "transparent",
-                                                                "&:hover": {
-                                                                    backgroundColor: isSubActive && "var(--primary-dark)"
-                                                                },
+                                                                height: '40px',
                                                             }}
                                                             onClick={() => navigate(subLink.Link)}
                                                         >
@@ -151,7 +123,13 @@ export const NavigationLinks = () => {
                                                                 secondary={subLink.Title}
                                                                 slotProps={{
                                                                     secondary: {
-                                                                        sx: { fontSize: "14px", pl: 4, color: isSubActive && 'white', fontWeight: isSubActive && '500' },
+                                                                        sx: {
+                                                                            fontSize: "14px",
+                                                                            pl: 4,
+                                                                            fontWeight: isSubActive && '00',
+                                                                            color: isSubActive && (darkMode ? 'white' : 'black'),
+                                                                            letterSpacing: isSubActive && '0.3px'
+                                                                        },
                                                                     },
                                                                 }}
                                                             />
