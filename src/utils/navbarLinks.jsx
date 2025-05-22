@@ -42,4 +42,18 @@ export const linksNavbar = [
             },
         ]
     },
+
+    {
+        Title: 'Mi Perfil',
+        Link: '',
+        Icon: MasksRounded,
+        hasSubLinks: true,
+        Role: 'Doctor',
+        SubLinks: [
+            {
+                Title: 'Editar perfil',
+                Link: '/doctor/perfil',
+            },
+        ]
+    },
 ];

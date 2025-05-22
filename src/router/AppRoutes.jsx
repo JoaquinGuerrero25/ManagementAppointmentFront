@@ -26,7 +26,7 @@ export const AppRoutes = () => {
 
                 {/* Doctor Routes */}
                 <Route path="/doctor/pacientes" element={<Patient />} />
-                <Route path="/perfil-doctor" element={<DoctorProfile />} />
+                <Route path="/doctor/perfil" element={<DoctorProfile />} />
             </Routes>
         </BrowserRouter>
     );

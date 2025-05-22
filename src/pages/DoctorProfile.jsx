@@ -1,9 +1,9 @@
-import { Container, Typography, Button } from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
 import { DoctorInfoCard } from '../components/Cards/DoctorInfoCard';
 import { DaysAvailableCard } from '../components/Cards/DaysAvailableCard';
 import { EditInfoDoctor } from '../components/EditInfoDoctor';
 import { DaysAvailable } from '../components/DaysAvailable';
-
+import { MainLayout } from '../layouts/MainLayout';
 import { useState } from 'react';
 
 export const DoctorProfile = () => {
@@ -37,46 +37,36 @@ export const DoctorProfile = () => {
   };
 
   return (
-  
-    <Container maxWidth="md" sx={{ mt: 4}} >
-      <Typography variant="h4" gutterBottom align="center">
-        Mi Perfil
-      </Typography>
 
-      <DoctorInfoCard
-        doctor={doctor}
-        onEdit={handleEditOpen} />
-
-      <DaysAvailableCard
-        horarios={horarios}
-        handleDisponibilidadOpen={handleDisponibilidadOpen} />
-
-
-
-      <EditInfoDoctor
-        open={isEditOpen}
-        doctor={doctor}
-        onClose={handleEditClose}
-        onSave={handleDoctorSave}
-      />
-
-      <DaysAvailable
-        open={isDisponibilidadOpen}
-        horario={horarios}
-        onClose={handleDisponibilidadClose}
-        onSave={handleDisponibilidadSave}
-      />
-
-      <footer>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          align="center"
-          sx={{ mt: 4 }}
-        >
-          Aca va el footer
+    <MainLayout>
+      <Container sx={{ padding: 2 }}>
+        <Typography variant="h3" gutterBottom align="center">
+          Mi Perfil
         </Typography>
-      </footer>
-    </Container>
+
+        <DoctorInfoCard
+          doctor={doctor}
+          onEdit={handleEditOpen} />
+
+        <DaysAvailableCard
+          horarios={horarios}
+          handleDisponibilidadOpen={handleDisponibilidadOpen} />
+
+        <EditInfoDoctor
+          open={isEditOpen}
+          doctor={doctor}
+          onClose={handleEditClose}
+          onSave={handleDoctorSave}
+        />
+
+        <DaysAvailable
+          open={isDisponibilidadOpen}
+          horario={horarios}
+          onClose={handleDisponibilidadClose}
+          onSave={handleDisponibilidadSave}
+        />
+      </Container>
+
+    </MainLayout>
   );
 };
