@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { GenericTable } from '../Tables/GenericTable'
 import { Edit, Delete } from '@mui/icons-material';
 import {Dialog,DialogTitle, DialogContent, DialogActions, Button, TextField,} from '@mui/material';
+import { Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+
 
 
 const PatientsList = () => {
@@ -9,6 +12,17 @@ const PatientsList = () => {
     const [patients, setPatients] = useState([]);
     const [editingPatient, setEditingPatient] = useState(null);
     const [formValues, setFormValues] = useState({});
+    const [creating, setCreating] = useState(false);
+    const [newPatient, setNewPatient] = useState({
+      name: '',
+      lastName: '',
+      phoneNumber: '',
+      address: '',
+      email: '',
+      password: '',
+      healtInsurance: '',
+      isAvailable: true
+    });
 
     const columns = [
         { key: 'name', label: 'Nombre' },
@@ -20,24 +34,23 @@ const PatientsList = () => {
         { key: 'status', label: 'Estado' },
     ];
 
-
-    //Fectch de lista de pacientes.
-    useEffect(() => {
-        const fetchPatients = async () => {
-          try {
-            const response = await fetch('https://localhost:7006/api/Patient');
-            const data = await response.json();
+    const fetchPatients = async () => {
+      try {
+        const response = await fetch('https://localhost:7006/api/Patient');
+        const data = await response.json();
     
-            if (data.isSuccess) {
-              setPatients(data.value);
-              
-            } else {
-              console.error('Error en la respuesta de la API:', data.errorMessage);
-            }
-          } catch (error) {
-            console.error('Error al obtener pacientes:', error);
-          }
-        };
+        if (data.isSuccess) {
+          setPatients(data.value);
+        } else {
+          console.error('Error en la respuesta de la API:', data.errorMessage);
+        }
+      } catch (error) {
+        console.error('Error al obtener pacientes:', error);
+      }
+    };
+
+
+    useEffect(() => {
     
         fetchPatients();
       }, []);
@@ -98,6 +111,52 @@ const PatientsList = () => {
         }
       };
 
+
+      const handleNewPatientChange = (e) => {
+        const { name, value } = e.target;
+        setNewPatient(prev => ({ ...prev, [name]: value }));
+      };
+      
+      const handleCreatePatient = async () => {
+        try {
+          const response = await fetch('https://localhost:7006/api/Patient', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newPatient)
+          });
+      
+          if (response.ok) {
+            // ✅ Volver a cargar todos los pacientes
+            await fetchPatients();
+      
+            setCreating(false);
+            setNewPatient({
+              name: '',
+              lastName: '',
+              phoneNumber: '',
+              address: '',
+              email: '',
+              password: '',
+              healtInsurance: '',
+              isAvailable: true
+            });
+          } else {
+            const errorText = await response.text();
+            console.error('Error al crear paciente:', errorText);
+            alert('No se pudo crear el paciente.');
+          }
+        } catch (error) {
+          console.error('Error en POST:', error);
+          alert('Error al crear el paciente.');
+        }
+      };
+      
+      
+      
+
+
       const handleEditPatient = (patient) => {
         setEditingPatient(patient);
         setFormValues(patient); 
@@ -130,12 +189,55 @@ const PatientsList = () => {
 
   return (
     <>
+
+    <Fab
+      color="primary"
+      aria-label="add"
+      
+      size="medium" 
+      onClick={() => setCreating(true)}
+      sx={{
+        mt: 2, // 👉 margen superior
+        ml: 2, // margen izquierdo (si querés separarlo del borde)
+        mb: 2  // margen inferior opcional  
+      }}
+    >
+      <AddIcon />
+    </Fab>
+
     <GenericTable
       columns={columns}
       rows={patients}
       filterKeys={['name', 'lastName', 'email']} 
       actions={actions}
     />
+
+    <Dialog open={creating} onClose={() => setCreating(false)} maxWidth="sm" fullWidth>
+      <DialogTitle>Crear nuevo paciente</DialogTitle>
+      <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
+      <TextField label="Nombre" name="name" value={newPatient.name} onChange={handleNewPatientChange} fullWidth />
+      <TextField label="Apellido" name="lastName" value={newPatient.lastName} onChange={handleNewPatientChange} fullWidth />
+      <TextField label="Teléfono" name="phoneNumber" value={newPatient.phoneNumber} onChange={handleNewPatientChange} fullWidth />
+      <TextField label="Dirección" name="address" value={newPatient.address} onChange={handleNewPatientChange} fullWidth />
+      <TextField label="Correo Electrónico" name="email" value={newPatient.email} onChange={handleNewPatientChange} fullWidth />
+      <TextField label="Contraseña" name="password" type="password" value={newPatient.password} onChange={handleNewPatientChange} fullWidth />
+      <TextField label="Obra social" name="healtInsurance" value={newPatient.healtInsurance} onChange={handleNewPatientChange} fullWidth />
+      <label>
+        <input
+          type="checkbox"
+          name="isAvailable"
+          checked={newPatient.isAvailable}
+          onChange={handleNewPatientChange}
+        />
+        ¿Está disponible?
+      </label>
+    </DialogContent>
+
+      <DialogActions>
+        <Button onClick={() => setCreating(false)}>Cancelar</Button>
+        <Button onClick={handleCreatePatient} variant="contained">Crear</Button>
+      </DialogActions>
+    </Dialog>
 
     <Dialog open={Boolean(editingPatient)} onClose={() => setEditingPatient(null)} maxWidth="sm" fullWidth>
     <DialogTitle>Editar paciente</DialogTitle>
