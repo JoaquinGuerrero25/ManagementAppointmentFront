@@ -78,7 +78,30 @@ const PatientsList = () => {
         }
       };
 
+      const validateForm = (patient, isEditing) => {
+        if (!patient.name || !patient.lastName || !patient.phoneNumber || !patient.email || !patient.healtInsurance) {
+          return 'Por favor complete todos los campos obligatorios.';
+        }
+        if (!/\S+@\S+\.\S+/.test(patient.email)) {
+          return 'El correo electrónico no es válido.';
+        }
+
+        if (!isEditing && patient.password.length < 7)
+        {
+          return 'La contraseña debe tener un mínimo de 8 caracteres';
+        }
+
+        return null; // No hay errores
+      };
+
       const handleSaveChanges = async () => {
+
+        const error = validateForm(formValues, true);
+        if (error) {
+          alert(error);
+          return;
+        }
+
         try {
           const response = await fetch(`https://localhost:7006/api/Patient/${editingPatient.id}`, {
             method: 'PUT',
@@ -118,6 +141,11 @@ const PatientsList = () => {
       };
       
       const handleCreatePatient = async () => {
+        const error = validateForm(newPatient, false);
+        if (error) {
+          alert(error);
+          return;
+        }
         try {
           const response = await fetch('https://localhost:7006/api/Patient', {
             method: 'POST',
@@ -128,7 +156,6 @@ const PatientsList = () => {
           });
       
           if (response.ok) {
-            // ✅ Volver a cargar todos los pacientes
             await fetchPatients();
       
             setCreating(false);
@@ -153,15 +180,10 @@ const PatientsList = () => {
         }
       };
       
-      
-      
-
-
       const handleEditPatient = (patient) => {
         setEditingPatient(patient);
         setFormValues(patient); 
-      };
-      
+      };      
       
       const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -185,8 +207,6 @@ const PatientsList = () => {
             
         }];
 
-
-
   return (
     <>
 
@@ -197,9 +217,9 @@ const PatientsList = () => {
       size="medium" 
       onClick={() => setCreating(true)}
       sx={{
-        mt: 2, // 👉 margen superior
-        ml: 2, // margen izquierdo (si querés separarlo del borde)
-        mb: 2  // margen inferior opcional  
+        mt: 2, 
+        ml: 2, 
+        mb: 2
       }}
     >
       <AddIcon />
