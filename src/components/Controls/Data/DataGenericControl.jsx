@@ -5,7 +5,6 @@ export const DataGenericControl = ({ icon, label, data, width = '100%', labelBut
     const { darkMode } = useThemeMode();
     return (
         <Card
-            // variant="outlined"
             elevation={2}
             sx={{
                 width: width,
@@ -38,7 +37,7 @@ export const DataGenericControl = ({ icon, label, data, width = '100%', labelBut
                     component='p'
                     sx={{
                         fontSize: '32px',
-                        fontWeight: '800',
+                        fontWeight: '700',
                         textAlign: 'end'
                     }}
                 >

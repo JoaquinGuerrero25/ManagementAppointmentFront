@@ -95,7 +95,7 @@ export const Navbar = ({ children }) => {
                     '& .MuiDrawer-paper': {
                         height: 'calc(100vh - 50px)',
                         boxSizing: 'border-box',
-                        width: '300px',
+                        width: '260px',
                         marginTop: '50px',
                     },
                 }}
@@ -114,7 +114,7 @@ export const Navbar = ({ children }) => {
             <Box
                 sx={{
                     minHeight: '100vh',
-                    width: { sm: `100%`, md: `calc(100% - 300px)` },
+                    width: { sm: `100%`, md: `calc(100% - 260px)` },
                     display: 'flex',
                     paddingTop: '82px',
                     alignItems: 'start',

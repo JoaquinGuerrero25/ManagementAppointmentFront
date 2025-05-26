@@ -10,16 +10,16 @@ export const linksNavbar = [
     },
     {
         Title: 'Pacientes',
-        Link: '',
+        Link: '/administrador/pacientes',
         Icon: PeopleAltRounded,
-        hasSubLinks: true,
-        Role: 'Doctor',
-        SubLinks: [
-            {
-                Title: 'Lista de doctores',
-                Link: '/doctor/pacientes',
-            },
-        ]
+        hasSubLinks: false,
+        Role: 'Admin',
+        // SubLinks: [
+        //     {
+        //         Title: 'Lista de doctores',
+        //         Link: '/doctor/pacientes',
+        //     },
+        // ]
     },
     {
         Title: 'Doctores',
