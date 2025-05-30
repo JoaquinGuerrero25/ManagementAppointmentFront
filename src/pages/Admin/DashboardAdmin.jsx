@@ -1,13 +1,13 @@
 import { MainLayout } from "../../layouts/MainLayout";
 import { DataGenericControl } from "../../components/Controls/Data/DataGenericControl";
 import { EventAvailableRounded, GroupRounded, MedicalServicesRounded } from "@mui/icons-material";
-import { get_data_dashboard_admin } from "../../api/adminService";
+import { get_data_dashboard_admin } from "../../api/services/adminService";
 import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { GenericTable } from "../../components/Tables/GenericTable";
 import { specialtyModel } from "../../constants/specialtyConstant";
-import { get_specialties } from "../../api/specialtyService";
+import { get_specialties } from "../../api/services/specialtyService";
 import { ButtonTextControl } from "../../components/Controls/Buttons/ButtonTextControl";
 
 export const DashboardAdmin = () => {

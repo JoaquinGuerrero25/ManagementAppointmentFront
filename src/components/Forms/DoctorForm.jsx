@@ -6,8 +6,8 @@ import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
 import { buildPlainObjectFromFields } from "../../utils/formUtils";
 import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl";
 import { SelectGenericControl } from "../Controls/Select/SelectGenericControl";
-import { get_specialties } from "../../api/specialtyService";
-import { add_doctor, update_doctor } from "../../api/doctorService";
+import { get_specialties } from "../../api/services/specialtyService";
+import { add_doctor, update_doctor } from "../../api/services/doctorService";
 
 export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
     const isEditMode = Boolean(doctor);

@@ -1,9 +1,10 @@
 import { KeyboardArrowDownRounded, KeyboardArrowRightRounded } from "@mui/icons-material";
-import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography, typographyClasses } from "@mui/material";
+import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useState, useEffect } from "react";
 import { linksNavbar } from "../../utils/navbarLinks";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useThemeMode } from "../../context/ThemeProvider";
+import { logoutUser } from "../../features/auth/authThunks";
 
 export const NavigationLinks = () => {
     const { darkMode } = useThemeMode();
@@ -22,8 +23,20 @@ export const NavigationLinks = () => {
         }
     }, [currentPath]);
 
+    const handleLogout = async () => {
+        logoutUser();
+    };
+
     return (
-        <Box sx={{ width: "100%" }}>
+        <Box
+            sx={{
+                width: "100%",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '100%'
+            }}
+        >
             <List
                 sx={{
                     padding: "0px 12px",
@@ -145,6 +158,9 @@ export const NavigationLinks = () => {
                     );
                 })}
             </List>
+            <ListItemButton onClick={handleLogout} sx={{ color: 'red', justifyContent: 'center', width: '100%', maxHeight: '40px' }}>
+                Cerrar Sesión
+            </ListItemButton>
         </Box>
     );
 };

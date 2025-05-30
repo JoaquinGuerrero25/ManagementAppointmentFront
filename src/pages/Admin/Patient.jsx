@@ -4,7 +4,7 @@ import { ButtonGenericControl } from "../../components/Controls/Buttons/ButtonGe
 import { GenericTable } from "../../components/Tables/GenericTable";
 import { useEffect, useState } from "react";
 import { patientModel } from "../../constants/patientConstant";
-import { get_patients } from "../../api/patientService";
+import { get_patients } from "../../api/services/patientService";
 import { Add } from "@mui/icons-material";
 
 export const Patient = () => {

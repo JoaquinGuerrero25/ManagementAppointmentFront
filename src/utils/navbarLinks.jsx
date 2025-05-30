@@ -14,12 +14,6 @@ export const linksNavbar = [
         Icon: PeopleAltRounded,
         hasSubLinks: false,
         Role: 'Admin',
-        // SubLinks: [
-        //     {
-        //         Title: 'Lista de doctores',
-        //         Link: '/doctor/pacientes',
-        //     },
-        // ]
     },
     {
         Title: 'Doctores',
@@ -31,6 +25,13 @@ export const linksNavbar = [
     {
         Title: 'Especialidades',
         Link: '/administrador/especialidades',
+        Icon: MonitorHeartRounded,
+        hasSubLinks: false,
+        Role: 'Admin',
+    },
+    {
+        Title: 'Login',
+        Link: '/iniciar-sesion',
         Icon: MonitorHeartRounded,
         hasSubLinks: false,
         Role: 'Admin',

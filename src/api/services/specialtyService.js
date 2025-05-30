@@ -1,8 +1,7 @@
-import { api } from './api';
+import { get_base } from "./baseService";
 
 export const get_specialties = async () => {
-    const response = await api.get('Specialty');
-    return response.data.value;
+    return await get_base('Specialty');
 }
 
 export const get_specialty_by_id = async (id) => {

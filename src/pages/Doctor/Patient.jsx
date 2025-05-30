@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { MainLayout } from "../../layouts/MainLayout";
 import { useThemeMode } from "../../context/ThemeProvider";
 import { patientModel } from "../../constants/patientConstant";
-import { get_patients } from "../../api/patientService";
-import { useEffect, useState } from "react";
+import { get_patients } from "../../api/services/patientService";
 import { GenericTable } from "../../components/Tables/GenericTable";
 
 export const Patient = () => {

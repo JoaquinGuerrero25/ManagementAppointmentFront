@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Register } from "../pages/Auth/Register";
-import { Login } from "../pages/Auth/Login";
 import { Specialty } from "../pages/Admin/Specialty";
 import { DashboardAdmin } from "../pages/Admin/DashboardAdmin";
 import { Doctor } from "../pages/Admin/Doctor";
 import { Patient } from "../pages/Admin/Patient";
+import { LoginPage } from "../features/auth/pages/LoginPage";
+import { RegisterPatientPage } from "../features/auth/pages/RegisterPage";
+import { PublicRoutes } from "./PublicRoutes";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRoutes = () => {
     return (
@@ -12,11 +14,11 @@ export const AppRoutes = () => {
             <Routes>
 
                 {/* Auth Routes */}
-                <Route path="/iniciar-sesion" element={<Login />} />
-                <Route path="/registro" element={<Register />} />
+                <Route path="/iniciar-sesion" element={<PublicRoutes><LoginPage /></PublicRoutes>} />
+                <Route path="/registro" element={<PublicRoutes><RegisterPatientPage /></PublicRoutes>} />
 
                 {/* Admin Routes */}
-                <Route path="/" element={<DashboardAdmin />} />
+                <Route path="/" element={<PrivateRoute><DashboardAdmin /></PrivateRoute>} />
                 <Route path="/administrador/especialidades" element={<Specialty />} />
                 <Route path="/administrador/pacientes" element={<Patient />} />
                 <Route path="/administrador/doctores" element={<Doctor />} />

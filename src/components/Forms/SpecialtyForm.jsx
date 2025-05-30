@@ -5,7 +5,7 @@ import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
 import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl";
 import { buildPlainObjectFromFields } from "../../utils/formUtils";
 import { useEffect, useState } from "react";
-import { add_specialty, update_specialty } from "../../api/specialtyService";
+import { add_specialty, update_specialty } from "../../api/services/specialtyService";
 
 export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
     const isEditMode = Boolean(specialty);
@@ -28,7 +28,6 @@ export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
     };
 
     const handleSubmit = async () => {
-        // Enviar sólo formData limpio
         if (isEditMode) {
             await update_specialty(specialty.id, formData);
         } else {

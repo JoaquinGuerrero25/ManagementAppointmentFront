@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { MainLayout } from "../../layouts/MainLayout";
 import { GenericTable } from "../../components/Tables/GenericTable";
 import { useEffect, useState } from "react";
-import { get_doctors } from "../../api/doctorService";
+import { get_doctors } from "../../api/services/doctorService";
 import { doctorModel } from "../../constants/doctorConstant";
 import { Add, EditRounded } from "@mui/icons-material";
 import { DoctorForm } from "../../components/Forms/DoctorForm";

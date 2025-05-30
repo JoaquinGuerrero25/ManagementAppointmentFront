@@ -56,7 +56,6 @@ export const Navbar = ({ children }) => {
                 </Box>
                 <Toolbar sx={{ width: '50px', display: { md: 'none' } }}>
                     <IconButton
-                        color="inherit"
                         aria-label="open bar"
                         edge="start"
                         onClick={() => setMobileOpen(true)}

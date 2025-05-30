@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { delete_specialty, get_specialties } from "../../api/specialtyService";
+import { delete_specialty, get_specialties } from "../../api/services/specialtyService";
 import { GenericTable } from "../../components/Tables/GenericTable";
 import { specialtyModel } from "../../constants/specialtyConstant";
 import { MainLayout } from "../../layouts/MainLayout";
