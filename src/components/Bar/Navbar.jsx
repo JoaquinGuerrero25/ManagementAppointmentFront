@@ -119,10 +119,10 @@ export const Navbar = ({ children }) => {
                     minHeight: '100vh',
                     width: { sm: `100%`, md: `calc(100% - 300px)` },
                     display: 'flex',
-                    paddingTop: '82px',
+                    paddingTop: {xs: '72px', md: '80px'},
                     alignItems: 'start',
                     justifyContent: 'center',
-                    paddingX: 2,
+                    paddingX: { xs: 'calc(2 * var(--spacing))', sm: 'calc(3 * var(--spacing))', lg: 'calc(5 * var(--spacing))' }
                 }}
             >
                 {children}

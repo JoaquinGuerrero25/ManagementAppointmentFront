@@ -78,7 +78,6 @@ export const ThemeModeProvider = ({ children }) => {
                             backgroundColor: 'transparent',
                             backdropFilter: 'blur(16px)',
                             WebkitBackdropFilter: 'blur(16px)',
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
                             backgroundImage: 'none',
                             boxShadow: 'none',
                             display: 'flex',
