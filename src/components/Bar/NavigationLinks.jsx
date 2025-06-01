@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { linksNavbar } from "../../utils/navbarLinks";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useThemeMode } from "../../context/ThemeProvider";
-import { logoutUser } from "../../features/auth/authThunks";
 
 export const NavigationLinks = () => {
     const { darkMode } = useThemeMode();
@@ -23,10 +22,6 @@ export const NavigationLinks = () => {
         }
     }, [currentPath]);
 
-    const handleLogout = async () => {
-        logoutUser();
-    };
-
     return (
         <Box
             sx={{
@@ -37,15 +32,7 @@ export const NavigationLinks = () => {
                 height: '100%'
             }}
         >
-            <List
-                sx={{
-                    padding: "0px 12px",
-                    paddingTop: "20px",
-                    gap: "4px",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
+            <List>
                 {linksNavbar.map((nav) => {
                     const isSubLinkActive = nav.hasSubLinks && nav.SubLinks.some((s) => s.Link === currentPath);
                     const isActive = nav.Link === currentPath;
@@ -58,43 +45,18 @@ export const NavigationLinks = () => {
                     return (
                         <div key={nav.Title}>
                             {!nav.hasSubLinks ? (
-                                <ListItemButton
-                                    selected={isActive}
-                                    onClick={() => navigate(nav.Link)}
-                                    sx={{
-                                        borderRadius: "10px",
-                                        height: '40px',
-                                    }}
-                                >
+                                <ListItemButton selected={isActive} onClick={() => navigate(nav.Link)} >
                                     <ListItemIcon>
-                                        <nav.Icon sx={{ fontSize: "24px" }} />
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        sx={{
-                                            fontSize: "20px",
-                                        }}
-                                        primary={nav.Title}
-                                        slotProps={{
-                                            primary: {
-                                                fontWeight: isActive && '600',
-                                                letterSpacing: isActive && '0.3px',
-                                            }
-                                        }}
-                                    />
+                                        <nav.Icon color={isActive ? (darkMode ? 'red' : 'green') : undefined} />                                    </ListItemIcon>
+                                    <ListItemText primary={nav.Title} />
                                 </ListItemButton>
                             ) : (
                                 <Box>
-                                    <ListItemButton
-                                        onClick={handleToggle}
-                                        sx={{
-                                            height: '40px',
-                                            borderRadius: "10px",
-                                        }}
-                                    >
+                                    <ListItemButton onClick={handleToggle}>
                                         <ListItemIcon>
-                                            <nav.Icon sx={{ fontSize: "24px" }} />
+                                            <nav.Icon />
                                         </ListItemIcon>
-                                        <ListItemText sx={{ fontSize: "20px" }} primary={nav.Title} />
+                                        <ListItemText primary={nav.Title} />
                                         {isOpen ? (
                                             <KeyboardArrowDownRounded />
                                         ) : (
@@ -158,9 +120,6 @@ export const NavigationLinks = () => {
                     );
                 })}
             </List>
-            <ListItemButton onClick={handleLogout} sx={{ color: 'red', justifyContent: 'center', width: '100%', maxHeight: '40px' }}>
-                Cerrar Sesión
-            </ListItemButton>
         </Box>
     );
 };

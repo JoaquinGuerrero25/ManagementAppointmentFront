@@ -10,7 +10,7 @@ export const DataGenericControl = ({ icon, label, data, width = '100%', labelBut
                 width: width,
                 borderRadius: '12px',
                 padding: 1,
-                background: darkMode ? '#161b22' : 'ffffff'
+                backgroundImage: "none"
             }}
         >
             <CardHeader avatar={icon} sx={{ height: '52px' }} />

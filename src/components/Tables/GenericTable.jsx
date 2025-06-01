@@ -53,7 +53,6 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                 overflow: 'hidden',
                 border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
                 borderRadius: '12px',
-                backgroundImage: 'none',
             }}
         >
             <Box

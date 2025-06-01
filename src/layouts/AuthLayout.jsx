@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useThemeMode } from "../context/ThemeProvider";
 import { Emergency } from "@mui/icons-material";
+import logo from '../assets/icons/logo.png';
 
 export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) => {
     const { darkMode } = useThemeMode();
@@ -91,7 +92,9 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                                 height: "64px",
                             }}
                         >
-                            <Emergency sx={{ fontSize: "36px" }} />
+                            <Box marginRight={'8px'}>
+                                <img src={logo} alt="Logo Clinica UTN" width={'40px'} height={'40px'}/>
+                            </Box>
                             <Typography
                                 component="h3"
                                 sx={{ fontWeight: "500", letterSpacing: "0.5px", fontSize: "24px" }}

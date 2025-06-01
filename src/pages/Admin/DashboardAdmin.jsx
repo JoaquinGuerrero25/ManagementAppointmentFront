@@ -9,6 +9,7 @@ import { GenericTable } from "../../components/Tables/GenericTable";
 import { specialtyModel } from "../../constants/specialtyConstant";
 import { get_specialties } from "../../api/services/specialtyService";
 import { ButtonTextControl } from "../../components/Controls/Buttons/ButtonTextControl";
+import { WelcomeCard } from "../../components/Home/WelcomeCard";
 
 export const DashboardAdmin = () => {
     const navigate = useNavigate();
@@ -43,6 +44,7 @@ export const DashboardAdmin = () => {
                         Bienvenido al panel de control. Encuentra un resumen con la información más relevante.
                     </Typography>
                 </Box>
+                <WelcomeCard />
                 <Box
                     width='100%'
                     display="grid"

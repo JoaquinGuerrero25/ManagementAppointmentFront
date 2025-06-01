@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { AppBar, Box, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 import { NavigationLinks } from "./NavigationLinks";
-import { Emergency, Menu } from "@mui/icons-material";
+import { Menu, SettingsRounded } from "@mui/icons-material";
 import { useThemeMode } from "../../context/ThemeProvider";
 import { ButtonThemeMode } from "../Controls/Buttons/ButtonThemeMode";
+import { UserMenu } from "../UserMenu";
+import logo from '../../assets/icons/logo.png';
 
 export const Navbar = ({ children }) => {
     const { darkMode } = useThemeMode();
+
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const container = typeof window !== "undefined" ? () => window.document.body : undefined;
@@ -18,52 +21,31 @@ export const Navbar = ({ children }) => {
                 justifyContent: 'end',
             }}
         >
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: '100%',
-                    backgroundImage: 'none',
-                    background: 'none',
-                    boxShadow: 'none',
-                    height: '50px',
-                    backgroundColor: darkMode ? '#161b22' : 'white',
-                    borderBottom: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                    display: 'flex',
-                    flexDirection: 'row-reverse',
-                    alignItems: 'center',
-                    justifyContent: 'start'
-                }}
-            >
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "start",
-                        padding: "0px 16px",
-                        gap: 2,
-                        height: "50px",
-                        width: 'auto',
-                        color: darkMode ? 'white' : 'black'
-                    }}
-                >
-                    <Emergency sx={{ fontSize: "36px" }} />
-                    <Typography
-                        component="h3"
-                        sx={{ fontWeight: "500", letterSpacing: "0.5px", fontSize: "24px" }}
-                    >
-                        Clinica UTN
-                    </Typography>
-                </Box>
+            <AppBar position="fixed" sx={{ height: { xs: '64px', md: '72px' } }}>
+                {/* aca tiene que ir el avatar y settings */}
                 <Toolbar sx={{ width: '50px', display: { md: 'none' } }}>
                     <IconButton
                         aria-label="open bar"
                         edge="start"
                         onClick={() => setMobileOpen(true)}
-                        sx={{ mr: 2, display: { md: 'none' } }}
+                        sx={{ display: { md: 'none' } }}
                     >
                         <Menu />
                     </IconButton>
                 </Toolbar>
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'end',
+                        gap: '8px',
+                    }}
+                >
+                    <SettingsRounded />
+                    <UserMenu />
+                </Box>
             </AppBar>
             <Drawer
                 container={container}
@@ -72,7 +54,6 @@ export const Navbar = ({ children }) => {
                 onClose={() => setMobileOpen(false)}
                 sx={{
                     display: { xs: 'block', md: 'none' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '320px' },
                 }}
             >
                 <Box sx={{
@@ -81,6 +62,17 @@ export const Navbar = ({ children }) => {
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                 }}>
+                    <Box
+                        sx={{
+                            height: { xs: '64px', lg: '72px' },
+                            display: "flex",
+                            alignItems: 'center',
+                            paddingLeft: 'calc(2 * var(--spacing))',
+                            paddingY: '12px'
+                        }}
+                    >
+                        <img src={logo} alt="Logo clinica UTN" style={{ height: '40px', width: '40px' }} />
+                    </Box>
                     <NavigationLinks />
                     <ButtonThemeMode />
                 </Box>
@@ -92,10 +84,11 @@ export const Navbar = ({ children }) => {
                     position: 'relative',
                     marginTop: '50px',
                     '& .MuiDrawer-paper': {
-                        height: 'calc(100vh - 50px)',
+                        height: '100vh',
                         boxSizing: 'border-box',
-                        width: '260px',
-                        marginTop: '50px',
+                        background: darkMode ? 'var(--fondo-oscuro)' : '#FFFFFF',
+                        width: '299px',
+                        borderRight: '1px solid var(rgba(var(---grey-500) / 0.8), rgba(var(---grey-500) / 0.12))'
                     },
                 }}
                 open
@@ -106,6 +99,17 @@ export const Navbar = ({ children }) => {
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                 }}>
+                    <Box
+                        sx={{
+                            height: { xs: '64px', lg: '72px' },
+                            display: "flex",
+                            alignItems: 'center',
+                            paddingLeft: 'calc(2 * var(--spacing))',
+                            paddingY: '12px'
+                        }}
+                    >
+                        <img src={logo} alt="Logo clinica UTN" style={{ height: '40px', width: '40px' }} />
+                    </Box>
                     <NavigationLinks />
                     <ButtonThemeMode />
                 </Box>
@@ -113,7 +117,7 @@ export const Navbar = ({ children }) => {
             <Box
                 sx={{
                     minHeight: '100vh',
-                    width: { sm: `100%`, md: `calc(100% - 260px)` },
+                    width: { sm: `100%`, md: `calc(100% - 300px)` },
                     display: 'flex',
                     paddingTop: '82px',
                     alignItems: 'start',
