@@ -6,7 +6,7 @@ import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
 import { buildPlainObjectFromFields } from "../../utils/formUtils";
 import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl";
 import { SelectGenericControl } from "../Controls/Select/SelectGenericControl";
-import { get_specialties } from "../../api/services/specialtyService";
+// import { get_specialties } from "../../api/services/specialtyService";
 import { add_doctor, update_doctor } from "../../api/services/doctorService";
 
 export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
@@ -15,7 +15,7 @@ export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
     const [specialties, setSpecialties] = useState([]);
 
     const handleSpecialties = async () => {
-        const data = await get_specialties();
+        // const data = await get_specialties();
         setSpecialties(data);
     };
 

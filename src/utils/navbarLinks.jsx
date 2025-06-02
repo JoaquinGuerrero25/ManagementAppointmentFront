@@ -1,39 +1,41 @@
 import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded } from "@mui/icons-material";
 
 export const linksNavbar = [
+    // Links administrador
     {
         Title: 'Panel de control',
         Link: '/',
         Icon: DashboardRounded,
         hasSubLinks: false,
-        Role: 'Admin'
+        Role: ['Admin']
     },
     {
         Title: 'Pacientes',
         Link: '/administrador/pacientes',
         Icon: PeopleAltRounded,
         hasSubLinks: false,
-        Role: 'Admin',
+        Role: ['Admin'],
     },
     {
         Title: 'Doctores',
         Link: '/administrador/doctores',
         Icon: HealthAndSafetyRounded,
         hasSubLinks: false,
-        Role: 'Admin',
+        Role: ['Admin'],
     },
     {
         Title: 'Especialidades',
         Link: '/administrador/especialidades',
         Icon: MonitorHeartRounded,
         hasSubLinks: false,
-        Role: 'Admin',
+        Role: ['Admin'],
     },
+    // Links Pacientes
     {
-        Title: 'Login',
-        Link: '/iniciar-sesion',
-        Icon: MonitorHeartRounded,
+        Title: 'Panel de control',
+        Link: '/',
+        Icon: DashboardRounded,
         hasSubLinks: false,
-        Role: 'Admin',
+        Role: ['Patient']
     },
 ];

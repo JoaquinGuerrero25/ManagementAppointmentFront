@@ -1,34 +1,36 @@
 import { useEffect, useState } from "react";
-import { delete_specialty, get_specialties } from "../../api/services/specialtyService";
-import { GenericTable } from "../../components/Tables/GenericTable";
-import { specialtyModel } from "../../constants/specialtyConstant";
-import { MainLayout } from "../../layouts/MainLayout";
-import { Box, Typography } from "@mui/material";
-import { ButtonGenericControl } from "../../components/Controls/Buttons/ButtonGenericControl";
+import { SpecialtyForm } from "../components/SpecialtyForm";
+import { GenericTable } from "../../../components/Tables/GenericTable";
+import { specialtyModel } from "../../../constants/specialtyConstant";
+import { MainLayout } from "../../../layouts/MainLayout";
+import { delete_specialty } from "../specialtyService";
 import { Add, DeleteRounded, EditRounded } from "@mui/icons-material";
-import { GenericConfirmDialog } from "../../components/Dialog/GenericConfirmDialog";
-import { SpecialtyForm } from "../../components/Forms/SpecialtyForm";
+import { GenericConfirmDialog } from "../../../components/Dialog/GenericConfirmDialog";
+import { Box, Typography } from "@mui/material";
+import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
+import { get_specialties_thunks } from "../specialtyThunks";
 
-export const Specialty = () => {
+export const SpecialtyPage = () => {
+    const [specialties, setSpecialties] = useState([]);
     const [openDialogForm, setOpenDialogForm] = useState(false);
     const [openDialogDelete, setOpenDialogDelete] = useState(false);
-    const [specialtySelected, setSpecialtySelected] = useState(null); // para el edit o delete
-    const [specialties, setSpecialties] = useState([]); //para mostrar todas las especialidades
+    const [specialtySelected, setSpecialtySelected] = useState(null);
 
-    // obtener todas las especialidades
     const handleSpecialties = async () => {
-        const data = await get_specialties();
+        const data = await get_specialties_thunks();
         setSpecialties(data);
     };
 
-    // limpia la especialidad seleccionada y cierra los dialogs
+    useEffect(() => {
+        handleSpecialties();
+    }, []);
+
     const handleCloseDialogSpecialty = () => {
         setOpenDialogDelete(false);
         setOpenDialogForm(false);
         setSpecialtySelected(null);
     };
 
-    // accion para eliminar
     const confirmDelete = async () => {
         if (specialtySelected) {
             await delete_specialty(specialtySelected.id);
@@ -42,7 +44,6 @@ export const Specialty = () => {
         handleCloseDialogSpecialty();
     };
 
-    // Accion editar
     const actionEdit = {
         Icon: EditRounded,
         Label: 'Editar',
@@ -52,7 +53,6 @@ export const Specialty = () => {
         },
     };
 
-    // Accion eliminar
     const actionDelete = {
         Icon: DeleteRounded,
         Label: 'Eliminar',
@@ -62,16 +62,27 @@ export const Specialty = () => {
         },
     };
 
-    // carga las especialidades cuando se renderiza la vista
-    useEffect(() => {
-        handleSpecialties();
-    }, []);
-
     return (
         <MainLayout>
-            <Box pb={6} px={2} width={'100%'} display={"flex"} flexDirection={'column'} gap={3}>
-                <Box display='flex' sx={{ flexDirection: { xs: 'column', sm: 'row' } }} alignItems={'center'} justifyContent={'space-between'}>
-                    <Box>
+            <Box
+                width={'100%'}
+                display={'flex'}
+                flexDirection={'column'}
+                alignItems={'center'}
+                justifyContent={'start'}
+                gap={'calc(2 * var(--spacing))'}
+            >
+                <Box
+                    width={'100%'}
+                    display='flex'
+                    justifyContent='space-between'
+                    gap='calc(2 * var(--spacing))'
+                    sx={{
+                        alignItems: { xs: 'start', md: 'center' },
+                        flexDirection: { xs: 'column', md: 'row' }
+                    }}
+                >
+                    <Box display='flex' flexDirection='column' alignItems='start' justifyContent='center' gap='var(--spacing)'>
                         <Typography variant="h2" component='h2' sx={{ fontSize: '28px', fontWeight: '700' }}>
                             Especialidades
                         </Typography>
@@ -81,18 +92,19 @@ export const Specialty = () => {
                     </Box>
                     <ButtonGenericControl label="Agregar" icon={<Add fontSize="large" />} iconPosition="start" action={() => setOpenDialogForm(true)} />
                 </Box>
-                <GenericTable columns={specialtyModel} rows={specialties} filterKeys={['name', 'description']} actions={[actionEdit, actionDelete]} />
+                <GenericTable
+                    columns={specialtyModel}
+                    rows={specialties}
+                    filterKeys={['name', 'description']}
+                    actions={[actionEdit, actionDelete]}
+                />
             </Box>
-
-            {/* FORMULARIO PARA CREAR/EDITAR ESPECIALIDAD */}
             <SpecialtyForm
                 open={openDialogForm}
                 onClose={handleCloseDialogSpecialty}
                 onSubmit={handleFormSubmit}
                 specialty={specialtySelected}
             />
-
-            {/* CONFIRMACION PARA ELIMINAR UNA ESPECIALIDAD */}
             <GenericConfirmDialog
                 open={openDialogDelete}
                 onClose={handleCloseDialogSpecialty}
@@ -101,6 +113,6 @@ export const Specialty = () => {
                 message={`¿Estás seguro que deseas eliminar la especialidad "${specialtySelected?.name}"? Esta acción no se puede deshacer.`}
                 confirmLabel="Eliminar"
             />
-        </MainLayout >
+        </MainLayout>
     );
 };

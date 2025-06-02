@@ -120,6 +120,7 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                             ))}
                             {actions && (
                                 <TableCell
+                                    align="right"
                                     sx={{
                                         fontWeight: '600',
                                         letterSpacing: '0.5px',
@@ -133,7 +134,7 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filteredRows
+                        {Array.isArray(filteredRows) && filteredRows
                             ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             ?.map((row, index) => (
                                 <TableRow hover key={index}>
@@ -147,7 +148,7 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                                         </TableCell>
                                     ))}
                                     {actions && (
-                                        <TableCell>
+                                        <TableCell align="right">
                                             <IconButton onClick={(e) => handleMenuOpen(e, row)}>
                                                 <MoreVertRounded />
                                             </IconButton>
@@ -161,14 +162,14 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                                                     paper: {
                                                         sx: {
                                                             borderRadius: '8px',
+                                                            backgroundImage: 'none'
                                                         },
                                                     },
                                                     list: {
                                                         sx: {
-                                                            paddingTop: 0,
-                                                            paddingBottom: 0,
-                                                        },
-                                                    },
+                                                            padding: '6px'
+                                                        }
+                                                    }
                                                 }}
                                             >
                                                 {actions?.map((action, idx) => (
@@ -178,12 +179,7 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                                                             action.Action(row);
                                                             handleMenuClose();
                                                         }}
-                                                        sx={{
-                                                            minWidth: '140px',
-                                                            textAlign: 'start',
-                                                            margin: 1,
-                                                            borderRadius: 2,
-                                                        }}
+                                                        sx={{ borderRadius: '6px' }}
                                                     >
                                                         {action.Icon && (
                                                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}>

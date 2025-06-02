@@ -43,7 +43,6 @@ export const Navbar = ({ children }) => {
                         gap: '8px',
                     }}
                 >
-                    <SettingsRounded />
                     <UserMenu />
                 </Box>
             </AppBar>

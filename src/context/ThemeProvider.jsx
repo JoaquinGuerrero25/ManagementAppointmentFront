@@ -153,6 +153,19 @@ export const ThemeModeProvider = ({ children }) => {
                         },
                     },
                 },
+                MuiButton: {
+                    styleOverrides: {
+                        root: {
+                            background: mode === 'light' ? 'var(--palette-grey-800)' : 'var(--palette-common-white)',
+                            color: mode === 'light' ? 'var(--palette-common-white)' : 'var(--palette-grey-800)',
+                            fontWeight: '800',
+                            fontSize: '0.875rem',
+                            lineHeight: '1.71',
+                            boxShadow: 'none',
+                            borderRadius: 'var(--shape-borderRadius)',
+                        }
+                    }
+                },
             },
         });
     }, [darkMode]);

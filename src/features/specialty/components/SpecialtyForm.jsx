@@ -1,23 +1,25 @@
 import { Box, Dialog, Typography } from "@mui/material";
-import { GenericForm } from "./GenericForm";
-import { specialtyFields } from "../../constants/specialtyConstant";
-import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
-import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl";
-import { buildPlainObjectFromFields } from "../../utils/formUtils";
+import { GenericForm } from "../../../components/Forms/GenericForm";
+import { specialtyFields } from "../../../constants/specialtyConstant";
+import { ButtonTextControl } from "../../../components/Controls/Buttons/ButtonTextControl";
+import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
+import { buildPlainObjectFromFields } from "../../../utils/formUtils";
 import { useEffect, useState } from "react";
-import { add_specialty, update_specialty } from "../../api/services/specialtyService";
+import { add_specialty, update_specialty } from "../specialtyService";
 
 export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
     const isEditMode = Boolean(specialty);
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
-        const initial = buildPlainObjectFromFields(
-            specialtyFields,
-            specialty || {}
-        );
-        setFormData(initial);
-    }, [specialty]);
+        if (open) {
+            const initial = buildPlainObjectFromFields(
+                specialtyFields,
+                specialty || {},
+            );
+            setFormData(initial);
+        }
+    }, [specialty, open]);
 
 
     const handleChange = (name, value) => {

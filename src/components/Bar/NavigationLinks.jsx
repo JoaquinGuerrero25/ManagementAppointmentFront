@@ -4,17 +4,23 @@ import { useState, useEffect } from "react";
 import { linksNavbar } from "../../utils/navbarLinks";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useThemeMode } from "../../context/ThemeProvider";
+import { useSelector } from "react-redux";
 
 export const NavigationLinks = () => {
     const { darkMode } = useThemeMode();
+    const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const location = useLocation();
     const currentPath = location.pathname;
 
     const [openNavLink, setOpenNavLink] = useState(null);
 
+    const filteredLinks = linksNavbar.filter(nav =>
+        nav.Role?.includes(user?.role) || nav.Role?.includes('All')
+    );
+
     useEffect(() => {
-        const openParent = linksNavbar.find((nav) =>
+        const openParent = linksNavbar?.find((nav) =>
             nav.hasSubLinks && nav.SubLinks.some((s) => s.Link === currentPath)
         );
         if (openParent) {
@@ -33,7 +39,7 @@ export const NavigationLinks = () => {
             }}
         >
             <List>
-                {linksNavbar.map((nav) => {
+                {filteredLinks?.map((nav) => {
                     const isSubLinkActive = nav.hasSubLinks && nav.SubLinks.some((s) => s.Link === currentPath);
                     const isActive = nav.Link === currentPath;
                     const isOpen = openNavLink === nav.Title || isSubLinkActive;
@@ -47,7 +53,8 @@ export const NavigationLinks = () => {
                             {!nav.hasSubLinks ? (
                                 <ListItemButton selected={isActive} onClick={() => navigate(nav.Link)} >
                                     <ListItemIcon>
-                                        <nav.Icon color={isActive ? (darkMode ? 'red' : 'green') : undefined} />                                    </ListItemIcon>
+                                        <nav.Icon color={isActive ? (darkMode ? 'red' : 'green') : undefined} />
+                                    </ListItemIcon>
                                     <ListItemText primary={nav.Title} />
                                 </ListItemButton>
                             ) : (

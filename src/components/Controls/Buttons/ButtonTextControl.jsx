@@ -10,9 +10,9 @@ export const ButtonTextControl = ({ label, action }) => {
             onClick={action}
             sx={{
                 color: darkMode ? 'var(--palette-primary-light)' : 'var(--palette-primary-main)',
-                fontWeight: '500',
                 textTransform: 'none',
                 letterSpacing: '0.5px',
+                background: 'none',
                 margin: '0px 12px'
             }}
         >

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-export const ButtonGenericControl = ({ label, icon, iconPosition = "start", action, width = "auto", height = "auto", variant = "contained", color = "primary", disabled = false, }) => {
+export const ButtonGenericControl = ({ label, icon, iconPosition = "start", action, width = "auto", height = "auto", variant = "contained", disabled = false, }) => {
     const startIcon = iconPosition === "start" ? icon : null;
     const endIcon = iconPosition === "end" ? icon : null;
 
@@ -12,19 +12,11 @@ export const ButtonGenericControl = ({ label, icon, iconPosition = "start", acti
             sx={{
                 width,
                 height,
-                fontSize: '16px',
                 textTransform: "none",
                 borderRadius: '8px',
-                fontWeight: 500,
                 letterSpacing: '0.5px',
-                background: 'var(--primary-main)',
-                color: 'white',
-                '&:hover': {
-                    background: 'var(--primary-dark)',
-                },
             }}
             variant={variant}
-            color={color}
             disabled={disabled}
         >
             {label}
