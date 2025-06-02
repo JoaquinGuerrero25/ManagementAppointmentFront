@@ -7,6 +7,7 @@ import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
 
 export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, pagination = true, showViewAllButton = false, onViewAll = () => { } }) => {
     const { darkMode } = useThemeMode();
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuRow, setMenuRow] = useState(null);
     const [search, setSearch] = useState('');
@@ -16,12 +17,15 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
     const filteredRows = useMemo(() => {
         if (!search) return rows;
 
-        const lowerSearch = search.toLowerCase();
+        const normalize = (str) => str?.toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+        const normalizedSearch = normalize(search);
 
         return rows.filter(row =>
             filterKeys.some(key => {
                 const value = row[key];
-                return value?.toString().toLowerCase().includes(lowerSearch);
+                const normalizedValue = normalize(value);
+                return normalizedValue.includes(normalizedSearch);
             })
         );
     }, [rows, filterKeys, search]);
