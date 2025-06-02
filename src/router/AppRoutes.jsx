@@ -6,6 +6,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { DashboardAdminPage } from "../features/dashboard/pages/DashboardAdminPage";
 import { SpecialtyPage } from "../features/specialty/pages/SpecialtyPage";
 import { DoctorAdminPage } from "../features/doctors/pages/DoctorAdminPage";
+import { PatientAdminPage } from "../features/patient/pages/PatientAdminPage";
 
 export const AppRoutes = () => {
     return (
@@ -17,10 +18,10 @@ export const AppRoutes = () => {
                 <Route path="/registro" element={<PublicRoutes><RegisterPatientPage /> </PublicRoutes>} />
 
                 {/* Admin Routes */}
-                <Route path="/" element={<PrivateRoute allowedRoles={["All"]}><DashboardAdminPage /></PrivateRoute>} />
+                <Route path="/" element={<PrivateRoute allowedRoles={["Admin"]}><DashboardAdminPage /></PrivateRoute>} />
+                <Route path="/administrador/pacientes" element={<PrivateRoute allowedRoles={["Admin"]}><PatientAdminPage /></PrivateRoute>} />
                 <Route path="/administrador/doctores" element={<PrivateRoute allowedRoles={["Admin"]}><DoctorAdminPage /></PrivateRoute>} />
                 <Route path="/administrador/especialidades" element={<PrivateRoute allowedRoles={["Admin"]}><SpecialtyPage /></PrivateRoute>} />
-                {/* <Route path="/administrador/pacientes" element={<Doctor />} /> */}
 
                 {/* Doctor Routes */}
                 {/* <Route path="/doctor/pacientes" element={<Patient />} />

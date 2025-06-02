@@ -4,8 +4,8 @@ import { patientCreateFields } from "../../../constants/patientConstant";
 import { GenericForm } from "../../../components/Forms/GenericForm";
 import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
 import { Box } from "@mui/material";
-import { add_patient } from "../../../api/services/patientService";
 import { useNavigate } from "react-router-dom";
+import { add_patient } from "../../patient/patientService";
 
 export const RegisterPatientForm = () => {
     const navigate = useNavigate();

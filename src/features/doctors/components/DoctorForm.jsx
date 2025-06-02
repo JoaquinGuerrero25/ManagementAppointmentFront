@@ -37,7 +37,7 @@ export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
             doctor || {}
         );
         setFormData(initial);
-    }, [doctor]);
+    }, [doctor, open]);
 
     const handleChange = (name, value) => {
         setFormData((prev) => ({
