@@ -176,7 +176,7 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                                                     }
                                                 }}
                                             >
-                                                {actions?.map((action, idx) => (
+                                                {(typeof actions === 'function' ? actions(row) : actions)?.map((action, idx) => (
                                                     <MenuItem
                                                         key={idx}
                                                         onClick={() => {
