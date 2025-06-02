@@ -1,9 +1,9 @@
-import { Container, Typography, Box } from '@mui/material';
-import { DoctorInfoCard } from '../components/Cards/DoctorInfoCard';
-import { DaysAvailableCard } from '../components/Cards/DaysAvailableCard';
-import { EditInfoDoctor } from '../components/EditInfoDoctor';
-import { DaysAvailable } from '../components/DaysAvailable';
-import { MainLayout } from '../layouts/MainLayout';
+import { Container, Typography } from '@mui/material';
+import { DoctorInfoCard } from '../../components/Cards/DoctorInfoCard';
+import { DaysAvailableCard } from '../../components/Cards/DaysAvailableCard';
+import { EditInfoDoctor } from '../../components/EditInfoDoctor';
+import { DaysAvailable } from '../../components/DaysAvailable';
+import { MainLayout } from '../../layouts/MainLayout';
 import { useState } from 'react';
 
 export const DoctorProfile = () => {

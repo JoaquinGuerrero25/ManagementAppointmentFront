@@ -4,6 +4,8 @@ import { Login } from "../pages/Auth/Login";
 import { Specialty } from "../pages/Admin/Specialty";
 import { DashboardAdmin } from "../pages/Admin/DashboardAdmin";
 import { Doctor } from "../pages/Admin/Doctor";
+import { DoctorProfile } from "../pages/Doctor/DoctorProfile";
+import {Appointments} from "../pages/Patient/Appointments";
 
 export const AppRoutes = () => {
     return (
@@ -20,8 +22,11 @@ export const AppRoutes = () => {
                 <Route path="/administrador/doctores" element={<Doctor />} />
 
                 {/* Doctor Routes */}
-                <Route path="/doctor/pacientes" element={<Patient />} />
                 <Route path="/doctor/perfil" element={<DoctorProfile />} />
+
+                {/* Patient Route */}
+                <Route path="/paciente/solicitar-turno" element={<Appointments />} /> 
+
             </Routes>
         </BrowserRouter>
     );
