@@ -5,7 +5,7 @@ export const patientModel = [
     { key: 'address', label: 'Dirección' },
     { key: 'email', label: 'Email' },
     { key: 'healtInsurance', label: 'Obra Social' },
-    { key: 'isAvailable', label: 'Disponible' },
+    { key: 'isAvailable', label: 'Estado' },
 ];
 
 export const patientCreateFields = [

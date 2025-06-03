@@ -1,14 +1,22 @@
 import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded } from "@mui/icons-material";
 
 export const linksNavbar = [
-    // Links administrador
+    // Links generales
     {
         Title: 'Panel de control',
         Link: '/',
         Icon: DashboardRounded,
         hasSubLinks: false,
-        Role: ['Admin']
+        Role: ['All']
     },
+    // Links administrador
+    // {
+    //     Title: 'Panel de control',
+    //     Link: '/',
+    //     Icon: DashboardRounded,
+    //     hasSubLinks: false,
+    //     Role: ['Admin']
+    // },
     {
         Title: 'Pacientes',
         Link: '/administrador/pacientes',
@@ -31,11 +39,19 @@ export const linksNavbar = [
         Role: ['Admin'],
     },
     // Links Pacientes
-    {
-        Title: 'Panel de control',
-        Link: '/',
-        Icon: DashboardRounded,
-        hasSubLinks: false,
-        Role: ['Patient']
-    },
+    // {
+    //     Title: 'Panel de control',
+    //     Link: '/',
+    //     Icon: DashboardRounded,
+    //     hasSubLinks: false,
+    //     Role: ['Patient']
+    // },
+    // Links doctores
+    // {
+    //     Title: 'Panel de control',
+    //     Link: '/',
+    //     Icon: DashboardRounded,
+    //     hasSubLinks: false,
+    //     Role: ['Doctor']
+    // },
 ];
