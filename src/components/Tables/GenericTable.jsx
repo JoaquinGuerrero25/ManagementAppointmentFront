@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
-import { Box, FormControl, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import { Box, FormControl, IconButton, InputAdornment, Menu, MenuItem, OutlinedInput, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { MoreVertRounded, Search } from "@mui/icons-material";
 import { useThemeMode } from "../../context/ThemeProvider";
 import { GenericChip } from "../Chip/GenericChip";
+import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
 
-export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
+export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, pagination = true, showViewAllButton = false, onViewAll = () => { } }) => {
     const { darkMode } = useThemeMode();
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuRow, setMenuRow] = useState(null);
     const [search, setSearch] = useState('');
@@ -15,12 +17,15 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
     const filteredRows = useMemo(() => {
         if (!search) return rows;
 
-        const lowerSearch = search.toLowerCase();
+        const normalize = (str) => str?.toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+        const normalizedSearch = normalize(search);
 
         return rows.filter(row =>
             filterKeys.some(key => {
                 const value = row[key];
-                return value?.toString().toLowerCase().includes(lowerSearch);
+                const normalizedValue = normalize(value);
+                return normalizedValue.includes(normalizedSearch);
             })
         );
     }, [rows, filterKeys, search]);
@@ -46,44 +51,58 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
 
     return (
         <Paper
-            // variant="outlined"
-            elevation={2}
             sx={{
                 width: '100%',
                 overflow: 'hidden',
-                border: darkMode ? '1px solid var(--grey-900)' : '1px solid var(--grey-300)',
-                borderRadius: '12px',
-                backgroundImage: 'none',
+                borderRadius: '16px',
+                boxShadow: 'var(--customShadows-card)',
             }}
         >
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'end',
+                    justifyContent: 'space-between',
+                    padding: 'calc(3 * var(--spacing)) calc(3 * var(--spacing)) 0px;',
+                    marginBottom: 'calc(3 * var(--spacing))',
                 }}
             >
-                {filterKeys?.length > 0 && (
-                    <Box sx={{ padding: 2 }}>
-                        <FormControl fullWidth>
-                            <OutlinedInput
-                                name="search"
-                                type="text"
-                                margin="dense"
-                                placeholder="Buscar"
-                                value={search}
-                                size="small"
-                                onChange={(e) => setSearch(e.target.value)}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <Search />
-                                    </InputAdornment>
-                                }
+                {(title || filterKeys?.length > 0) && (
+                    <Box>
+                        {title && (
+                            <Typography
+                                component='h4'
+                                fontWeight={600}
+                                fontSize={'1.0625rem'}
+                                lineHeight={'1.56'}
                                 sx={{
-                                    borderRadius: '12px',
+                                    padding: '0px'
                                 }}
-                            />
-                        </FormControl>
+                            >
+                                {title}
+                            </Typography>
+                        )}
+                        {filterKeys?.length > 0 && (
+                            <FormControl fullWidth>
+                                <OutlinedInput
+                                    name="search"
+                                    type="text"
+                                    margin="dense"
+                                    placeholder="Buscar"
+                                    value={search}
+                                    size="small"
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    startAdornment={
+                                        <InputAdornment position="start">
+                                            <Search />
+                                        </InputAdornment>
+                                    }
+                                    sx={{
+                                        borderRadius: '12px',
+                                    }}
+                                />
+                            </FormControl>
+                        )}
                     </Box>
                 )}
             </Box>
@@ -91,7 +110,7 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
-                            {columns.map((col, index) => (
+                            {columns?.map((col, index) => (
                                 <TableCell
                                     sx={{
                                         fontWeight: '600',
@@ -105,6 +124,7 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                             ))}
                             {actions && (
                                 <TableCell
+                                    align="right"
                                     sx={{
                                         fontWeight: '600',
                                         letterSpacing: '0.5px',
@@ -118,11 +138,11 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filteredRows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => (
+                        {Array.isArray(filteredRows) && filteredRows
+                            ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            ?.map((row, index) => (
                                 <TableRow hover key={index}>
-                                    {columns.map((col, colIndex) => (
+                                    {columns?.map((col, colIndex) => (
                                         <TableCell key={colIndex}>
                                             {col.key === 'isAvailable' && (
                                                 <GenericChip value={row[col.key]} />
@@ -132,7 +152,7 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                                         </TableCell>
                                     ))}
                                     {actions && (
-                                        <TableCell>
+                                        <TableCell align="right">
                                             <IconButton onClick={(e) => handleMenuOpen(e, row)}>
                                                 <MoreVertRounded />
                                             </IconButton>
@@ -146,29 +166,24 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                                                     paper: {
                                                         sx: {
                                                             borderRadius: '8px',
+                                                            backgroundImage: 'none'
                                                         },
                                                     },
                                                     list: {
                                                         sx: {
-                                                            paddingTop: 0,
-                                                            paddingBottom: 0,
-                                                        },
-                                                    },
+                                                            padding: '6px'
+                                                        }
+                                                    }
                                                 }}
                                             >
-                                                {actions.map((action, idx) => (
+                                                {(typeof actions === 'function' ? actions(row) : actions)?.map((action, idx) => (
                                                     <MenuItem
                                                         key={idx}
                                                         onClick={() => {
                                                             action.Action(row);
                                                             handleMenuClose();
                                                         }}
-                                                        sx={{
-                                                            minWidth: '140px',
-                                                            textAlign: 'start',
-                                                            margin: 1, 
-                                                            borderRadius: 2,
-                                                        }}
+                                                        sx={{ borderRadius: '6px' }}
                                                     >
                                                         {action.Icon && (
                                                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}>
@@ -194,15 +209,24 @@ export const GenericTable = ({ columns, rows, filterKeys = [], actions }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            {pagination && (
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={rows?.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            )}
+            {(showViewAllButton && !pagination) && (
+                <Box>
+                    <Box sx={{ p: '12px', display: 'flex', justifyContent: 'flex-end' }}>
+                        <ButtonTextControl label="Ver todos" action={onViewAll} />
+                    </Box>
+                </Box>
+            )}
         </Paper>
     );
 };

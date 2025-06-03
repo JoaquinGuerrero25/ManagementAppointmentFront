@@ -1,9 +1,16 @@
-import { Button, FormGroup } from "@mui/material";
 import { useState } from "react";
-import { InputGenericControl } from "../Controls/Inputs/InputGenericControl";
-import { InputPasswordControl } from "../Controls/Inputs/InputPasswordControl";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../authThunks";
+import { FormGroup } from "@mui/material";
+import { InputGenericControl } from "../../../components/Controls/Inputs/InputGenericControl";
+import { InputPasswordControl } from "../../../components/Controls/Inputs/InputPasswordControl";
+import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
 
-export const LoginForm = ({ onSubmit }) => {
+export const LoginForm = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
         Email: '',
         Password: '',
@@ -18,9 +25,10 @@ export const LoginForm = ({ onSubmit }) => {
     };
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        await dispatch(loginUser(formData)).unwrap();
+        navigate('/');
     };
 
     return (
@@ -38,23 +46,10 @@ export const LoginForm = ({ onSubmit }) => {
                     value={formData.Password}
                     onChange={handleChange}
                 />
-
-                <Button
-                    variant="contained"
-                    type='submit'
-                    sx={{
-                        textTransform: 'none',
-                        borderRadius: '8px',
-                        height: '40px',
-                        background: 'var(--gradient-blue-button)',
-                        color: "white",
-                        '&:hover': {
-                            background: 'var(--gradient-blue-button-hover)',
-                        },
-                    }}
-                >
-                    Iniciar sesión
-                </Button>
+                <ButtonGenericControl
+                    label={'Iniciar sesión'}
+                    action={handleSubmit}
+                />
             </FormGroup>
         </form>
     );

@@ -1,20 +1,26 @@
 import { KeyboardArrowDownRounded, KeyboardArrowRightRounded } from "@mui/icons-material";
-import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography, typographyClasses } from "@mui/material";
+import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useState, useEffect } from "react";
 import { linksNavbar } from "../../utils/navbarLinks";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useThemeMode } from "../../context/ThemeProvider";
+import { useSelector } from "react-redux";
 
 export const NavigationLinks = () => {
     const { darkMode } = useThemeMode();
+    const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const location = useLocation();
     const currentPath = location.pathname;
 
     const [openNavLink, setOpenNavLink] = useState(null);
 
+    const filteredLinks = linksNavbar.filter(nav =>
+        nav.Role?.includes(user?.role) || nav.Role?.includes('All')
+    );
+
     useEffect(() => {
-        const openParent = linksNavbar.find((nav) =>
+        const openParent = linksNavbar?.find((nav) =>
             nav.hasSubLinks && nav.SubLinks.some((s) => s.Link === currentPath)
         );
         if (openParent) {
@@ -23,17 +29,17 @@ export const NavigationLinks = () => {
     }, [currentPath]);
 
     return (
-        <Box sx={{ width: "100%" }}>
-            <List
-                sx={{
-                    padding: "0px 12px",
-                    paddingTop: "20px",
-                    gap: "4px",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-                {linksNavbar.map((nav) => {
+        <Box
+            sx={{
+                width: "100%",
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '100%'
+            }}
+        >
+            <List>
+                {filteredLinks?.map((nav) => {
                     const isSubLinkActive = nav.hasSubLinks && nav.SubLinks.some((s) => s.Link === currentPath);
                     const isActive = nav.Link === currentPath;
                     const isOpen = openNavLink === nav.Title || isSubLinkActive;
@@ -45,43 +51,19 @@ export const NavigationLinks = () => {
                     return (
                         <div key={nav.Title}>
                             {!nav.hasSubLinks ? (
-                                <ListItemButton
-                                    selected={isActive}
-                                    onClick={() => navigate(nav.Link)}
-                                    sx={{
-                                        borderRadius: "10px",
-                                        height: '40px',
-                                    }}
-                                >
+                                <ListItemButton selected={isActive} onClick={() => navigate(nav.Link)} >
                                     <ListItemIcon>
-                                        <nav.Icon sx={{ fontSize: "24px" }} />
+                                        <nav.Icon color={isActive ? (darkMode ? 'red' : 'green') : undefined} />
                                     </ListItemIcon>
-                                    <ListItemText
-                                        sx={{
-                                            fontSize: "20px",
-                                        }}
-                                        primary={nav.Title}
-                                        slotProps={{
-                                            primary: {
-                                                fontWeight: isActive && '600',
-                                                letterSpacing: isActive && '0.3px',
-                                            }
-                                        }}
-                                    />
+                                    <ListItemText primary={nav.Title} />
                                 </ListItemButton>
                             ) : (
                                 <Box>
-                                    <ListItemButton
-                                        onClick={handleToggle}
-                                        sx={{
-                                            height: '40px',
-                                            borderRadius: "10px",
-                                        }}
-                                    >
+                                    <ListItemButton onClick={handleToggle}>
                                         <ListItemIcon>
-                                            <nav.Icon sx={{ fontSize: "24px" }} />
+                                            <nav.Icon />
                                         </ListItemIcon>
-                                        <ListItemText sx={{ fontSize: "20px" }} primary={nav.Title} />
+                                        <ListItemText primary={nav.Title} />
                                         {isOpen ? (
                                             <KeyboardArrowDownRounded />
                                         ) : (

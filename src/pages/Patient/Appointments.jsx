@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Container, Box, Typography, Button } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { MainLayout } from '../../layouts/MainLayout';
-import { get_specialties } from '../../api/specialtyService';
-import { get_doctors } from '../../api/doctorService';
+import { get_specialties } from '../../features/specialty/specialtyService';
+import { get_doctors } from '../../features/doctors/doctorService';
 import { DoctorCard } from '../../components/Cards/DoctorCard';
 import ScrollToTop from 'react-scroll-to-top';
 

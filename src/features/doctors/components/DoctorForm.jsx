@@ -1,21 +1,29 @@
 import { Box, Dialog, Typography } from "@mui/material";
-import { doctorCreateFields, doctorUpdateFields } from '../../constants/doctorConstant';
+import { doctorCreateFields, doctorUpdateFields } from '../../../constants/doctorConstant';
 import { useEffect, useState } from "react";
-import { GenericForm } from "./GenericForm";
-import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
-import { buildPlainObjectFromFields } from "../../utils/formUtils";
-import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl";
-import { SelectGenericControl } from "../Controls/Select/SelectGenericControl";
-import { get_specialties } from "../../api/specialtyService";
-import { add_doctor, update_doctor } from "../../api/doctorService";
+import { GenericForm } from "../../../components/Forms/GenericForm";
+import { ButtonTextControl } from "../../../components/Controls/Buttons/ButtonTextControl";
+import { buildPlainObjectFromFields } from "../../../utils/formUtils";
+import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
+import { SelectGenericControl } from "../../../components/Controls/Select/SelectGenericControl";
+import { useSelector } from "react-redux";
+import { get_specialties_thunks } from "../../specialty/specialtyThunks";
+import { add_doctor, update_doctor } from "../doctorService";
 
 export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
+    const specialtiesState = useSelector((state) => state.specialties.specialties);
     const isEditMode = Boolean(doctor);
+
     const [formData, setFormData] = useState({});
     const [specialties, setSpecialties] = useState([]);
 
     const handleSpecialties = async () => {
-        const data = await get_specialties();
+        if (Array.isArray(specialtiesState) && specialtiesState.length > 0) {
+            setSpecialties(specialtiesState);
+            return;
+        }
+
+        const data = await get_specialties_thunks();
         setSpecialties(data);
     };
 
@@ -29,7 +37,7 @@ export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
             doctor || {}
         );
         setFormData(initial);
-    }, [doctor]);
+    }, [doctor, open]);
 
     const handleChange = (name, value) => {
         setFormData((prev) => ({

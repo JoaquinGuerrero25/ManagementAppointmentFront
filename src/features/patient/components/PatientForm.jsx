@@ -1,24 +1,25 @@
 import { Box, Dialog, Typography } from "@mui/material";
-import { GenericForm } from "./GenericForm";
-import { specialtyFields } from "../../constants/specialtyConstant";
-import { ButtonTextControl } from "../Controls/Buttons/ButtonTextControl";
-import { ButtonGenericControl } from "../Controls/Buttons/ButtonGenericControl";
-import { buildPlainObjectFromFields } from "../../utils/formUtils";
+import { GenericForm } from "../../../components/Forms/GenericForm";
 import { useEffect, useState } from "react";
-import { add_specialty, update_specialty } from "../../api/specialtyService";
+import { buildPlainObjectFromFields } from "../../../utils/formUtils";
+import { patientCreateFields, patientUpdateFields } from "../../../constants/patientConstant";
+import { ButtonTextControl } from "../../../components/Controls/Buttons/ButtonTextControl";
+import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
+import { add_patient, update_patient } from "../patientService";
 
-export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
-    const isEditMode = Boolean(specialty);
+export const PatientForm = ({ open, patient, onSubmit, onClose }) => {
+    const isEditMode = Boolean(patient);
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
-        const initial = buildPlainObjectFromFields(
-            specialtyFields,
-            specialty || {}
-        );
-        setFormData(initial);
-    }, [specialty]);
-
+        if (open) {
+            const initial = buildPlainObjectFromFields(
+                isEditMode ? patientUpdateFields : patientCreateFields,
+                patient || {}
+            );
+            setFormData(initial);
+        }
+    }, [patient, open]);
 
     const handleChange = (name, value) => {
         setFormData((prev) => ({
@@ -28,11 +29,10 @@ export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
     };
 
     const handleSubmit = async () => {
-        // Enviar sólo formData limpio
         if (isEditMode) {
-            await update_specialty(specialty.id, formData);
+            await update_patient(patient?.id, formData);
         } else {
-            await add_specialty(formData);
+            await add_patient(formData);
         }
         if (onSubmit) onSubmit();
     };
@@ -53,18 +53,17 @@ export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
             <Box p={3}>
                 <Box mb={2} display={'flex'} flexDirection={'column'} gap={1}>
                     <Typography variant="h5" component='h3' sx={{ fontWeight: '500', letterSpacing: '0.3px' }}>
-                        {isEditMode ? 'Editar Especialidad' : 'Agregar Nueva Especialidad'}
+                        {isEditMode ? 'Editar Paciente' : 'Agregar Nuevo Paciente'}
                     </Typography>
                     <Typography component='p' variant="subtitle1" color="textSecondary">
                         {isEditMode
-                            ? 'Modifique los datos de la especialidad médica.'
-                            : 'Complete los datos para agregar una nueva especialidad médica.'}
+                            ? 'Modifique los datos del paciente.'
+                            : 'Complete los datos para agregar un nuevo paciente al sistema.'}
                     </Typography>
                 </Box>
-                <Box>
-
+                <Box display={'flex'} flexDirection={'column'} gap={'16px'}>
                     <GenericForm
-                        fields={specialtyFields}
+                        fields={isEditMode ? patientUpdateFields : patientCreateFields}
                         value={formData}
                         onChange={handleChange}
                     />
@@ -74,6 +73,6 @@ export const SpecialtyForm = ({ open, specialty, onSubmit, onClose }) => {
                     </Box>
                 </Box>
             </Box>
-        </Dialog >
+        </Dialog>
     );
-};
+}

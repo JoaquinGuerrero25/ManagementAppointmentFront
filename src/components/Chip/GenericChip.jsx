@@ -5,25 +5,25 @@ export const GenericChip = ({ value }) => {
     const normalized = String(value).toLowerCase();
 
     const isTrue =
-        normalized === 'true'
-    // normalized === '1' ||
-    // normalized === 'activo' ||
-    // normalized === 'available' ||
-    // normalized === 'habilitado' ||
-    // normalized === 'sí';
+        normalized === 'true' ||
+        normalized === '1' ||
+        normalized === 'activo' ||
+        normalized === 'available' ||
+        normalized === 'habilitado' ||
+        normalized === 'sí';
 
     const isFalse =
-        normalized === 'false'
-    // normalized === '0' ||
-    // normalized === 'inactivo' ||
-    // normalized === 'no disponible' ||
-    // normalized === 'no' ||
-    // normalized === 'deshabilitado';
+        normalized === 'false' ||
+        normalized === '0' ||
+        normalized === 'inactivo' ||
+        normalized === 'no disponible' ||
+        normalized === 'no' ||
+        normalized === 'deshabilitado';
 
     const label = isTrue
-        ? 'Activo'
+        ? 'Habilitado'
         : isFalse
-            ? 'Inactivo'
+            ? 'Deshabilitado'
             : value;
 
     const color = isTrue
@@ -45,7 +45,7 @@ export const GenericChip = ({ value }) => {
             icon={icon}
             color={color}
             size="small"
-            variant="outlined"
+            // variant="outlined"
         />
     );
 };
