@@ -71,13 +71,10 @@ export const DashboardDoctorPage = () => {
                     <InfoCard labelCard="Citas registradas en total" data={String(dataDashboard?.appointmentTotal)} porcentage='0' />
                 </Box>
                 <Box
-                    display="grid"
+                    display={'flex'}
                     sx={{
+                        flexDirection: { xs: 'column', lg: 'row' },
                         gap: 'calc(3 * var(--spacing))',
-                        gridTemplateColumns: {
-                            xs: '1fr',
-                            md: 'repeat(3, 1fr)',
-                        },
                     }}
                 >
                     <Box>
@@ -86,7 +83,11 @@ export const DashboardDoctorPage = () => {
                             appointmentCancel={dataDashboard?.appointmentCanceled}
                         />
                     </Box>
-                    <Box sx={{ gridColumn: { xs: 'auto', md: 'span 2', } }}>
+                    <Box
+                        sx={{
+                            width: { xs: '100%', lg: '70%' },
+                        }}
+                    >
                         <GenericTable
                             title="Historial Médico"
                             columns={medicalHistoryModels}
@@ -100,4 +101,4 @@ export const DashboardDoctorPage = () => {
             </Box>
         </MainLayout>
     );
-}
+};
