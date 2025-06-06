@@ -1,8 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useThemeMode } from "../context/ThemeProvider";
-import { Emergency } from "@mui/icons-material";
 import logo from '../assets/icons/logo.png';
+
+import imgFederadaSalud from '../assets/images/auth/federada-salud.png';
+import imgOsde from '../assets/images/auth/osde.webp';
+import imgSwissMedical from '../assets/images/auth/SwissMedical.png';
+import imgPami from '../assets/images/auth/pami.png';
 
 export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) => {
     const { darkMode } = useThemeMode();
@@ -35,7 +39,7 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                     sx={{
                         textAlign: 'start',
                         fontSize: '32px',
-                        fontWeight: '400',
+                        fontWeight: '600',
                         letterSpacing: '0.5px'
                     }}
                 >
@@ -48,7 +52,12 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                 >
                     Por favor, iniciá sesión o creá tu cuenta para acceder a nuestra plataforma y disfrutar de una experiencia de atención más rápida, organizada y personalizada.
                 </Typography>
-                <div>aca puede ir alguna imagen de obras sociales</div>
+                <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
+                    <img src={imgFederadaSalud} alt="Federada salud" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+                    <img src={imgOsde} alt="Osde" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+                    <img src={imgSwissMedical} alt="SwissMedical" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+                    <img src={imgPami} alt="Pami" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+                </Box>
             </Box>
             <Box
                 sx={{
@@ -66,8 +75,9 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                         width: '100%',
                         maxWidth: {
                             xs: '100%',
-                            md: '440px'
+                            sm: '480px'
                         },
+                        paddingX: { xs: 'calc(2 * var(--spacing))', sm: 'calc(3 * var(--spacing))', lg: 'calc(5 * var(--spacing))' },
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -93,7 +103,7 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                             }}
                         >
                             <Box marginRight={'8px'}>
-                                <img src={logo} alt="Logo Clinica UTN" width={'40px'} height={'40px'}/>
+                                <img src={logo} alt="Logo Clinica UTN" width={'40px'} height={'40px'} />
                             </Box>
                             <Typography
                                 component="h3"
