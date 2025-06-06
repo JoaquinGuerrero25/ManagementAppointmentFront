@@ -1,14 +1,19 @@
-import { Box, Button, Typography, Paper } from '@mui/material';
+import { Box, Typography, Paper } from '@mui/material';
 import imageBanner from '../../../assets/images/dashboard/bannerDashboard.jpg';
 import iconClinica from '../../../assets/icons/clinica.png'
+import { useSelector } from 'react-redux';
 
-export const WelcomeCard = () => {
+const descriptionDefault = 'Tu espacio personal para gestionar citas, revisar datos importantes y mantenerte conectado con la clínica.'
+
+export const WelcomeCard = ({ description = descriptionDefault }) => {
+    const user = useSelector((state) => state.auth.user);
+
     return (
         <Paper
             sx={{
                 width: '100',
                 display: 'flex',
-                flexDirection: {xs: 'column', md: 'row'},
+                flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 color: '#fff',
@@ -34,11 +39,10 @@ export const WelcomeCard = () => {
                     👋 Bienvenido de nuevo
                 </Typography>
                 <Typography variant="h4" fontWeight="bold" gutterBottom>
-                    Nombre y Apellido 
-                    {/* agregar desde la api el nombre y apellido en el endpoint FindUserClaims */}
+                    {user?.fullName}
                 </Typography>
-                <Typography variant="body1" color="grey.400" sx={{ maxWidth: 400, mb: 3 }}>
-                    Tu espacio personal para gestionar citas, revisar datos importantes y mantenerte conectado con la clínica.
+                <Typography variant="body1" color="grey.400" sx={{ maxWidth: 500, mb: 3 }}>
+                    {description}
                 </Typography>
             </Box>
             <img src={iconClinica} alt="Clinica" height='180px' width='180px' />
