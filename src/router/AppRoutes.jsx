@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { DoctorProfile } from "../pages/Doctor/DoctorProfile";
 import { AppointmentPage } from "../features/appointments/pages/AppointmentPage";
 import { MedicalHistoryPatientPage } from "../features/medicalHistory/pages/MedicalHistoryPatientPage";
+import { ProfilePage } from "../features/profile/pages/ProfilePage";
 
 export const AppRoutes = () => {
     const user = useSelector((state) => state.auth.user);
@@ -41,13 +42,14 @@ export const AppRoutes = () => {
                 <Route path="/administrador/especialidades" element={<PrivateRoute allowedRoles={["Admin"]}><SpecialtyPage /></PrivateRoute>} />
 
                 {/* Doctor Routes */}
-                {/* <Route path="/" element={<PrivateRoute allowedRoles={["Doctor"]}><DashboardDoctorPage /></PrivateRoute>} /> */}
                 <Route path="/doctor/perfil" element={<DoctorProfile />} />
 
-                {/* Patient Route */}
-
+                {/* Patient Routes */}
                 <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><AppointmentPage /></PrivateRoute>} />
                 <Route path="/paciente/historial-medico" element={<PrivateRoute allowedRoles={["Patient"]}><MedicalHistoryPatientPage /></PrivateRoute>} />
+
+                {/* General Routes */}
+                <Route path="/perfil" element={<PrivateRoute allowedRoles={['All']}><ProfilePage /></PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     );

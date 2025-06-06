@@ -4,6 +4,7 @@ export const doctorModel = [
     { key: 'phoneNumber', label: 'Teléfono' },
     { key: 'address', label: 'Dirección' },
     { key: 'email', label: 'Correo electrónico' },
+    { key: 'specialtyName', label: 'Especialidad' },
     { key: 'isAvailable', label: 'Estado' },
     // falta nombre specialty
 ];

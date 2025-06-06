@@ -22,7 +22,6 @@ export const Navbar = ({ children }) => {
             }}
         >
             <AppBar position="fixed" sx={{ height: { xs: '64px', md: '72px' } }}>
-                {/* aca tiene que ir el avatar y settings */}
                 <Toolbar sx={{ width: '50px', display: { md: 'none' } }}>
                     <IconButton
                         aria-label="open bar"

@@ -4,11 +4,10 @@ import { GenericTable } from "../../../components/Tables/GenericTable";
 import { specialtyModel } from "../../../constants/specialtyConstant";
 import { MainLayout } from "../../../layouts/MainLayout";
 import { delete_specialty } from "../specialtyService";
-import { Add, DeleteRounded, EditRounded } from "@mui/icons-material";
+import { DeleteRounded, EditRounded } from "@mui/icons-material";
 import { GenericConfirmDialog } from "../../../components/Dialog/GenericConfirmDialog";
-import { Box, Typography } from "@mui/material";
-import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
 import { get_specialties_thunks } from "../specialtyThunks";
+import { SectionHeader } from "../../../components/SectionHeader";
 
 export const SpecialtyPage = () => {
     const [specialties, setSpecialties] = useState([]);
@@ -64,41 +63,19 @@ export const SpecialtyPage = () => {
 
     return (
         <MainLayout>
-            <Box
-                width={'100%'}
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-                justifyContent={'start'}
-                gap={'calc(2 * var(--spacing))'}
+            <SectionHeader
+                title="Especialidades"
+                description="Gestiona las especialidades médicas de la clínica."
+                buttonLabel="Agregar"
+                onButtonClick={() => setOpenDialogForm(true)}
             >
-                <Box
-                    width={'100%'}
-                    display='flex'
-                    justifyContent='space-between'
-                    gap='calc(2 * var(--spacing))'
-                    sx={{
-                        alignItems: { xs: 'start', md: 'center' },
-                        flexDirection: { xs: 'column', md: 'row' }
-                    }}
-                >
-                    <Box display='flex' flexDirection='column' alignItems='start' justifyContent='center' gap='var(--spacing)'>
-                        <Typography variant="h2" component='h2' sx={{ fontSize: '28px', fontWeight: '700' }}>
-                            Especialidades
-                        </Typography>
-                        <Typography component='p' variant="subtitle1" color="textSecondary">
-                            Gestiona las especialidades médicas de la clínica.
-                        </Typography>
-                    </Box>
-                    <ButtonGenericControl label="Agregar" icon={<Add fontSize="large" />} iconPosition="start" action={() => setOpenDialogForm(true)} />
-                </Box>
                 <GenericTable
                     columns={specialtyModel}
                     rows={specialties}
                     filterKeys={['name', 'description']}
                     actions={[actionEdit, actionDelete]}
                 />
-            </Box>
+            </SectionHeader>
             <SpecialtyForm
                 open={openDialogForm}
                 onClose={handleCloseDialogSpecialty}

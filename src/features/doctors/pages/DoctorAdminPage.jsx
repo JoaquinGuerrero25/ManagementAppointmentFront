@@ -1,13 +1,12 @@
-import { Box, Typography } from "@mui/material";
 import { MainLayout } from "../../../layouts/MainLayout";
-import { ButtonGenericControl } from "../../../components/Controls/Buttons/ButtonGenericControl";
-import { Add, BlockRounded, CheckRounded, DeleteRounded, EditRounded } from "@mui/icons-material";
+import { BlockRounded, CheckRounded, EditRounded } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { delete_doctor, get_doctors, update_doctor } from "../doctorService";
 import { GenericTable } from "../../../components/Tables/GenericTable";
 import { doctorModel } from "../../../constants/doctorConstant";
 import { DoctorForm } from "../components/DoctorForm";
 import { GenericConfirmDialog } from "../../../components/Dialog/GenericConfirmDialog";
+import { SectionHeader } from "../../../components/SectionHeader";
 
 export const DoctorAdminPage = () => {
     const [doctors, setDoctors] = useState([]);
@@ -77,49 +76,25 @@ export const DoctorAdminPage = () => {
 
     return (
         <MainLayout>
-            <Box
-                width={'100%'}
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-                justifyContent={'start'}
-                gap={'calc(2 * var(--spacing))'}
+            <SectionHeader
+                title="Doctores"
+                description="Administra la información y disponibilidad del equipo médico."
+                buttonLabel="Agregar"
+                onButtonClick={() => setOpenDialogForm(true)}
             >
-                <Box
-                    width={'100%'}
-                    display='flex'
-                    justifyContent='space-between'
-                    gap='calc(2 * var(--spacing))'
-                    sx={{
-                        alignItems: { xs: 'start', md: 'center' },
-                        flexDirection: { xs: 'column', md: 'row' }
-                    }}
-                >
-                    <Box display='flex' flexDirection='column' alignItems='start' justifyContent='center' gap='var(--spacing)'>
-                        <Typography variant="h2" component='h2' sx={{ fontSize: '28px', fontWeight: '700' }}>
-                            Doctores
-                        </Typography>
-                        <Typography component='p' variant="subtitle1" color="textSecondary">
-                            Administra la información y disponibilidad del equipo médico.
-                        </Typography>
-                    </Box>
-                    <ButtonGenericControl label="Agregar" icon={<Add fontSize="large" />} iconPosition="start" action={() => setOpenDialogForm(true)} />
-                </Box>
                 <GenericTable
                     columns={doctorModel}
                     rows={doctors}
                     filterKeys={['name', 'lastName']}
                     actions={getDoctorActions}
                 />
-            </Box>
-
+            </SectionHeader>
             <DoctorForm
                 open={openDialogForm}
                 onClose={handleCloseDialogDoctor}
                 doctor={doctorSelected}
                 onSubmit={handleFormSubmit}
             />
-
             <GenericConfirmDialog
                 open={openDialogDelete}
                 onClose={handleCloseDialogDoctor}

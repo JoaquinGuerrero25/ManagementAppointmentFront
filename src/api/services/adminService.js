@@ -1,6 +1,9 @@
-import { api } from '../api';
+import { get_base, put_base } from './baseService';
 
-export const get_data_dashboard_admin = async () => {
-    const response = await api.get('Dashboard/Admin');
-    return response.data.value;
+export const get_admin_by_id = async (id) => {
+    return get_base(`Admin/${id}`);
+};
+
+export const update_admin = async (id, data) => {
+    return put_base(`Admin/${id}`, data);
 };

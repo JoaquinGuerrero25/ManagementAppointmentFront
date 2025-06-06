@@ -4,6 +4,10 @@ export const get_patients = async () => {
     return await get_base('Patient');
 };
 
+export const get_patient_by_id = async (id) => {
+    return await get_base(`Patient/${id}`);
+};
+
 export const add_patient = async (data) => {
     return await post_base('Patient', data);
 };

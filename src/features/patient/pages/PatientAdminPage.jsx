@@ -8,6 +8,7 @@ import { delete_patient, get_patients, update_patient } from "../patientService"
 import { GenericTable } from "../../../components/Tables/GenericTable";
 import { PatientForm } from "../components/PatientForm";
 import { GenericConfirmDialog } from "../../../components/Dialog/GenericConfirmDialog";
+import { SectionHeader } from "../../../components/SectionHeader";
 
 export const PatientAdminPage = () => {
     const [patients, setPatients] = useState([]);
@@ -78,41 +79,19 @@ export const PatientAdminPage = () => {
 
     return (
         <MainLayout>
-            <Box
-                width={'100%'}
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-                justifyContent={'start'}
-                gap={'calc(2 * var(--spacing))'}
+            <SectionHeader
+                title="Pacientes"
+                description="Administra los pacientes de la clinica."
+                buttonLabel="Agregar"
+                onButtonClick={() => { setOpenDialogForm(true); setPatientSelected(null) }}
             >
-                <Box
-                    width={'100%'}
-                    display='flex'
-                    justifyContent='space-between'
-                    gap='calc(2 * var(--spacing))'
-                    sx={{
-                        alignItems: { xs: 'start', md: 'center' },
-                        flexDirection: { xs: 'column', md: 'row' }
-                    }}
-                >
-                    <Box display='flex' flexDirection='column' alignItems='start' justifyContent='center' gap='var(--spacing)'>
-                        <Typography variant="h2" component='h2' sx={{ fontSize: '28px', fontWeight: '700' }}>
-                            Pacientes
-                        </Typography>
-                        <Typography component='p' variant="subtitle1" color="textSecondary">
-                            Administra los pacientes de la clinica.
-                        </Typography>
-                    </Box>
-                    <ButtonGenericControl label="Agregar" icon={<Add fontSize="large" />} iconPosition="start" action={() => {setOpenDialogForm(true); setPatientSelected(null)}} />
-                </Box>
                 <GenericTable
                     columns={patientModel}
                     rows={patients}
                     filterKeys={['name', 'lastName']}
                     actions={getPatientActions}
                 />
-            </Box>
+            </SectionHeader>
 
             <PatientForm
                 open={openDialogForm}

@@ -7,6 +7,7 @@ import { get_medical_history_patient } from "../medicalHistoryService";
 import { useSelector } from "react-redux";
 import { VisibilityRounded } from "@mui/icons-material";
 import { MedicalHistoryDetail } from "../components/MedicalHistoryDetail";
+import { SectionHeader } from "../../../components/SectionHeader";
 
 export const MedicalHistoryPatientPage = () => {
     const user = useSelector((state) => state.auth.user);
@@ -35,40 +36,17 @@ export const MedicalHistoryPatientPage = () => {
 
     return (
         <MainLayout>
-            <Box
-                width={'100%'}
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-                justifyContent={'start'}
-                gap={'calc(2 * var(--spacing))'}
+            <SectionHeader
+                title="Historial Médico"
+                description="Consultá tus antecedentes y registros médicos personales."
             >
-                <Box
-                    width={'100%'}
-                    display='flex'
-                    justifyContent='space-between'
-                    gap='calc(2 * var(--spacing))'
-                    sx={{
-                        alignItems: { xs: 'start', md: 'center' },
-                        flexDirection: { xs: 'column', md: 'row' }
-                    }}
-                >
-                    <Box display='flex' flexDirection='column' alignItems='start' justifyContent='center' gap='var(--spacing)'>
-                        <Typography variant="h2" component='h2' sx={{ fontSize: '28px', fontWeight: '700' }}>
-                            Historial Médico
-                        </Typography>
-                        <Typography component='p' variant="subtitle1" color="textSecondary">
-                            Consultá tus antecedentes y registros médicos personales.
-                        </Typography>
-                    </Box>
-                </Box>
                 <GenericTable
                     columns={medicalHistoryModels}
                     rows={medicalHistory}
                     filterKeys={['doctorName', 'date']}
                     actions={[actionViewDetail]}
                 />
-            </Box>
+            </SectionHeader>
 
             <Dialog
                 open={openDialogDetail}
