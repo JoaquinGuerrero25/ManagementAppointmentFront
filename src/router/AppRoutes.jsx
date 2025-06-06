@@ -10,7 +10,8 @@ import { PatientAdminPage } from "../features/patient/pages/PatientAdminPage";
 import { DashboardDoctorPage } from "../features/dashboard/pages/DashboardDoctorPage";
 import { useSelector } from "react-redux";
 import { DoctorProfile } from "../pages/Doctor/DoctorProfile";
-import {Appointments} from "../pages/Patient/Appointments";
+import { AppointmentPage } from "../features/appointments/pages/AppointmentPage";
+import { MedicalHistoryPatientPage } from "../features/medicalHistory/pages/MedicalHistoryPatientPage";
 
 export const AppRoutes = () => {
     const user = useSelector((state) => state.auth.user);
@@ -25,7 +26,7 @@ export const AppRoutes = () => {
                     ) : user?.role === "Doctor" ? (
                         <Route path="/" element={<PrivateRoute allowedRoles={["Doctor"]}><DashboardDoctorPage /></PrivateRoute>} />
                     ) : (
-                        <Route path="/" element={<PrivateRoute allowedRoles={["Admin"]}><DashboardAdminPage /></PrivateRoute>} />
+                        <Route path="/" element={<PrivateRoute allowedRoles={["Patient"]}><DashboardAdminPage /></PrivateRoute>} />
                         // <Route path="/" element={<PublicRoutes><DashboardDoctorPage /></PublicRoutes>} />
                     )
                 }
@@ -35,7 +36,6 @@ export const AppRoutes = () => {
                 <Route path="/registro" element={<PublicRoutes><RegisterPatientPage /> </PublicRoutes>} />
 
                 {/* Admin Routes */}
-                {/* <Route path="/" element={<PrivateRoute allowedRoles={["Admin"]}><DashboardAdminPage /></PrivateRoute>} /> */}
                 <Route path="/administrador/pacientes" element={<PrivateRoute allowedRoles={["Admin"]}><PatientAdminPage /></PrivateRoute>} />
                 <Route path="/administrador/doctores" element={<PrivateRoute allowedRoles={["Admin"]}><DoctorAdminPage /></PrivateRoute>} />
                 <Route path="/administrador/especialidades" element={<PrivateRoute allowedRoles={["Admin"]}><SpecialtyPage /></PrivateRoute>} />
@@ -45,8 +45,9 @@ export const AppRoutes = () => {
                 <Route path="/doctor/perfil" element={<DoctorProfile />} />
 
                 {/* Patient Route */}
-                <Route path="/paciente/solicitar-turno" element={<Appointments />} /> 
 
+                <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><AppointmentPage /></PrivateRoute>} />
+                <Route path="/paciente/historial-medico" element={<PrivateRoute allowedRoles={["Patient"]}><MedicalHistoryPatientPage /></PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     );

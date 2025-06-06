@@ -8,7 +8,7 @@ export const GenericConfirmDialog = ({ open, title = 'Confirmar', message = 'Est
             slotProps={{
                 paper: {
                     sx: {
-                        borderRadius: '12px',
+                        borderRadius: '16px',
                         backgroundImage: 'none',
                         padding: '6px',
                     }

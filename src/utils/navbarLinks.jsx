@@ -1,4 +1,4 @@
-import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded, MasksRounded } from "@mui/icons-material";
+import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded, MasksRounded, AssignmentIndRounded } from "@mui/icons-material";
 
 export const linksNavbar = [
     // Links generales
@@ -37,6 +37,13 @@ export const linksNavbar = [
         Link: '/paciente/solicitar-turno',
         Icon: MasksRounded,
         hasSubLinks: false,
-        Role: ['All'],
+        Role: ['Patient'],
+    },
+    {
+        Title: 'Historial médico',
+        Link: '/paciente/historial-medico',
+        Icon: AssignmentIndRounded,
+        hasSubLinks: false,
+        Role: ['Patient'],
     },
 ];
