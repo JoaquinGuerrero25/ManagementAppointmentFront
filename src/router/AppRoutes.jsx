@@ -10,7 +10,7 @@ import { PatientAdminPage } from "../features/patient/pages/PatientAdminPage";
 import { DashboardDoctorPage } from "../features/dashboard/pages/DashboardDoctorPage";
 import { useSelector } from "react-redux";
 import { DoctorProfile } from "../pages/Doctor/DoctorProfile";
-import { AppointmentPage } from "../features/appointments/pages/AppointmentPage";
+import { Appointments } from "../pages/Patient/Appointments";
 import { MedicalHistoryPatientPage } from "../features/medicalHistory/pages/MedicalHistoryPatientPage";
 import { ProfilePage } from "../features/profile/pages/ProfilePage";
 
@@ -45,7 +45,7 @@ export const AppRoutes = () => {
                 <Route path="/doctor/perfil" element={<DoctorProfile />} />
 
                 {/* Patient Routes */}
-                <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><AppointmentPage /></PrivateRoute>} />
+                <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><Appointments /></PrivateRoute>} />
                 <Route path="/paciente/historial-medico" element={<PrivateRoute allowedRoles={["Patient"]}><MedicalHistoryPatientPage /></PrivateRoute>} />
 
                 {/* General Routes */}

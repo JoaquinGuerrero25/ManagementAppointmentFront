@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { DoctorForm } from "./DoctorForm";
+import { DoctorForm } from "../../features/doctors/components/DoctorForm";
 import { doctorService } from "../../services/doctorService";
 import { toast } from "react-toastify"; // (opcional, para mostrar notificaciones)
 
