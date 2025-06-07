@@ -13,6 +13,8 @@ import { DoctorProfile } from "../pages/Doctor/DoctorProfile";
 import { AppointmentPage } from "../features/appointments/pages/AppointmentPage";
 import { MedicalHistoryPatientPage } from "../features/medicalHistory/pages/MedicalHistoryPatientPage";
 import { ProfilePage } from "../features/profile/pages/ProfilePage";
+import { ForgotPasswordPage } from "../features/auth/pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "../features/auth/pages/ResetPasswordPage";
 
 export const AppRoutes = () => {
     const user = useSelector((state) => state.auth.user);
@@ -35,7 +37,9 @@ export const AppRoutes = () => {
                 {/* Auth Routes */}
                 <Route path="/iniciar-sesion" element={<PublicRoutes><LoginPage /></PublicRoutes>} />
                 <Route path="/registro" element={<PublicRoutes><RegisterPatientPage /> </PublicRoutes>} />
-
+                <Route path="/recuperar-contraseña" element={<PublicRoutes><ForgotPasswordPage /> </PublicRoutes>} />
+                <Route path="/reset-password" element={<PublicRoutes><ResetPasswordPage /></PublicRoutes>} />
+                
                 {/* Admin Routes */}
                 <Route path="/administrador/pacientes" element={<PrivateRoute allowedRoles={["Admin"]}><PatientAdminPage /></PrivateRoute>} />
                 <Route path="/administrador/doctores" element={<PrivateRoute allowedRoles={["Admin"]}><DoctorAdminPage /></PrivateRoute>} />

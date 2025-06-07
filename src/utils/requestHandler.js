@@ -14,6 +14,10 @@ export const handleRequest = async (requestFn, defaultErrorMessage = 'Ocurrió u
 export const processResponse = (response) => {
     const { data } = response;
 
+    if (typeof data === 'string' && (data.includes('Recovery email sent') || data.includes('Password has been reset') )) {
+        return true;
+    }
+    
     if (!data) {
         throw new Error('La respuesta de la API no contiene "data"');
     }

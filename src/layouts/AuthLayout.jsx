@@ -119,11 +119,12 @@ export const AuthLayout = ({ title, subtitle, linkText, linkHref, children }) =>
                                 fontSize: '28px',
                                 fontWeight: '600',
                                 letterSpacing: '0.8px',
+                                marginBottom: '8px'
                             }}
                         >
                             {title}
                         </Typography>
-                        <Typography sx={{ display: 'flex', gap: '4px' }}>
+                        <Typography sx={{ display: 'flex', gap: '8px', fontSize: '0.875rem' }}>
                             {subtitle}
                             <Link to={linkHref} style={{ color: darkMode ? 'var(--primary-main)' : 'var(--primary-dark)' }}>
                                 {linkText}
