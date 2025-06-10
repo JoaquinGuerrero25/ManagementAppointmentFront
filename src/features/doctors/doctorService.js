@@ -8,6 +8,10 @@ export const get_doctor_by_id = async (id) => {
     return await get_base(`Doctor/${id}`);
 }
 
+export const get_doctor_with_availabilities = async (id) => {
+    return await get_base(`Doctor/withAvailabilities/${id}`);
+};
+
 export const add_doctor = async (formData) => {
     return await post_base('Doctor', formData);
 };

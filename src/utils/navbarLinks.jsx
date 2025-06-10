@@ -1,4 +1,4 @@
-import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded, MasksRounded, AssignmentIndRounded } from "@mui/icons-material";
+import { DashboardRounded, HealthAndSafetyRounded, MonitorHeartRounded, PeopleAltRounded, MasksRounded, AssignmentIndRounded, EventAvailableRounded, PersonRounded } from "@mui/icons-material";
 
 export const linksNavbar = [
     // Links generales
@@ -30,6 +30,21 @@ export const linksNavbar = [
         Icon: MonitorHeartRounded,
         hasSubLinks: false,
         Role: ['Admin'],
+    },
+    // Links Doctor
+    {
+        Title: 'Disponibilidad',
+        Link: '/doctor/disponibilidad',
+        Icon: EventAvailableRounded,
+        hasSubLinks: false,
+        Role: ['Doctor'],
+    },
+    {
+        Title: 'Perfil',
+        Link: '/doctor/perfil',
+        Icon: PersonRounded,
+        hasSubLinks: false,
+        Role: ['Doctor'],
     },
     // Links Pacientes
     {
