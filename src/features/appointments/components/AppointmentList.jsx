@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { appointmentService } from "../../services/appointmentService";
-import PatientDetailsModal from "./PatientDetailsModal";
+import { appointmentService } from "../../../services/appointmentService";
+import PatientDetailsModal from "../../../components/Doctor/PatientDetailsModal";
 
 const AppointmentList = () => {
   const [appointments, setAppointments] = useState([]);

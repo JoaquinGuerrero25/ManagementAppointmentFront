@@ -23,3 +23,8 @@ export const update_doctor = async (id, formData) => {
 export const delete_doctor = async (id) => {
     return await delete_base(`Doctor/${id}`);
 }
+
+export const get_filtered_doctors = async (filters) => {
+    const query = new URLSearchParams(filters).toString();
+    return await get_base(`Doctor/GetFilteredDoctors?${query}`);
+};

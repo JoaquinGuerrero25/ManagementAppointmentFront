@@ -1,5 +1,11 @@
 import React from 'react';
-import { Card, CardContent, Typography, CardActions, Button } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardActions,
+  Button
+} from '@mui/material';
 
 export const DoctorCard = ({ doctor }) => {
   return (
@@ -9,7 +15,7 @@ export const DoctorCard = ({ doctor }) => {
           {doctor.lastName}, {doctor.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Especialidad: {doctor.specialty}
+          Especialidad: {doctor.specialtyName}
         </Typography>
       </CardContent>
       <CardActions>

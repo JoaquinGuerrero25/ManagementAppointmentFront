@@ -1,31 +1,28 @@
 import { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Container, Box, Typography, Button } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { MainLayout } from '../../layouts/MainLayout';
 import { get_specialties } from '../../features/specialty/specialtyService';
-import { get_doctors } from '../../features/doctors/doctorService';
-import { DoctorCard } from '../../components/Cards/DoctorCard';
+import { get_filtered_doctors } from '../../features/doctors/doctorService';
+import { AppointmentFilters } from '../../features/appointments/components/AppointmentFilters';
+import { DoctorList } from '../../features/doctors/components/DoctorList';
 import ScrollToTop from 'react-scroll-to-top';
 
 export const Appointments = () => {
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedInsurance, setSelectedInsurance] = useState('');
-
   const [specialtyOptions, setSpecialtyOptions] = useState([]);
   const [insuranceOptions] = useState([
-    'Obra Social 1',
-    'Obra Social 2',
-    'Particular'
+    'OSDE', 'PAMI', 'Swiss Medical', 'Previsión Salud', 'Federada Salud'
   ]);
-
   const [doctorList, setDoctorList] = useState([]);
 
   useEffect(() => {
     const fetchSpecialties = async () => {
       try {
         const specialties = await get_specialties();
-        const specialtyNames = specialties.map((specialty) => specialty.name);
-        setSpecialtyOptions(specialtyNames);
+        const names = specialties.map((s) => s.name);
+        setSpecialtyOptions(names);
       } catch (error) {
         console.error('Error al obtener las especialidades:', error);
       }
@@ -36,10 +33,22 @@ export const Appointments = () => {
 
   const handleSearch = async () => {
     try {
-      const doctors = await get_doctors();
-      setDoctorList(doctors);
+      if (!selectedSpecialty) {
+        console.warn('Debe seleccionar una especialidad antes de buscar.');
+        return;
+      }
+
+      const filters = { SpecialtyName: selectedSpecialty };
+      const response = await get_filtered_doctors(filters);
+
+      if (response && Array.isArray(response.items)) {
+        setDoctorList(response.items);
+      } else {
+        console.warn('La respuesta no tiene el formato esperado:', response);
+        setDoctorList([]);
+      }
     } catch (error) {
-      console.error('Error al obtener los doctores:', error);
+      console.error('Error al obtener doctores filtrados:', error);
     }
   };
 
@@ -53,55 +62,17 @@ export const Appointments = () => {
           Seleccione una especialidad y una obra social para continuar con la solicitud de turno.
         </Typography>
 
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, justifyContent: 'center' }}>
-          <FormControl sx={{ width: '45%' }}>
-            <InputLabel id="select-specialty-label">Especialidad</InputLabel>
-            <Select
-              labelId="select-specialty-label"
-              id="select-specialty"
-              value={selectedSpecialty}
-              label="Especialidad"
-              onChange={(e) => setSelectedSpecialty(e.target.value)}
-            >
-              {specialtyOptions.map((specialty, index) => (
-                <MenuItem key={index} value={specialty}>
-                  {specialty}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        <AppointmentFilters
+          specialtyOptions={specialtyOptions}
+          selectedSpecialty={selectedSpecialty}
+          setSelectedSpecialty={setSelectedSpecialty}
+          insuranceOptions={insuranceOptions}
+          selectedInsurance={selectedInsurance}
+          setSelectedInsurance={setSelectedInsurance}
+          onSearch={handleSearch}
+        />
 
-          <FormControl sx={{ width: '45%' }}>
-            <InputLabel id="select-insurance-label">Obra Social</InputLabel>
-            <Select
-              labelId="select-insurance-label"
-              id="select-insurance"
-              value={selectedInsurance}
-              label="Obra Social"
-              onChange={(e) => setSelectedInsurance(e.target.value)}
-            >
-              {insuranceOptions.map((insurance, index) => (
-                <MenuItem key={index} value={insurance}>
-                  {insurance}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <Button variant="contained" color="primary" size="large" onClick={handleSearch}>
-            Buscar
-          </Button>
-        </Box>
-
-        {doctorList.length > 0 && (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }}>
-            {doctorList.map((doctor) => (
-              <DoctorCard key={doctor.id} doctor={doctor} />
-            ))}
-          </Box>
-        )}
+        <DoctorList doctors={doctorList} />
       </Container>
 
       <ScrollToTop
