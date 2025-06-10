@@ -15,6 +15,7 @@ import { MedicalHistoryPatientPage } from "../features/medicalHistory/pages/Medi
 import { ProfilePage } from "../features/profile/pages/ProfilePage";
 import { ForgotPasswordPage } from "../features/auth/pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "../features/auth/pages/ResetPasswordPage";
+import { DashboardPatientPage } from "../features/dashboard/pages/DashboardPatientPage";
 
 export const AppRoutes = () => {
     const user = useSelector((state) => state.auth.user);
@@ -29,7 +30,7 @@ export const AppRoutes = () => {
                     ) : user?.role === "Doctor" ? (
                         <Route path="/" element={<PrivateRoute allowedRoles={["Doctor"]}><DashboardDoctorPage /></PrivateRoute>} />
                     ) : (
-                        <Route path="/" element={<PrivateRoute allowedRoles={["Patient"]}><DashboardAdminPage /></PrivateRoute>} />
+                        <Route path="/" element={<PrivateRoute allowedRoles={["Patient"]}><DashboardPatientPage /></PrivateRoute>} />
                         // <Route path="/" element={<PublicRoutes><DashboardDoctorPage /></PublicRoutes>} />
                     )
                 }

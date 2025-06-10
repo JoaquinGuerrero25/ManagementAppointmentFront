@@ -13,6 +13,7 @@ export const InfoCard = ({ labelCard = '.', data = 0, porcentage = 0, labelPorce
                 color: darkMode ? 'var(--palette-text-primary)' : 'var(--palette-text-primary-light)',
                 padding: 'calc(3 * var(--spacing))',
                 boxShadow: 'var(--customShadows-card)',
+                height: '150px'
             }}
         >
             <CardContent
