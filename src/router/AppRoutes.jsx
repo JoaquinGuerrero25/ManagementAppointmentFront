@@ -17,6 +17,7 @@ import { ForgotPasswordPage } from "../features/auth/pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "../features/auth/pages/ResetPasswordPage";
 import { DashboardPatientPage } from "../features/dashboard/pages/DashboardPatientPage";
 import { AvailabilityDoctorPage } from "../features/availability/pages/AvailabilityDoctorPage";
+import { AppointmentPage } from "../features/appointments/pages/AppointmentPage";
 
 export const AppRoutes = () => {
     const user = useSelector((state) => state.auth.user);
@@ -51,7 +52,7 @@ export const AppRoutes = () => {
                 <Route path="/doctor/disponibilidad" element={<PrivateRoute allowedRoles={["Doctor"]}><AvailabilityDoctorPage /></PrivateRoute>} />
 
                 {/* Patient Routes */}
-                <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><Appointments /></PrivateRoute>} />
+                <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><AppointmentPage /></PrivateRoute>} />
                 <Route path="/paciente/historial-medico" element={<PrivateRoute allowedRoles={["Patient"]}><MedicalHistoryPatientPage /></PrivateRoute>} />
 
                 {/* General Routes */}

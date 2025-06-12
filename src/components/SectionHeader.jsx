@@ -11,6 +11,7 @@ export const SectionHeader = ({ title = '', description = '', buttonLabel, onBut
             alignItems={'center'}
             justifyContent={'start'}
             gap={'calc(2 * var(--spacing))'}
+            paddingBottom={'24px'}
         >
             <Box
                 width={'100%'}

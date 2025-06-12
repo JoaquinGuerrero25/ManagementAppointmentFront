@@ -1,57 +1,76 @@
 import { useState } from "react";
-import { Box, Typography } from "@mui/material";
 import { MainLayout } from "../../../layouts/MainLayout";
-import { DoctorSelect } from "../components/DoctorSelect";
-import { DateSelect } from "../../../components/Controls/Select/DateSelect";
-import { AppointmentSearchFilters } from "../components/AppointmentSearchFilters";
+import { SectionHeader } from "../../../components/SectionHeader";
+import { AppointmentFilters } from "../components/AppointmentFilters";
+import { add_appointment, get_appointment_availabilities } from "../appointmnetService";
+import { AvailableAppointments } from "../components/AvailableAppointments";
+import { GenericConfirmDialog } from "../../../components/Dialog/GenericConfirmDialog";
+import { formatDateLong, formatTime } from "../../../utils/viewsUtils";
+import { useSelector } from "react-redux";
 
 export const AppointmentPage = () => {
-    const [selectedDoctor, setSelectedDoctor] = useState("");
-    const [selectedDate, setSelectedDate] = useState(null);
+    const { user } = useSelector((state) => state.auth);
+
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    const [schedules, setSchedules] = useState([]);
+    const [formData, setFormData] = useState({
+        specialty: null,
+        doctor: null,
+        date: '',
+        schedule: '',
+    });
+
+    const handleSearch = async () => {
+        const data = await get_appointment_availabilities(formData?.doctor?.id, formData?.date);
+        setSchedules(data);
+    };
+
+    const handleSelectSchedule = (schedule) => {
+        setFormData((prev) => ({
+            ...prev,
+            schedule: schedule,
+        }));
+        setOpenConfirmDialog(true);
+    };
+
+    const handleConfirmSchedule = async () => {
+        const params = {
+            patientId: user?.id,
+            doctorId: formData?.doctor?.id,
+            date: formData?.date || '',
+            time: formData.schedule || ''
+        };
+
+        await add_appointment(params);
+        setOpenConfirmDialog(false);
+        handleSearch();
+    };
 
     return (
         <MainLayout>
-            <Box
-                width={'100%'}
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'center'}
-                justifyContent={'start'}
-                gap={'calc(2 * var(--spacing))'}
+            <SectionHeader
+                title="Solicitar Turno"
+                description="Seleccione una especialidad y una obra social para continuar con la solicitud de turno."
             >
-                <Box
-                    width={'100%'}
-                    display='flex'
-                    justifyContent='space-between'
-                    gap='calc(2 * var(--spacing))'
-                    sx={{
-                        alignItems: { xs: 'start', md: 'center' },
-                        flexDirection: { xs: 'column', md: 'row' }
-                    }}
-                >
-                    <Box display='flex' flexDirection='column' alignItems='start' justifyContent='center' gap='var(--spacing)'>
-                        <Typography variant="h2" component='h2' sx={{ fontSize: '28px', fontWeight: '700' }}>
-                            Solicitar turno
-                        </Typography>
-                        <Typography component='p' variant="subtitle1" color="textSecondary">
-                            Reservá tu turno eligiendo doctor y fecha.
-                        </Typography>
-                    </Box>
-                </Box>
-
-                <AppointmentSearchFilters
-                    doctor={selectedDoctor}
-                    onDoctorChange={setSelectedDoctor}
-                    date={selectedDate}
-                    onDateChange={setSelectedDate}
+                <AppointmentFilters
+                    formData={formData}
+                    setFormData={setFormData}
+                    onSearch={handleSearch}
                 />
-
-                <DoctorSelect 
-                    value={selectedDoctor} 
-                    onChange={(e) => {setSelectedDoctor(e.target.value); console.log(e.target.value);} } 
+                <AvailableAppointments
+                    schedules={schedules}
+                    doctor={formData.doctor}
+                    date={formData.date}
+                    onSelectSchedule={handleSelectSchedule}
                 />
-                <DateSelect />
-            </Box>
+                <GenericConfirmDialog
+                    open={openConfirmDialog}
+                    title="¿Deseas confirmar este turno?"
+                    message={`¿Confirmás el turno con el Dr. ${formData.doctor?.name} ${formData.doctor?.lastName} para el ${formatDateLong(formData.date)} a las ${formatTime(formData.schedule)} hs?`}
+                    onConfirm={handleConfirmSchedule}
+                    onClose={() => setOpenConfirmDialog(false)}
+                />
+            </SectionHeader>
         </MainLayout>
     );
 };

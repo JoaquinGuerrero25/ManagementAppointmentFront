@@ -39,13 +39,6 @@ export const linksNavbar = [
         hasSubLinks: false,
         Role: ['Doctor'],
     },
-    {
-        Title: 'Perfil',
-        Link: '/doctor/perfil',
-        Icon: PersonRounded,
-        hasSubLinks: false,
-        Role: ['Doctor'],
-    },
     // Links Pacientes
     {
         Title: 'Solicitar turno',
