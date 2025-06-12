@@ -19,3 +19,13 @@ export const medicalHistoryModelsView = [
     { key: 'treatment', label: 'Tratamiento' },
     { key: 'notes', label: 'Notas' },
 ];
+
+export const medicalHistoryCreateFields = [
+    { name: 'reasonForVisit', label: 'Motivo de Consulta', placeholder: 'Describe el motivo de la consulta', type: 'text', required: true, visible: true },
+    { name: 'diagnosis', label: 'Diagnóstico', placeholder: 'Ingresa el diagnóstico', type: 'text', required: true, visible: true },
+    { name: 'treatment', label: 'Tratamiento', placeholder: 'Describe el tratamiento recomendado', type: 'text', required: true, visible: true },
+    { name: 'notes', label: 'Notas Adicionales', placeholder: 'Agrega notas o indicaciones', type: 'textarea', required: false, visible: true },
+    { name: 'appointmentId', label: '', placeholder: '', type: '', required: false, visible: false },
+    { name: 'patientId', label: '', placeholder: '', type: '', required: false, visible: false },
+    { name: 'doctorId', label: '', placeholder: '', type: '', required: false, visible: false },
+];

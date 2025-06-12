@@ -7,3 +7,7 @@ export const get_appointment_availabilities = async (doctorId, date) => {
 export const add_appointment = async (params) => {
     return await post_base('Appointment', params);
 }
+
+export const get_appointment_by_doctor = async (id) => {
+    return await get_base(`Appointment/doctor/${id}`);
+};

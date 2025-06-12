@@ -25,7 +25,7 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
             filterKeys.some(key => {
                 const value = row[key];
                 const normalizedValue = normalize(value);
-                return normalizedValue.includes(normalizedSearch);
+                return normalizedValue?.includes(normalizedSearch);
             })
         );
     }, [rows, filterKeys, search]);

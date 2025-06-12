@@ -39,6 +39,13 @@ export const linksNavbar = [
         hasSubLinks: false,
         Role: ['Doctor'],
     },
+    {
+        Title: 'Historial médico',
+        Link: '/doctor/historial-medico',
+        Icon: AssignmentIndRounded,
+        hasSubLinks: false,
+        Role: ['Doctor'],
+    },
     // Links Pacientes
     {
         Title: 'Solicitar turno',
