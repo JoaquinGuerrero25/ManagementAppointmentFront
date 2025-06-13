@@ -23,7 +23,7 @@ const NotFound = () => {
         Lo sentimos, la ruta a la que estás intentando acceder no existe o ha sido movida.
       </p>
       <Link
-        to="/home"
+        to="/"
         className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition"
       >
         Volver al inicio

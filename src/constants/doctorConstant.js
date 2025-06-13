@@ -6,7 +6,6 @@ export const doctorModel = [
     { key: 'email', label: 'Correo electrónico' },
     { key: 'specialtyName', label: 'Especialidad' },
     { key: 'isAvailable', label: 'Estado' },
-    // falta nombre specialty
 ];
 
 export const doctorCreateFields = [

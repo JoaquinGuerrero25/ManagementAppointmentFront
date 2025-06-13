@@ -144,11 +144,13 @@ export const GenericTable = ({ title, columns, rows, filterKeys = [], actions, p
                                 <TableRow hover key={index}>
                                     {columns?.map((col, colIndex) => (
                                         <TableCell key={colIndex}>
-                                            {col.key === 'isAvailable' && (
+                                            {col.key === 'isAvailable' ? (
                                                 <GenericChip value={row[col.key]} />
+                                            ) : col.key === 'status' ? (
+                                                <GenericChip value={row[col.key]} />
+                                            ) : (
+                                                row[col.key]
                                             )}
-
-                                            {row[col.key]}
                                         </TableCell>
                                     ))}
                                     {actions && (

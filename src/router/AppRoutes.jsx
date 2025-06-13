@@ -19,6 +19,9 @@ import { DashboardPatientPage } from "../features/dashboard/pages/DashboardPatie
 import { AvailabilityDoctorPage } from "../features/availability/pages/AvailabilityDoctorPage";
 import { AppointmentPage } from "../features/appointments/pages/AppointmentPage";
 import { MedicalHistoryDoctorPage } from "../features/medicalHistory/pages/MedicalHistoryDoctorPage";
+import { AppointmentDoctorPage } from "../features/appointments/pages/AppointmentDoctorPage";
+import { AppointmentPatientPage } from "../features/appointments/pages/AppointmentPatientPage";
+import NotFound from "../pages/NotFound";
 
 export const AppRoutes = () => {
     const user = useSelector((state) => state.auth.user);
@@ -51,14 +54,17 @@ export const AppRoutes = () => {
                 {/* Doctor Routes */}
                 <Route path="/doctor/perfil" element={<DoctorProfile />} />
                 <Route path="/doctor/disponibilidad" element={<PrivateRoute allowedRoles={["Doctor"]}><AvailabilityDoctorPage /></PrivateRoute>} />
+                <Route path="/doctor/mis-turnos" element={<PrivateRoute allowedRoles={["Doctor"]}><AppointmentDoctorPage /></PrivateRoute>} />
                 <Route path="/doctor/historial-medico" element={<PrivateRoute allowedRoles={["Doctor"]}><MedicalHistoryDoctorPage /></PrivateRoute>} />
 
                 {/* Patient Routes */}
                 <Route path="/paciente/solicitar-turno" element={<PrivateRoute allowedRoles={["Patient"]}><AppointmentPage /></PrivateRoute>} />
+                <Route path="/paciente/mis-turnos" element={<PrivateRoute allowedRoles={["Patient"]}><AppointmentPatientPage /></PrivateRoute>} />
                 <Route path="/paciente/historial-medico" element={<PrivateRoute allowedRoles={["Patient"]}><MedicalHistoryPatientPage /></PrivateRoute>} />
 
                 {/* General Routes */}
                 <Route path="/perfil" element={<PrivateRoute allowedRoles={['All']}><ProfilePage /></PrivateRoute>} />
+                <Route path="/*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );
