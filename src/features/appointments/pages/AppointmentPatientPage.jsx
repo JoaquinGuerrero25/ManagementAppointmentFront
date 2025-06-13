@@ -8,9 +8,11 @@ import { cancel_appoitment, get_appointment_by_patient } from "../appointmnetSer
 import { appointmentModel } from "../../../constants/appointmentConstant";
 import { CancelRounded } from "@mui/icons-material";
 import { formatDateLong, formatTime } from "../../../utils/viewsUtils";
+import { useNavigate } from "react-router-dom";
 
 export const AppointmentPatientPage = () => {
     const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     const [openDialogCancel, setOpenDialogCancel] = useState(false);
     const [appointments, setAppointments] = useState([]);
@@ -50,6 +52,8 @@ export const AppointmentPatientPage = () => {
             <SectionHeader
                 title="Mis Turnos"
                 description="Administra tus turnos y controla tu agenda de pacientes."
+                buttonLabel="Solicitar nuevo turno"
+                onButtonClick={() => navigate('/paciente/solicitar-turno')}
             >
                 <GenericTable
                     columns={appointmentModel}
