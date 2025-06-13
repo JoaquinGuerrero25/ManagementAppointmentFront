@@ -71,12 +71,12 @@ export const DoctorForm = ({ open, doctor, onSubmit, onClose }) => {
             <Box p={3}>
                 <Box mb={2} display={'flex'} flexDirection={'column'} gap={1}>
                     <Typography variant="h5" component='h3' sx={{ fontWeight: '500', letterSpacing: '0.3px' }}>
-                        {isEditMode ? 'Editar Doctor' : 'Agregar Nuevo Doctor'}
+                        {isEditMode ? 'Editar Profesional' : 'Agregar Nuevo Profesional'}
                     </Typography>
                     <Typography component='p' variant="subtitle1" color="textSecondary">
                         {isEditMode
-                            ? 'Modifique los datos del doctor.'
-                            : 'Complete los datos para agregar un nuevo doctor al sistema.'}
+                            ? 'Modifique los datos del profesional.'
+                            : 'Complete los datos para agregar un nuevo profesional al sistema.'}
                     </Typography>
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} gap={'16px'}>

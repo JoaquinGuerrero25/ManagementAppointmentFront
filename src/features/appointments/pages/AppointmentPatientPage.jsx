@@ -51,7 +51,7 @@ export const AppointmentPatientPage = () => {
         <MainLayout>
             <SectionHeader
                 title="Mis Turnos"
-                description="Administra tus turnos y controla tu agenda de pacientes."
+                description="Administra tus turnos y controla tu agenda."
                 buttonLabel="Solicitar nuevo turno"
                 onButtonClick={() => navigate('/paciente/solicitar-turno')}
             >
