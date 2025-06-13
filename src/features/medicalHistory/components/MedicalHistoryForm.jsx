@@ -91,7 +91,7 @@ export const MedicalHistoryForm = ({ open, onSubmit, onClose }) => {
                         name={'appointmentId'}
                         value={formData?.appointmentId}
                         options={appointments}
-                        optionLabelKey="date"
+                        optionLabelKey="appointmentInfo"
                         optionValueKey='id'
                         onChange={handleChange}
                     />
