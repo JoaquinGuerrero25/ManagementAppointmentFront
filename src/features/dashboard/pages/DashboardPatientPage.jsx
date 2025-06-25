@@ -11,6 +11,7 @@ import { GenericTable } from "../../../components/Tables/GenericTable";
 import { medicalHistoryModels } from "../../../constants/medicalHistoryConstant";
 import { get_medical_history_patient } from "../../medicalHistory/medicalHistoryService";
 import { useNavigate } from "react-router-dom";
+import { formatDateLong } from "../../../utils/viewsUtils";
 
 export const DashboardPatientPage = () => {
     const { user } = useSelector((state) => state.auth);
@@ -69,7 +70,7 @@ export const DashboardPatientPage = () => {
                         },
                     }}
                 >
-                    <DataCard labelCard="Proxima cita" data={'20/05/2002'} icon={<CalendarMonthRounded sx={{ fontSize: '52px' }} color="primary" />} />
+                    <DataCard labelCard="Proxima cita" data={dataDashboard?.nextAppointment ? formatDateLong(dataDashboard?.nextAppointment?.date) : '-'} icon={<CalendarMonthRounded sx={{ fontSize: '52px' }} color="primary" />} />
                     <InfoCard labelCard="Citas confirmadas" data={String(dataDashboard?.appointmentsConfirmed)} />
                 </Box>
                 <GenericTable

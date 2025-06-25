@@ -1,0 +1,4 @@
+Admin: 
+"email": "martin.gomez@clinica.com",
+"password": "admin12345678"
+
